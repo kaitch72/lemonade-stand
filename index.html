@@ -1,0 +1,186 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lemonade Stand Tycoon</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <div class="game-container">
+
+    <header>
+      <h1>🍋 Lemonade Stand Tycoon</h1>
+      <p class="subtitle">Build your stand. Make money. Save for the future!</p>
+    </header>
+
+    <div class="stats-bar">
+      <div class="stat">
+        <span>💵 Cash</span>
+        <strong id="cash">$20.00</strong>
+      </div>
+
+      <div class="stat">
+        <span>🍋 Supplies</span>
+        <strong id="supplies">0 cups</strong>
+      </div>
+
+      <div class="stat">
+        <span>🐷 Piggy Bank</span>
+        <strong id="savings">$0.00</strong>
+      </div>
+
+      <div class="stat">
+        <span>📈 Total Profit</span>
+        <strong id="profit">$0.00</strong>
+      </div>
+    </div>
+
+    <section class="level-card">
+      <div class="level-top">
+        <div>
+          <span class="level-label">CURRENT LEVEL</span>
+          <h2 id="levelName">🍋 Lemonade Rookie</h2>
+        </div>
+
+        <div class="level-number">
+          <span>LEVEL</span>
+          <strong id="levelNumber">1</strong>
+        </div>
+      </div>
+
+      <p id="goalText">Goal: Make your first $10 profit!</p>
+
+      <div class="progress-track">
+        <div id="goalProgress" class="progress-fill"></div>
+      </div>
+
+      <p id="progressText">0 / 10 profit</p>
+    </section>
+
+    <main>
+
+      <section class="stand-area">
+        <div class="sky">
+          <div class="sun">☀️</div>
+          <div class="cloud cloud-one">☁️</div>
+          <div class="cloud cloud-two">☁️</div>
+        </div>
+
+        <div class="stand">
+          <div class="stand-roof">🍋 LEMONADE 🍋</div>
+
+          <div class="stand-counter">
+            <div class="lemonade-pitcher">🍋</div>
+
+            <div class="stand-sign">
+              <strong>LEMONADE</strong>
+              <span>$1.00 / cup</span>
+            </div>
+          </div>
+
+          <div class="stand-body">
+            <div class="customer-area" id="customerArea">
+              <div class="customer" id="customer">
+                🧒
+              </div>
+              <div class="customer-bubble" id="customerBubble">
+                I'm thirsty!
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="control-panel">
+
+        <div class="panel-section">
+          <h3>🍋 Supplies</h3>
+          <p class="description">Buy supplies so you can sell more lemonade.</p>
+
+          <div class="button-row">
+            <button class="action-button supply-button" onclick="buySupplies(5)">
+              Buy 5 Cups
+              <span>$2</span>
+            </button>
+
+            <button class="action-button supply-button" onclick="buySupplies(10)">
+              Buy 10 Cups
+              <span>$4</span>
+            </button>
+
+            <button class="action-button supply-button" onclick="buySupplies(25)">
+              Buy 25 Cups
+              <span>$8</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="panel-section sell-section">
+          <h3>🥤 Sell Lemonade</h3>
+          <p class="description" id="sellMessage">
+            Buy supplies first, then serve your customers!
+          </p>
+
+          <button id="sellButton" class="sell-button" onclick="sellLemonade()" disabled>
+            🥤 SELL LEMONADE
+          </button>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="panel-section savings-section">
+          <h3>🐷 Piggy Bank</h3>
+          <p class="description">
+            Put some money away and watch your savings grow!
+          </p>
+
+          <div class="savings-actions">
+            <button class="save-button" onclick="saveMoney(1)">
+              Save $1
+            </button>
+
+            <button class="save-button" onclick="saveMoney(5)">
+              Save $5
+            </button>
+
+            <button class="save-button" onclick="saveMoney(10)">
+              Save $10
+            </button>
+          </div>
+
+          <div class="interest-box">
+            <span>✨ Your piggy bank grows every 20 seconds!</span>
+            <strong id="interestMessage">Next growth: 20s</strong>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+
+    <div id="messageBox" class="message-box">
+      Welcome to your lemonade stand! 🍋
+    </div>
+
+    <section id="levelUpBox" class="level-up-box hidden">
+      <div class="level-up-icon">🎉</div>
+      <h2 id="levelUpTitle">LEVEL UP!</h2>
+      <p id="levelUpMessage">You reached a new level!</p>
+      <button onclick="closeLevelUp()">Keep Playing</button>
+    </section>
+
+    <footer>
+      <button class="restart-button" onclick="restartGame()">↻ Start New Game</button>
+    </footer>
+
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
