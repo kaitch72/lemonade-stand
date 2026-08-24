@@ -1,5 +1,5 @@
 // ==========================================
-// 🍋 LEMONADE STAND TYCOON — ROUND 1
+// 🍋 LEMONADE STAND — ROUND 1
 // ==========================================
 
 // ==========================================
@@ -10,7 +10,8 @@ const SUPPLIES = {
   cups: { icon: "🥤", name: "Cups", buyAmount: 10, price: 2.00 },
   lemons: { icon: "🍋", name: "Lemons", buyAmount: 10, price: 2.00 },
   ice: { icon: "🧊", name: "Ice", buyAmount: 10, price: 1.00 },
-  sugar: { icon: "🍬", name: "Sugar", buyAmount: 10, price: 1.00 }
+  sugar: { icon: "🍬", name: "Sugar", buyAmount: 10, price: 1.00 },
+  tea: { icon: "🫖", name: "Tea Bags", buyAmount: 10, price: 2.00 }
 };
 
 // ==========================================
@@ -36,6 +37,14 @@ const LEMONADE_CUP_SVG =
   '<line x1="24" y1="2" x2="28" y2="12" stroke="#e84b3c" stroke-width="3" stroke-linecap="round"/>' +
   "</svg>";
 
+const TEA_CUP_SVG =
+  '<svg viewBox="0 0 40 40" width="30" height="30" xmlns="http://www.w3.org/2000/svg">' +
+  '<path d="M11 9 H29 L26 33 Q26 36 23 36 H17 Q14 36 14 33 Z" fill="#c98a4b" stroke="#c9a946" stroke-width="2.5"/>' +
+  '<line x1="20" y1="14" x2="20" y2="4" stroke="#8a6d3b" stroke-width="1.5"/>' +
+  '<rect x="17" y="0" width="6" height="5" rx="1.5" fill="#e8c77a" stroke="#8a6d3b" stroke-width="1"/>' +
+  '<line x1="24" y1="2" x2="28" y2="12" stroke="#e84b3c" stroke-width="3" stroke-linecap="round"/>' +
+  "</svg>";
+
 function ingredientIconHTML(type) {
   return type === "cups" ? EMPTY_CUP_SVG : "<span>" + SUPPLIES[type].icon + "</span>";
 }
@@ -50,16 +59,38 @@ const RECIPES = [
     name: "Classic Lemonade",
     icon: LEMONADE_CUP_SVG,
     needs: { cups: 1, lemons: 1, ice: 1 },
-    price: 1.00
+    price: 1.00,
+    unlockLevel: 1
   },
   {
     id: "sugar",
     name: "Lemonade with Sugar",
     icon: LEMONADE_CUP_SVG + '<span class="sugar-badge">🍬</span>',
     needs: { cups: 1, lemons: 1, ice: 1, sugar: 1 },
-    price: 1.50
+    price: 1.50,
+    unlockLevel: 1
+  },
+  {
+    id: "icedTea",
+    name: "Iced Tea",
+    icon: TEA_CUP_SVG,
+    needs: { cups: 1, tea: 1, ice: 1 },
+    price: 1.25,
+    unlockLevel: 2
+  },
+  {
+    id: "sweetTea",
+    name: "Sweet Tea",
+    icon: TEA_CUP_SVG + '<span class="sugar-badge">🍬</span>',
+    needs: { cups: 1, tea: 1, ice: 1, sugar: 1 },
+    price: 1.75,
+    unlockLevel: 2
   }
 ];
+
+function recipesUnlockedByLevel(level) {
+  return RECIPES.filter(function (r) { return r.unlockLevel <= level; });
+}
 
 const SUPPLY_TYPES = Object.keys(SUPPLIES);
 
@@ -73,15 +104,29 @@ const CUSTOMER_SLOTS = ["290px", "150px", "10px"];
 const MAX_CUSTOMERS = 3;
 
 // ==========================================
-// LEVELS / GOALS
+// GAME LEVELS
+// Each level has a set of goals. Completing
+// all goals in a level advances to the next
+// level, which can unlock new recipes.
 // ==========================================
 
-const levels = [
-  { name: "Make your first $3 profit!", target: 3, type: "profit" },
-  { name: "Serve 10 lemonades!", target: 10, type: "orders" },
-  { name: "Have $15 in your wallet!", target: 15, type: "cash" },
-  { name: "Grow your bank to $10!", target: 10, type: "savings" },
-  { name: "Reach $30 total wealth!", target: 30, type: "wealth" }
+const GAME_LEVELS = [
+  {
+    goals: [
+      { name: "Make your first $3 profit!", target: 3, type: "profit" },
+      { name: "Serve 10 lemonades!", target: 10, type: "orders" },
+      { name: "Have $15 in your wallet!", target: 15, type: "cash" }
+    ]
+  },
+  {
+    unlockMessage: "Customers are asking for Iced Tea now! Tea bags just got added to your shop.",
+    newRecipeIds: ["icedTea", "sweetTea"],
+    goals: [
+      { name: "Grow your bank to $10!", target: 10, type: "savings" },
+      { name: "Serve 5 teas!", target: 5, type: "teaOrders" },
+      { name: "Reach $30 total wealth!", target: 30, type: "wealth" }
+    ]
+  }
 ];
 
 // ==========================================
@@ -90,14 +135,16 @@ const levels = [
 
 let cash = 10.00;
 let savings = 0;
-let inventory = { cups: 0, lemons: 0, sugar: 0, ice: 0 };
-let build = { cups: 0, lemons: 0, sugar: 0, ice: 0 };
+let inventory = { cups: 0, lemons: 0, ice: 0, sugar: 0, tea: 0 };
+let build = { cups: 0, lemons: 0, ice: 0, sugar: 0, tea: 0 };
 
 let totalEarned = 0;
 let totalSpent = 0;
 let ordersServed = 0;
+let teaOrdersServed = 0;
 
-let currentLevel = 1;
+let currentGameLevel = 1;
+let goalsCompletedThisLevel = 0;
 let interestTimer = 20;
 let interestInterval;
 let spawnTimeout;
@@ -255,7 +302,8 @@ function spawnLoop() {
 
 function spawnCustomer() {
   const id = nextCustomerId++;
-  const recipe = RECIPES[Math.floor(Math.random() * RECIPES.length)];
+  const availableRecipes = recipesUnlockedByLevel(currentGameLevel);
+  const recipe = availableRecipes[Math.floor(Math.random() * availableRecipes.length)];
   const face = CUSTOMER_EMOJIS[Math.floor(Math.random() * CUSTOMER_EMOJIS.length)];
 
   const el = document.createElement("div");
@@ -368,6 +416,10 @@ function serveCustomer(id) {
   totalEarned += customer.recipe.price;
   ordersServed += 1;
 
+  if (customer.recipe.needs.tea) {
+    teaOrdersServed += 1;
+  }
+
   showMessage(customer.recipe.name + " served! +$" + customer.recipe.price.toFixed(2) + " 💰");
 
   createSparkleBurst(customer.element);
@@ -435,11 +487,10 @@ function createSparkleBurst(customerEl) {
 // RECIPE GUIDE
 // ==========================================
 
-function populateRecipeGuide() {
-  const container = document.getElementById("recipeList");
+function buildRecipeListHTML(recipeList) {
   let html = "";
 
-  RECIPES.forEach(function (recipe) {
+  recipeList.forEach(function (recipe) {
     html += '<div class="recipe-entry">';
     html += '<div class="recipe-result">' + recipe.icon + "</div>";
     html += '<div class="recipe-info">';
@@ -459,7 +510,12 @@ function populateRecipeGuide() {
     html += "</div></div></div>";
   });
 
-  container.innerHTML = html;
+  return html;
+}
+
+function populateRecipeGuide() {
+  const container = document.getElementById("recipeList");
+  container.innerHTML = buildRecipeListHTML(recipesUnlockedByLevel(currentGameLevel));
 }
 
 function openRecipeGuide() {
@@ -540,42 +596,106 @@ function updateInterestMessage() {
 // LEVEL PROGRESS
 // ==========================================
 
-function getProgressValue(level) {
+function getProgressValue(goal) {
   const totalProfit = totalEarned - totalSpent;
 
-  if (level.type === "profit") return totalProfit;
-  if (level.type === "orders") return ordersServed;
-  if (level.type === "cash") return cash;
-  if (level.type === "savings") return savings;
-  if (level.type === "wealth") return cash + savings;
+  if (goal.type === "profit") return totalProfit;
+  if (goal.type === "orders") return ordersServed;
+  if (goal.type === "teaOrders") return teaOrdersServed;
+  if (goal.type === "cash") return cash;
+  if (goal.type === "savings") return savings;
+  if (goal.type === "wealth") return cash + savings;
 
   return 0;
 }
 
+function getCurrentLevelDef() {
+  return GAME_LEVELS[currentGameLevel - 1];
+}
+
+function getCurrentGoal() {
+  const levelDef = getCurrentLevelDef();
+  return levelDef ? levelDef.goals[goalsCompletedThisLevel] : null;
+}
+
 function checkLevelProgress() {
-  const level = levels[currentLevel - 1];
+  const levelDef = getCurrentLevelDef();
+  if (!levelDef) return;
 
-  if (!level) return;
+  const goal = levelDef.goals[goalsCompletedThisLevel];
+  if (!goal) return;
 
-  if (getProgressValue(level) >= level.target) {
-    levelUp();
+  if (getProgressValue(goal) < goal.target) return;
+
+  goalsCompletedThisLevel += 1;
+
+  if (goalsCompletedThisLevel >= levelDef.goals.length) {
+    advanceGameLevel();
+  } else {
+    const nextGoal = levelDef.goals[goalsCompletedThisLevel];
+    showMessage("Goal complete! 🎉 Next: " + nextGoal.name);
+    updateDisplay();
   }
 }
 
-function levelUp() {
-  if (currentLevel >= levels.length) return;
+function advanceGameLevel() {
+  currentGameLevel += 1;
+  goalsCompletedThisLevel = 0;
 
-  const completedLevel = levels[currentLevel - 1];
-  currentLevel += 1;
-  const newLevel = levels[currentLevel - 1];
+  const newLevelDef = getCurrentLevelDef();
 
-  document.getElementById("levelUpMessage").textContent =
-    "You did it: " + completedLevel.name + " Your new goal is: " + newLevel.name;
+  document.getElementById("levelUpTitle").textContent = "🎉 LEVEL " + currentGameLevel + "!";
+
+  if (newLevelDef) {
+    document.getElementById("levelUpMessage").textContent =
+      newLevelDef.unlockMessage || "New goals unlocked!";
+    revealNewSupplies(newLevelDef);
+    renderLevelUpRecipes(newLevelDef);
+    populateRecipeGuide();
+  } else {
+    document.getElementById("levelUpMessage").textContent =
+      "You've completed every goal! You're a Lemonade Star! 👑";
+    document.getElementById("levelUpRecipes").innerHTML = "";
+  }
 
   pauseGame();
   document.getElementById("levelUpBox").classList.remove("hidden");
 
   updateDisplay();
+}
+
+function revealNewSupplies(levelDef) {
+  if (!levelDef.newRecipeIds) return;
+
+  const newSupplyTypes = new Set();
+  levelDef.newRecipeIds.forEach(function (recipeId) {
+    const recipe = RECIPES.find(function (r) { return r.id === recipeId; });
+    if (recipe) {
+      Object.keys(recipe.needs).forEach(function (type) { newSupplyTypes.add(type); });
+    }
+  });
+
+  newSupplyTypes.forEach(function (type) {
+    const shopItem = document.querySelector('.shop-item[data-supply="' + type + '"]');
+    const invSlot = document.querySelector('.inv-slot[data-supply="' + type + '"]');
+    if (shopItem) shopItem.classList.remove("hidden");
+    if (invSlot) invSlot.classList.remove("hidden");
+  });
+}
+
+function renderLevelUpRecipes(levelDef) {
+  const container = document.getElementById("levelUpRecipes");
+
+  if (!levelDef.newRecipeIds) {
+    container.innerHTML = "";
+    return;
+  }
+
+  const newRecipes = RECIPES.filter(function (r) {
+    return levelDef.newRecipeIds.indexOf(r.id) !== -1;
+  });
+
+  container.innerHTML = buildRecipeListHTML(newRecipes);
 }
 
 function closeLevelUp() {
@@ -603,19 +723,21 @@ function updateDisplay() {
 }
 
 function updateGoalDisplay() {
-  const level = levels[currentLevel - 1];
+  const levelDef = getCurrentLevelDef();
 
-  if (!level) {
+  if (!levelDef) {
+    document.getElementById("goalLevelLabel").textContent = "Complete!";
     document.getElementById("goalText").textContent = "All goals complete! 👑";
     document.getElementById("goalProgress").style.width = "100%";
     return;
   }
 
-  document.getElementById("goalText").textContent = level.name;
+  document.getElementById("goalLevelLabel").textContent = "Level " + currentGameLevel;
 
-  const progress = getProgressValue(level);
-  const percentage = Math.min(Math.max((progress / level.target) * 100, 0), 100);
+  const goal = levelDef.goals[goalsCompletedThisLevel];
+  document.getElementById("goalText").textContent = goal ? goal.name : "Level complete!";
 
+  const percentage = (goalsCompletedThisLevel / levelDef.goals.length) * 100;
   document.getElementById("goalProgress").style.width = percentage + "%";
 }
 
@@ -644,15 +766,24 @@ function closeConfirm() {
 function confirmRestart() {
   cash = 10.00;
   savings = 0;
-  inventory = { cups: 0, lemons: 0, sugar: 0, ice: 0 };
-  build = { cups: 0, lemons: 0, sugar: 0, ice: 0 };
+  inventory = { cups: 0, lemons: 0, ice: 0, sugar: 0, tea: 0 };
+  build = { cups: 0, lemons: 0, ice: 0, sugar: 0, tea: 0 };
 
   totalEarned = 0;
   totalSpent = 0;
   ordersServed = 0;
+  teaOrdersServed = 0;
 
-  currentLevel = 1;
+  currentGameLevel = 1;
+  goalsCompletedThisLevel = 0;
   interestTimer = 20;
+
+  document.querySelectorAll(".shop-item, .inv-slot").forEach(function (el) {
+    if (el.dataset.supply === "tea") {
+      el.classList.add("hidden");
+    }
+  });
+  populateRecipeGuide();
 
   document.getElementById("confirmBox").classList.add("hidden");
   document.getElementById("levelUpBox").classList.add("hidden");

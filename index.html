@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lemonade Stand Tycoon</title>
+  <title>Lemonade Stand</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
@@ -12,7 +12,7 @@
   <div class="game-container">
 
     <header>
-      <h1>🍋 Lemonade Stand Tycoon</h1>
+      <h1>🍋 Lemonade Stand</h1>
     </header>
 
     <!-- TOP BAR: WALLET / BANK / GOAL -->
@@ -48,7 +48,7 @@
         <div class="mini-stat">
           <span class="mini-icon">🎯</span>
           <div class="goal-body">
-            <span>Goal</span>
+            <span id="goalLevelLabel">Level 1</span>
             <p id="goalText">Make your first $3 profit!</p>
           </div>
         </div>
@@ -63,7 +63,7 @@
 
       <!-- SHOP -->
       <div class="shop">
-        <div class="shop-item" onclick="buySupplies('cups')">
+        <div class="shop-item" data-supply="cups" onclick="buySupplies('cups')">
           <span class="price-badge" id="price-cups">$2</span>
           <div class="shop-icon">
             <svg viewBox="0 0 40 40" width="34" height="34" xmlns="http://www.w3.org/2000/svg">
@@ -74,21 +74,27 @@
           <span class="qty-label">x10</span>
         </div>
 
-        <div class="shop-item" onclick="buySupplies('lemons')">
+        <div class="shop-item" data-supply="lemons" onclick="buySupplies('lemons')">
           <span class="price-badge" id="price-lemons">$2</span>
           <div class="shop-icon">🍋</div>
           <span class="qty-label">x10</span>
         </div>
 
-        <div class="shop-item" onclick="buySupplies('ice')">
+        <div class="shop-item" data-supply="ice" onclick="buySupplies('ice')">
           <span class="price-badge" id="price-ice">$1</span>
           <div class="shop-icon">🧊</div>
           <span class="qty-label">x10</span>
         </div>
 
-        <div class="shop-item" onclick="buySupplies('sugar')">
+        <div class="shop-item" data-supply="sugar" onclick="buySupplies('sugar')">
           <span class="price-badge" id="price-sugar">$1</span>
           <div class="shop-icon">🍬</div>
+          <span class="qty-label">x10</span>
+        </div>
+
+        <div class="shop-item hidden" data-supply="tea" onclick="buySupplies('tea')">
+          <span class="price-badge" id="price-tea">$2</span>
+          <div class="shop-icon">🫖</div>
           <span class="qty-label">x10</span>
         </div>
       </div>
@@ -111,7 +117,7 @@
 
           <div class="counter">
             <div class="inventory-slots">
-              <div class="inv-slot" onclick="addToBuild('cups')">
+              <div class="inv-slot" data-supply="cups" onclick="addToBuild('cups')">
                 <span class="inv-icon">
                   <svg viewBox="0 0 40 40" width="30" height="30" xmlns="http://www.w3.org/2000/svg">
                     <path d="M11 9 H29 L26 33 Q26 36 23 36 H17 Q14 36 14 33 Z" fill="#ffffff" stroke="#c9a946" stroke-width="2.5"/>
@@ -120,17 +126,21 @@
                 </span>
                 <span class="inv-count" id="count-cups">0</span>
               </div>
-              <div class="inv-slot" onclick="addToBuild('lemons')">
+              <div class="inv-slot" data-supply="lemons" onclick="addToBuild('lemons')">
                 <span class="inv-icon">🍋</span>
                 <span class="inv-count" id="count-lemons">0</span>
               </div>
-              <div class="inv-slot" onclick="addToBuild('ice')">
+              <div class="inv-slot" data-supply="ice" onclick="addToBuild('ice')">
                 <span class="inv-icon">🧊</span>
                 <span class="inv-count" id="count-ice">0</span>
               </div>
-              <div class="inv-slot" onclick="addToBuild('sugar')">
+              <div class="inv-slot" data-supply="sugar" onclick="addToBuild('sugar')">
                 <span class="inv-icon">🍬</span>
                 <span class="inv-count" id="count-sugar">0</span>
+              </div>
+              <div class="inv-slot hidden" data-supply="tea" onclick="addToBuild('tea')">
+                <span class="inv-icon">🫖</span>
+                <span class="inv-count" id="count-tea">0</span>
               </div>
             </div>
           </div>
@@ -167,10 +177,11 @@
     </section>
 
     <!-- LEVEL UP MODAL -->
-    <section id="levelUpBox" class="modal-box hidden">
+    <section id="levelUpBox" class="modal-box recipe-modal hidden">
       <div class="modal-icon">🎉</div>
       <h2 id="levelUpTitle">GOAL COMPLETE!</h2>
       <p id="levelUpMessage">You reached a new goal!</p>
+      <div id="levelUpRecipes" class="recipe-list"></div>
       <button onclick="closeLevelUp()">Keep Playing</button>
     </section>
 
