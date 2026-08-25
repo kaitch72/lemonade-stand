@@ -21,33 +21,39 @@ const SUPPLIES = {
 // used in customer orders and the recipe guide.
 // ==========================================
 
-const EMPTY_CUP_SVG =
-  '<svg viewBox="0 0 40 40" width="30" height="30" xmlns="http://www.w3.org/2000/svg">' +
-  '<path d="M11 9 H29 L26 33 Q26 36 23 36 H17 Q14 36 14 33 Z" fill="#ffffff" stroke="#c9a946" stroke-width="2.5"/>' +
-  '<line x1="24" y1="2" x2="28" y2="12" stroke="#e84b3c" stroke-width="3" stroke-linecap="round"/>' +
-  "</svg>";
+const EMPTY_CUP_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 119.91 159.74">\n  <g>\n    <path d="M107.33,159.71l-94.91.03L1.06,12.61,0,0l119.91.02-12.58,159.69ZM97.98,149.73L108.9,10H10.85s10.92,139.76,10.92,139.76l76.21-.03Z"/>\n  </g>\n</svg>';
 
-const LEMONADE_CUP_SVG =
-  '<svg viewBox="0 0 40 40" width="30" height="30" xmlns="http://www.w3.org/2000/svg">' +
-  '<path d="M11 9 H29 L26 33 Q26 36 23 36 H17 Q14 36 14 33 Z" fill="#f9d65c" stroke="#c9a946" stroke-width="2.5"/>' +
-  '<circle cx="20" cy="14" r="4.5" fill="#ffe98a" stroke="#e0b400" stroke-width="1.2"/>' +
-  '<line x1="20" y1="14" x2="20" y2="9.5" stroke="#e0b400" stroke-width="1.2"/>' +
-  '<line x1="20" y1="14" x2="16.5" y2="16.5" stroke="#e0b400" stroke-width="1.2"/>' +
-  '<line x1="20" y1="14" x2="23.5" y2="16.5" stroke="#e0b400" stroke-width="1.2"/>' +
-  '<line x1="24" y1="2" x2="28" y2="12" stroke="#e84b3c" stroke-width="3" stroke-linecap="round"/>' +
-  "</svg>";
+const LEMONADE_CUP_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 162.46 199.46">\n  <g>\n    <g>\n      <path d="M34.89,82.52c-14.92-4.49-24.62-17.8-24.92-32.61-.31-15.29,9.31-28.86,23.23-33.71,15.04-5.25,31.4.06,40.4,12.91l11.5.02c-5.93-11.33-15.89-19.7-28.14-23.17C32.6-.96,7.69,13.8,1.46,37.76c-6.3,24.24,8.32,49.24,33.34,54.97l.09-10.21Z"/>\n      <path d="M132.19,39.73l7.81-29.72h21.31l-.02-10.01h-28.69s-10.66,39.73-10.66,39.73H42.55s1.06,12.6,1.06,12.6l11.36,147.13,94.91-.03,12.58-159.69h-30.27ZM53.4,49.72h98.05l-4.78,61.19c-7.13-1.21-13.71-1.56-20.5-.81-8.48,1.07-16.04,3.67-22.87,8.33l-5.09,3.11c-6.7,4.11-13.74,7.26-22.16,7.74-5.53.12-10.96-.27-16.53-1.21l-6.12-78.35ZM140.53,189.45l-76.21.02-3.98-50.91c6.68.79,13.07,1.19,19.57.62,8.72-.87,16.44-3.55,23.46-7.86l8.54-5.19c5.09-3.39,10.95-5.18,17.38-5.89,5.64-.3,11.19,0,16.59.81l-5.35,68.4Z"/>\n    </g>\n  </g>\n</svg>';
 
-const TEA_CUP_SVG =
-  '<svg viewBox="0 0 40 40" width="30" height="30" xmlns="http://www.w3.org/2000/svg">' +
-  '<path d="M11 9 H29 L26 33 Q26 36 23 36 H17 Q14 36 14 33 Z" fill="#c98a4b" stroke="#c9a946" stroke-width="2.5"/>' +
-  '<line x1="20" y1="14" x2="20" y2="4" stroke="#8a6d3b" stroke-width="1.5"/>' +
-  '<rect x="17" y="0" width="6" height="5" rx="1.5" fill="#e8c77a" stroke="#8a6d3b" stroke-width="1"/>' +
-  '<line x1="24" y1="2" x2="28" y2="12" stroke="#e84b3c" stroke-width="3" stroke-linecap="round"/>' +
-  "</svg>";
+const TEA_CUP_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 119.91 199.46">\n  <g>\n    <g>\n      <path d="M49.42,47.24l.08,12.92,14.96,12.54-.06,34.55H24.47s.03-34.77.03-34.77l14.97-12.41v-12.82s9.94,0,9.94,0ZM54.45,97.22l.02-19.91-10.06-8.53-9.95,8.38-.02,20.09,20.01-.02Z"/>\n      <path d="M89.64,39.73l7.81-29.72h21.31l-.02-10.01h-28.69s-10.66,39.73-10.66,39.73H0s1.06,12.6,1.06,12.6l11.36,147.13,94.91-.03,12.58-159.69h-30.27ZM10.85,49.72h98.05l-4.78,61.19c-7.13-1.21-13.71-1.56-20.5-.81-8.48,1.07-16.04,3.67-22.87,8.33l-5.09,3.11c-6.7,4.11-13.74,7.26-22.16,7.74-5.53.12-10.96-.27-16.53-1.21l-6.12-78.35ZM97.98,189.45l-76.21.02-3.98-50.91c6.68.79,13.07,1.19,19.57.62,8.72-.87,16.44-3.55,23.46-7.86l8.54-5.19c5.09-3.39,10.95-5.18,17.38-5.89,5.64-.3,11.19,0,16.59.81l-5.35,68.4Z"/>\n    </g>\n  </g>\n</svg>';
+
+const LEMON_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 139.85 139.74">\n  <g>\n    <g>\n      <path d="M14.96,139.74L0,124.79l7.51-22.52C-.76,84.58.55,65.84,8.57,48.23,16.85,30.87,30.63,17.02,47.97,8.69c7.83-3.64,15.65-5.87,24.26-6.62,10.47-.81,20.51.95,30.08,5.44L124.86,0l15,14.97-7.51,22.45c5.8,12.2,7.01,25.7,4.06,39.08-3.1,13.43-9.68,25.36-18.96,35.51-10.8,11.74-24.34,20.22-39.86,24.03-13.59,3.17-27.3,2.21-39.97-3.84l-22.64,7.53ZM17.72,128.18l20.55-6.83c24.16,13.51,52.65,4.03,71.03-15.45,17.26-18.31,24.82-44.69,12.25-67.62l6.79-20.57-6.26-6.18-20.4,6.78c-12.39-6.85-26.7-8.12-40.52-3.83-21.68,6.74-39.02,23.84-46.28,45.32-4.61,13.65-3.78,29.05,3.5,41.55l-6.9,20.57,6.24,6.25Z"/>\n      <path d="M32.16,76.98l-9.41-4.37,4.68-9.13c8.36-16.32,21.77-28.96,38.12-37.17l7.13-3.58,4.34,9.43c-20.78,7.94-36.88,23.85-44.86,44.83Z"/>\n    </g>\n  </g>\n</svg>';
+
+const ICE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 182.38 123.55">\n  <defs>\n    <style>\n      .cls-1 {\n        stroke: #000;\n        stroke-miterlimit: 10;\n        stroke-width: 3px;\n      }\n    </style>\n  </defs>\n  <g>\n    <g>\n      <path class="cls-1" d="M89.56,22.68L53.36,1.73,1.5,31.87v60.03s51.93,29.91,51.93,29.91l18.18-10.45,6.94-4,2.26-1.3,6.14-3.53-2.23-6.78-6.14,3.54h-.03s-6.94,4.02-6.94,4.02l-14.7,8.48-.03-48.11,8.39-4.8,12.32-7.04-3.91-.83,8.88-10.01-19.06,11.03-10.08,5.84L11.95,33.82,53.38,9.71l31.51,18.22,6.12,3.54.66-.74,4.01-4.52-6.12-3.54ZM49.97,63.74l-.03,48.15-41.49-24.08.02-47.95,41.5,23.88Z"/>\n      <g>\n        <path d="M161.89,19.93l-58.93-12.33-13.39,15.08-.4.46-4.27,4.8-1.05,1.19-20.36,22.93-.35.4,2.13,6.45,7.21,21.86,2.52,7.63,3.59,10.91,2.23,6.76,1.12,3.39,58.67,12.17,40.09-44.75-18.79-56.95ZM82.53,41.02l3.81-4.3,4.66-5.25.66-.74,4.01-4.52,9.8-11.04,47.08,9.85-31.99,35.91-15.07-3.18-6.93-1.46-6.19-1.31-14.8-3.12-3.91-.83,8.88-10.01ZM87.23,103.4l-.29-.87-2.23-6.78-4.39-13.34-2.52-7.64-5.57-16.92,17.47,3.61,7.93,1.64.93.19,6.93,1.43,13.64,2.81,15.03,45.73-46.94-9.88ZM125.68,65.35l32.12-35.68,15.02,45.5-32.06,35.87-15.09-45.68Z"/>\n        <path d="M141.13,123.27l-60.36-12.52-19.33-58.64.91-1.04L102.41,5.95l60.63,12.69,19.34,58.6-41.25,46.04ZM83.08,108.17l56.97,11.82,38.94-43.46-18.25-55.31-57.24-11.97-38.68,43.55,18.25,55.37ZM136.41,115.28l-50.33-10.59-16.07-48.83,50.29,10.4,16.12,49.02ZM88.38,102.11l43.55,9.16-13.95-42.43-43.51-9,13.91,42.26ZM140.15,113.97l-16.18-48.98,34.44-38.25,16.1,48.77-34.36,38.45ZM127.37,65.71l14,42.39,29.75-33.29-13.94-42.22-29.81,33.12ZM121.1,62.58l-50.28-10.61L104.93,13.52l50.46,10.56-34.29,38.5ZM76.49,50.1l43.53,9.18,29.69-33.33-43.69-9.14-29.53,33.28Z"/>\n      </g>\n    </g>\n  </g>\n</svg>';
+
+const SUGAR_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 159.92 133.08">\n  <g>\n    <g>\n      <path d="M119.94,133.08H40.04s-.05-12.21-.05-12.21C17.22,109.46,2.66,87.01,1.12,61.6l-1.12-18.52h159.92c-.52,8.79-.74,17.32-2.03,26.08-3.32,22.48-17.73,41.47-37.89,51.64l-.07,12.27ZM110,123.08l.04-8.39,10.66-5.71c16.26-9.98,26.64-27.27,27.9-46.33l.63-9.57H10.63s.98,12.73.98,12.73c2.37,18.49,13.04,34.9,29.2,44.13l9.15,4.64.02,8.5h60.02Z"/>\n      <g>\n        <ellipse cx="79.91" cy="20.17" rx="4.94" ry="4.93"/>\n        <path d="M96.95,11.28c-20.41-4.13-57.55,1.62-66.98,21.04l.03,12.79h-9.96s-.03-15.08-.03-15.08C31.58,2.46,79.31-5.5,105.93,3.58c12.96,4.42,28.59,14.11,33.98,26.46v15.06s-9.96,0-9.96,0v-12.79c-5.41-10.83-21.04-18.62-33-21.04Z"/>\n        <ellipse cx="59.93" cy="30.15" rx="4.94" ry="4.93"/>\n        <ellipse cx="99.89" cy="30.15" rx="4.94" ry="4.93"/>\n      </g>\n    </g>\n  </g>\n</svg>';
+
+// Brand-icon lookup for the persistent UI (shop tiles, inventory slots,
+// the order-build tray, and the recipe guide). SUPPLIES[type].icon stays
+// emoji-only -- that field is used purely in the transient message-strip
+// toasts ("Bought 10 lemons!"), which keep their emoji per Kayla's call.
+const SUPPLY_ICON_SVGS = {
+  cups: EMPTY_CUP_SVG,
+  lemons: LEMON_SVG,
+  ice: ICE_SVG,
+  sugar: SUGAR_SVG,
+  tea: TEA_CUP_SVG // same iced-tea glass as the finished-drink icon -- one icon, two jobs
+};
 
 function ingredientIconHTML(type) {
-  return type === "cups" ? EMPTY_CUP_SVG : "<span>" + SUPPLIES[type].icon + "</span>";
+  return "<span>" + SUPPLY_ICON_SVGS[type] + "</span>";
 }
+
+// Reused from the shared brand icon set (Coin Catch / Driver Decides) --
+// trophy is the default Level Up accent, crown replaces it only when every
+// level is complete ("Lemonade Star").
+const TROPHY_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 159.86 159.76">\n  <g>\n    <g>\n      <path d="M119.85,159.76H40.03s-.03-9.99-.03-9.99h34.97s-.02-30.9-.02-30.9c-4.8-1.37-8.61-3.59-12.32-6.47-5.47-4.56-9.88-9.77-13.52-15.96-11.04-3.14-20.94-8.3-29.19-16.24C3.84,64.03-.64,42.43.07,19.96l30.45.02L29.99,0h99.86s-.27,19.97-.27,19.97h30.29c.01,7.7-.33,14.98-1.57,22.53-2.37,12.85-7.52,24.59-16.24,34.3-8.55,8.87-18.97,14.87-30.7,18.69-4.39,7.7-10.02,14.26-17.3,19.17-2.93,1.76-5.66,3.13-9.12,4.16l-.02,30.95h34.97s-.03,9.98-.03,9.98ZM109.01,77.22c7.76-21.71,9.98-44.26,10.86-67.23H39.93c.91,24.69,3.45,50,13.07,72.56,3.57,7.43,7.27,14.48,13.55,19.98,3.59,3.15,8.58,7.2,13.54,6.95,14.28-2.31,23.97-19.19,28.94-32.26ZM35.89,61.91c-2.33-10.81-3.82-21.09-4.68-31.96H9.99c.44,8.89,1.98,17.7,5.62,26.11,5.25,12.44,14.86,22,27.13,27.65-2.83-7.06-4.93-14.04-6.84-21.8ZM149.87,29.96h-21.3c-.88,10.65-2.34,20.78-4.52,31.17-1.75,7.34-3.81,14.11-6.35,21.24,21.75-10.9,30.58-28.63,32.17-52.4Z"/>\n      <path d="M79.87,69.31l-19.87,10.16,3.98-21.78-16.06-15.53,22.05-3.51,9.92-19.76,9.9,19.77,22.09,3.48-15.75,15.6,3.63,21.83-19.89-10.27ZM79.81,58.11l6.52,3.27-1.14-7.44,5.42-4.91-7.26-1.28-3.52-6.33-3.22,6.35-7.47,1.25,5.42,4.95-1.18,7.45,6.42-3.31Z"/>\n    </g>\n  </g>\n</svg>';
+const CROWN_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 174.76 134.7">\n  <g>\n    <path d="M146.59,134.68H28.19S14.02,54.83,14.02,54.83c-4.83-.4-9.05-2.86-11.35-6.37-3-4.59-3.48-9.75-1.37-14.46,3.37-7.52,11.85-10.96,19.15-8s11.25,11.25,8.55,19.18l26.89,13.11,21.51-32.12c-4.08-4.1-6.06-9.51-4.32-15.37,1.38-4.66,5.3-8.94,10.72-10.34,6.68-1.73,13.43,1.49,16.58,7.13,3.4,6.09,2.29,13.3-3,18.55l21.85,32.15,26.56-13.12c-2.3-6.5-.05-13.44,5.44-17.41s12.62-3.77,17.86.41,7.28,11.61,4.27,17.89c-2.23,5.24-6.94,8.37-12.62,8.76l-14.15,79.85ZM92.33,14.94c0-2.74-2.22-4.96-4.96-4.96s-4.96,2.22-4.96,4.96,2.22,4.96,4.96,4.96,4.96-2.22,4.96-4.96ZM138.29,124.71l12.48-70.84-26.53,13.02-8.45,4.43-27.07-40.4c-.34-.5-.89-1.08-1.28-1.11s-1.12.6-1.4,1.02l-26.87,40.33-19.89-9.82-15.26-7.4,12.76,70.77h101.52ZM19.9,39.89c0-2.74-2.22-4.96-4.96-4.96s-4.96,2.22-4.96,4.96,2.22,4.96,4.96,4.96,4.96-2.22,4.96-4.96ZM164.77,39.89c0-2.74-2.22-4.96-4.96-4.96s-4.96,2.22-4.96,4.96,2.22,4.96,4.96,4.96,4.96-2.22,4.96-4.96Z"/>\n  </g>\n</svg>';
 
 // ==========================================
 // RECIPES (round 1: two options)
@@ -65,7 +71,7 @@ const RECIPES = [
   {
     id: "sugar",
     name: "Lemonade with Sugar",
-    icon: LEMONADE_CUP_SVG + '<span class="sugar-badge">🍬</span>',
+    icon: LEMONADE_CUP_SVG + '<span class="sugar-badge">' + SUGAR_SVG + '</span>',
     needs: { cups: 1, lemons: 1, ice: 1, sugar: 1 },
     price: 1.50,
     unlockLevel: 1
@@ -81,7 +87,7 @@ const RECIPES = [
   {
     id: "sweetTea",
     name: "Sweet Tea",
-    icon: TEA_CUP_SVG + '<span class="sugar-badge">🍬</span>',
+    icon: TEA_CUP_SVG + '<span class="sugar-badge">' + SUGAR_SVG + '</span>',
     needs: { cups: 1, tea: 1, ice: 1, sugar: 1 },
     price: 1.75,
     unlockLevel: 2
@@ -95,7 +101,19 @@ function recipesUnlockedByLevel(level) {
 const SUPPLY_TYPES = Object.keys(SUPPLIES);
 
 const CUSTOMER_EMOJIS = ["🧒", "👧", "🧑", "👩", "👨", "👵", "👴"];
-const SPARKLE_EMOJIS = ["✨", "⭐", "💫"];
+
+// Brand sparkle icon (matches the deck's "special" glyph exactly), reused
+// from Coin Catch / Driver Decides. Coin Catch's burst gets its variety by
+// cycling the SAME icon through three brand tones rather than swapping
+// shapes -- same trick here instead of the old emoji cycle.
+const SPARKLE_SVG =
+  '<svg viewBox="0 0 179.8 170" xmlns="http://www.w3.org/2000/svg">' +
+  '<polygon points="159.82 49.96 149.85 50 149.86 30 129.88 30 129.88 19.99 149.86 20 149.85 0 159.82 0 159.82 20 179.79 19.99 179.8 30 159.82 29.99 159.82 49.96"/>' +
+  '<polygon points="149.83 169.96 139.86 170 139.87 150 119.89 150 119.89 139.99 139.87 140 139.86 120 149.83 120 149.82 140 169.8 139.99 169.8 150 149.83 149.99 149.83 169.96"/>' +
+  '<path d="M64.87,149.82l-20.03-44.88L0,84.99l44.96-20.07,19.91-44.96,20.01,45.1,44.86,19.96-44.93,20-19.93,44.81ZM64.88,125.25l12.55-27.81,27.77-12.46-27.88-12.52-12.45-27.71-12.55,27.76-27.72,12.49,27.75,12.48,12.53,27.76Z"/>' +
+  "</svg>";
+
+const SPARKLE_TONES = ["tone-a", "tone-b", "tone-c"];
 
 // Three parked positions in the customer lane (px from the right edge).
 // Larger values sit further left in the lane (closer to the stand),
@@ -268,9 +286,7 @@ function updateBuildDisplay() {
   let html = "";
   SUPPLY_TYPES.forEach(function (type) {
     for (let i = 0; i < build[type]; i++) {
-      html += type === "cups"
-        ? '<span class="build-icon build-icon-svg">' + EMPTY_CUP_SVG + "</span>"
-        : '<span class="build-icon">' + SUPPLIES[type].icon + "</span>";
+      html += '<span class="build-icon build-icon-svg">' + SUPPLY_ICON_SVGS[type] + "</span>";
     }
   });
 
@@ -464,8 +480,8 @@ function updateAllCustomerReadiness() {
 function createSparkleBurst(customerEl) {
   for (let i = 0; i < 4; i++) {
     const sparkle = document.createElement("div");
-    sparkle.className = "sparkle";
-    sparkle.textContent = SPARKLE_EMOJIS[Math.floor(Math.random() * SPARKLE_EMOJIS.length)];
+    sparkle.className = "sparkle " + SPARKLE_TONES[Math.floor(Math.random() * SPARKLE_TONES.length)];
+    sparkle.innerHTML = SPARKLE_SVG;
 
     const angle = Math.random() * Math.PI * 2;
     const distance = 18 + Math.random() * 24;
@@ -500,10 +516,14 @@ function buildRecipeListHTML(recipeList) {
     SUPPLY_TYPES.forEach(function (type) {
       const amount = recipe.needs[type];
       if (amount) {
+        // Every current recipe only ever needs 1 of an ingredient, so the
+        // count is just noise -- only show "xN" if a future recipe needs
+        // more than one of something.
+        const countLabel = amount > 1 ? "<em>x" + amount + "</em>" : "";
         html +=
           '<span class="recipe-ingredient">' +
           ingredientIconHTML(type) +
-          "<em>x" + amount + "</em></span>";
+          countLabel + "</span>";
       }
     });
 
@@ -646,20 +666,31 @@ function advanceGameLevel() {
 
   document.getElementById("levelUpTitle").textContent = "🎉 LEVEL " + currentGameLevel + "!";
 
+  const levelUpIcon = document.getElementById("levelUpIcon");
+
+  const levelUpBox = document.getElementById("levelUpBox");
+
   if (newLevelDef) {
+    levelUpIcon.innerHTML = TROPHY_SVG;
+    levelUpBox.classList.remove("statement");
     document.getElementById("levelUpMessage").textContent =
       newLevelDef.unlockMessage || "New goals unlocked!";
     revealNewSupplies(newLevelDef);
     renderLevelUpRecipes(newLevelDef);
     populateRecipeGuide();
   } else {
+    levelUpIcon.innerHTML = CROWN_SVG;
+    // "statement" is the same dark Blue Black -> Persian Blue treatment used
+    // for the big win screen in Coin Catch / Driver Decides -- reserved for
+    // this one moment (every goal complete), not the in-between level-ups.
+    levelUpBox.classList.add("statement");
     document.getElementById("levelUpMessage").textContent =
-      "You've completed every goal! You're a Lemonade Star! 👑";
+      "You've completed every goal! You're a Lemonade Star!";
     document.getElementById("levelUpRecipes").innerHTML = "";
   }
 
   pauseGame();
-  document.getElementById("levelUpBox").classList.remove("hidden");
+  levelUpBox.classList.remove("hidden");
 
   updateDisplay();
 }
@@ -787,6 +818,7 @@ function confirmRestart() {
 
   document.getElementById("confirmBox").classList.add("hidden");
   document.getElementById("levelUpBox").classList.add("hidden");
+  document.getElementById("levelUpBox").classList.remove("statement");
   document.getElementById("recipeBox").classList.add("hidden");
 
   document.getElementById("customerLane").innerHTML = "";
