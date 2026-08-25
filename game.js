@@ -155,6 +155,9 @@ let cash = 10.00;
 let savings = 0;
 let inventory = { cups: 0, lemons: 0, ice: 0, sugar: 0, tea: 0 };
 let build = { cups: 0, lemons: 0, ice: 0, sugar: 0, tea: 0 };
+// Order the ingredients were tapped in, most-recent-last -- lets the Undo
+// button pop off just the last one instead of clearing the whole order.
+let buildOrder = [];
 
 let totalEarned = 0;
 let totalSpent = 0;
@@ -251,15 +254,19 @@ function addToBuild(type) {
 
   inventory[type] -= 1;
   build[type] += 1;
+  buildOrder.push(type);
 
   updateDisplay();
 }
 
-function clearBuild() {
-  for (const type of SUPPLY_TYPES) {
-    inventory[type] += build[type];
-    build[type] = 0;
+function undoLastIngredient() {
+  if (buildOrder.length === 0) {
+    return;
   }
+
+  const type = buildOrder.pop();
+  build[type] -= 1;
+  inventory[type] += 1;
 
   updateDisplay();
 }
@@ -427,6 +434,7 @@ function serveCustomer(id) {
   for (const type of SUPPLY_TYPES) {
     build[type] = 0;
   }
+  buildOrder = [];
 
   cash += customer.recipe.price;
   totalEarned += customer.recipe.price;
@@ -799,6 +807,7 @@ function confirmRestart() {
   savings = 0;
   inventory = { cups: 0, lemons: 0, ice: 0, sugar: 0, tea: 0 };
   build = { cups: 0, lemons: 0, ice: 0, sugar: 0, tea: 0 };
+  buildOrder = [];
 
   totalEarned = 0;
   totalSpent = 0;
