@@ -286,7 +286,7 @@ function updateBuildDisplay() {
   const hasAnything = SUPPLY_TYPES.some(function (type) { return build[type] > 0; });
 
   if (!hasAnything) {
-    container.innerHTML = '<span class="build-placeholder" id="buildPlaceholder">Tap ingredients below to build an order ⬇️</span>';
+    container.innerHTML = '<span class="build-placeholder" id="buildPlaceholder">Tap ingredients below to build an order</span>';
     return;
   }
 
@@ -616,7 +616,7 @@ function updateInterestMessage() {
   if (savings > 0) {
     message.textContent = "Next growth: " + interestTimer + "s";
   } else {
-    message.textContent = "Add money to start growing!";
+    message.textContent = "";
   }
 }
 

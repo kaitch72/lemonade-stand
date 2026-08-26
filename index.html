@@ -39,22 +39,20 @@
     <!-- TOP BAR: WALLET / BANK / GOAL -->
     <div class="topbar">
       <div class="stat-card wallet-card">
-        <div class="mini-stat">
+        <div class="stat-head">
           <span class="mini-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 159.81 129.77">
   <g>
     <ellipse cx="119.81" cy="74.87" rx="7.43" ry="7.42"/>
     <polygon points="149.85 29.95 30.02 29.95 30.02 19.97 159.81 19.97 159.8 129.77 0 129.77 0 0 149.75 0 149.75 9.98 9.94 9.99 9.96 119.79 149.85 119.79 149.85 29.95"/>
   </g>
 </svg></span>
-          <div>
-            <span>Wallet</span>
-            <strong id="cash">$10.00</strong>
-          </div>
+          <span class="stat-label">Wallet</span>
         </div>
+        <strong id="cash" class="stat-value">$10.00</strong>
       </div>
 
       <div class="stat-card bank-card">
-        <div class="mini-stat">
+        <div class="stat-head">
           <span class="mini-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 167.52 169.98">
   <g>
     <g>
@@ -65,22 +63,20 @@
     </g>
   </g>
 </svg></span>
-          <div>
-            <span>Bank</span>
-            <strong id="savings">$0.00</strong>
-          </div>
+          <span class="stat-label">Bank</span>
         </div>
+        <strong id="savings" class="stat-value">$0.00</strong>
 
         <div class="save-row">
           <button class="save-button" onclick="saveMoney(1)">+$1</button>
           <button class="save-button" onclick="saveMoney(5)">+$5</button>
           <button class="save-button" onclick="saveMoney(10)">+$10</button>
-          <span class="interest-caption" id="interestMessage">Next growth: 20s</span>
+          <span class="interest-caption" id="interestMessage"></span>
         </div>
       </div>
 
       <div class="stat-card goal-card">
-        <div class="mini-stat">
+        <div class="stat-head">
           <span class="mini-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 159.65 159.5">
   <g>
     <path d="M159.65,79.75c0,44.04-35.74,79.75-79.83,79.75S0,123.8,0,79.75,35.74,0,79.83,0s79.83,35.71,79.83,79.75ZM149.75,79.75c0-38.58-31.31-69.86-69.93-69.86S9.9,41.16,9.9,79.75s31.31,69.86,69.93,69.86,69.93-31.28,69.93-69.86Z"/>
@@ -88,11 +84,9 @@
     <path d="M99.71,79.75c0,10.97-8.9,19.86-19.88,19.86s-19.88-8.89-19.88-19.86,8.9-19.86,19.88-19.86,19.88,8.89,19.88,19.86ZM89.84,79.76c0-5.52-4.48-10-10.01-10s-10.01,4.48-10.01,10,4.48,10,10.01,10,10.01-4.48,10.01-10Z"/>
   </g>
 </svg></span>
-          <div class="goal-body">
-            <span id="goalLevelLabel">Level 1</span>
-            <p id="goalText">Make your first $3 profit!</p>
-          </div>
+          <span class="stat-label" id="goalLevelLabel">Level 1</span>
         </div>
+        <p id="goalText" class="stat-subtext">Make your first $3 profit!</p>
         <div class="progress-track">
           <div id="goalProgress" class="progress-fill"></div>
         </div>
@@ -201,7 +195,7 @@
 
           <div class="build-zone">
             <div class="build-display" id="buildDisplay">
-              <span class="build-placeholder" id="buildPlaceholder">Tap ingredients below to build an order ⬇️</span>
+              <span class="build-placeholder" id="buildPlaceholder">Tap ingredients below to build an order</span>
             </div>
             <button class="clear-button" onclick="undoLastIngredient()">Undo</button>
           </div>
