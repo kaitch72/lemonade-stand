@@ -26,6 +26,14 @@
     --card-border: 1.5px solid var(--hawkes-blue);
     --card-shadow: 0 2px 6px rgba(10, 23, 36, 0.06);
     --header-height: 90px;
+
+    /* Every finlit game renders on a fixed 1920x1080 stage that's
+       uniformly scaled to fit the window (see .game-container below) --
+       same convention as Coin Catch, so the whole game shrinks/grows
+       together as the browser resizes instead of reflowing or clipping. */
+    --stage-width: 1920px;
+    --stage-height: 1080px;
+    --stage-radius: 24px;
 }
 
 * {
@@ -34,19 +42,49 @@
   padding: 0;
 }
 
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
 body {
   font-family: var(--font-brand);
-  background: linear-gradient(180deg, var(--hawkes-blue) 0%, var(--onahau) 100%);
   color: var(--blue-black);
-  min-height: 100vh;
+
+  /* Kiosk frame: a neutral grey page behind the game's fixed stage. */
+  background: #E4E6E8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .game-container {
-  width: 95%;
-  max-width: 1500px;
-  margin: 20px auto;
+  position: relative;
+  flex-shrink: 0;
+  width: var(--stage-width);
+  height: var(--stage-height);
+
+  /* Scale the fixed 1920x1080 stage to fit whatever window/screen it's
+     shown in, without ever blowing it up past 100% -- the whole game
+     (text, icons, spacing, all of it) shrinks and grows together as one
+     image, so nothing reflows or gets cut off as the window resizes,
+     same as Coin Catch. This also resolves the 1366x768 clipping this
+     game used to have as a real-viewport-sized layout: it's now always
+     laid out at a constant 1920x1080 internally, which its content
+     already fits, then scaled down visually for smaller windows. */
+  transform:
+      scale(
+          min(
+              1,
+              calc(100vw / var(--stage-width)),
+              calc(100vh / var(--stage-height))
+          )
+      );
+
   background: #ffffff;
-  border-radius: 24px;
+  border-radius: var(--stage-radius);
   overflow: hidden;
   box-shadow: 0 15px 40px rgba(10, 23, 36, 0.16);
 }
@@ -865,8 +903,8 @@ header h1 svg {
 
 #tutorialBox .start-badge-wrap {
   position: relative;
-  width: clamp(84px, 20vw, 104px);
-  height: clamp(84px, 20vw, 104px);
+  width: 104px;
+  height: 104px;
   margin: 0 auto 22px;
   animation: startBadgeFloat 3.2s ease-in-out infinite;
 }
@@ -1101,51 +1139,7 @@ header h1 svg {
   display: none;
 }
 
-/* ==========================================
-   RESPONSIVE
-========================================== */
-
-@media (max-width: 1000px) {
-  .play-area {
-    grid-template-columns: 1fr;
-  }
-
-  .shop {
-    flex-direction: row;
-    flex-wrap: wrap;
-  }
-
-  .shop-item {
-    flex: 1;
-    min-width: 120px;
-  }
-
-  .customer-lane {
-    min-height: 220px;
-  }
-
-  .customer {
-    top: 20px;
-  }
-}
-
-@media (max-width: 700px) {
-  .topbar {
-    grid-template-columns: 1fr;
-  }
-
-  .brand-logo {
-    height: 24px;
-  }
-
-  header {
-    height: auto;
-    grid-template-columns: auto 1fr auto;
-    padding: 10px 16px;
-    gap: 10px;
-  }
-
-  header h1 {
-    font-size: 20px;
-  }
-}
+/* No @media breakpoints -- the fixed 1920x1080 stage above (see
+   .game-container) is uniformly scaled to fit any window, so a
+   separate stacked/mobile layout is never needed; adding one back
+   would conflict with the fixed-height stage and clip content. */
