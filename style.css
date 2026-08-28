@@ -25,7 +25,6 @@
     --card-radius: 16px;
     --card-border: 1.5px solid var(--hawkes-blue);
     --card-shadow: 0 2px 6px rgba(10, 23, 36, 0.06);
-    --header-height: 90px;
 
     /* Every finlit game renders on a fixed 1920x1080 stage that's
        uniformly scaled to fit the window (see .game-container below) --
@@ -46,7 +45,12 @@ html,
 body {
   width: 100%;
   height: 100%;
-  overflow: auto;
+  /* The fixed 1920x1080 stage is scaled to fit (never actually meant to
+     scroll), but .game-container keeps its full untransformed layout
+     box, so `overflow: auto` here reports a phantom scrollbar/gutter any
+     time the scale drops below 1 -- same bug found and fixed in Budget
+     Builder. Nothing is lost by disallowing scroll outright. */
+  overflow: hidden;
 }
 
 body {
@@ -113,8 +117,11 @@ svg {
 header {
   position: relative;
   z-index: 20;
-  height: var(--header-height);
-  background: var(--white);
+  /* Locked to exactly 1/12 of the stage height -- the shared header
+     standard across the finlit game suite (see Budget Builder). */
+  height: calc(var(--stage-height) / 12);
+  /* Flat Sky Blue, matching Budget Builder's top-bar color. */
+  background: var(--sky-blue);
   box-shadow: 0 4px 14px rgba(10, 23, 36, 0.08);
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -122,10 +129,7 @@ header {
   padding: 0 26px;
 }
 
-.brand-logo {
-  height: 30px;
-  width: auto;
-  display: block;
+.header-left {
   justify-self: start;
 }
 
@@ -154,13 +158,16 @@ header h1 svg {
   grid-template-columns: 0.85fr 1.15fr 1.6fr;
   gap: 14px;
   padding: 14px 18px;
-  background: var(--hawkes-blue);
+  /* No colored bar behind these -- the Wallet/Bank/Level cards float
+     directly on the game background, same as Driver Decides' HUD. */
   align-items: stretch;
 }
 
 .stat-card {
   background: var(--white);
-  border: var(--card-border);
+  /* No stroke -- just the shared faint drop shadow (same value used by
+     Driver Decides' HUD cards), now that these float on the page
+     background instead of sitting inside a colored bar. */
   border-radius: var(--card-radius);
   padding: 12px 18px;
   box-shadow: var(--card-shadow);
@@ -274,7 +281,7 @@ header h1 svg {
 
 .play-area {
   display: grid;
-  grid-template-columns: 170px 1fr 430px;
+  grid-template-columns: 207px 1fr 430px;
   gap: 18px;
   margin: 18px;
   padding: 20px;
@@ -290,7 +297,7 @@ header h1 svg {
 .shop {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .shop-item {
@@ -298,7 +305,7 @@ header h1 svg {
   background: #ffffff;
   border: 3px solid var(--hawkes-blue);
   border-radius: 18px;
-  height: 130px;
+  height: 159px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -323,11 +330,11 @@ header h1 svg {
   right: -12px;
   background: var(--persian-blue);
   color: var(--white);
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 800;
   border-radius: 50%;
-  width: 42px;
-  height: 42px;
+  width: 51px;
+  height: 51px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -341,8 +348,8 @@ header h1 svg {
    glyphs themselves stay single-color Persian Blue; only the badge behind
    them changes. */
 .shop-icon {
-  width: 64px;
-  height: 64px;
+  width: 78px;
+  height: 78px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -353,8 +360,8 @@ header h1 svg {
 }
 
 .shop-icon svg {
-  width: 34px;
-  height: 34px;
+  width: 42px;
+  height: 42px;
 }
 
 .shop-item[data-supply="cups"] .shop-icon {
@@ -379,7 +386,7 @@ header h1 svg {
 }
 
 .qty-label {
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 700;
   color: var(--persian-blue);
   margin-top: 2px;
@@ -395,7 +402,11 @@ header h1 svg {
 .stand {
   position: relative;
   width: 100%;
-  max-width: 640px;
+  /* Enlarged from 640px to fill the blank space that used to sit below
+     the play area on the fixed 1080px-tall stage -- everything inside
+     (.awning/.build-zone/.counter) is positioned as a percentage of this
+     box already, so it scales along automatically. */
+  max-width: 780px;
   aspect-ratio: 930 / 822;
 }
 
@@ -421,7 +432,7 @@ header h1 svg {
   height: 15.5%;
   box-sizing: border-box;
   color: var(--white);
-  font-size: 28px;
+  font-size: 34px;
   font-weight: 800;
   font-family: var(--font-brand);
   font-style: normal;
@@ -437,8 +448,8 @@ header h1 svg {
   position: absolute;
   top: 8px;
   right: 10px;
-  width: 34px;
-  height: 34px;
+  width: 41px;
+  height: 41px;
   border-radius: 50%;
   border: none;
   background: var(--white);
@@ -451,8 +462,8 @@ header h1 svg {
 }
 
 .recipe-button svg {
-  width: 16px;
-  height: 16px;
+  width: 20px;
+  height: 20px;
 }
 
 .recipe-button:hover {
@@ -472,7 +483,7 @@ header h1 svg {
 }
 
 .build-display {
-  min-height: 60px;
+  min-height: 73px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -481,14 +492,14 @@ header h1 svg {
 }
 
 .build-display .build-icon {
-  font-size: 46px;
+  font-size: 56px;
   filter: drop-shadow(0 4px 3px rgba(10, 23, 36, 0.2));
   animation: pop-in 0.2s ease-out;
 }
 
 .build-icon-svg svg {
-  width: 44px;
-  height: 44px;
+  width: 54px;
+  height: 54px;
 }
 
 @keyframes pop-in {
@@ -497,7 +508,7 @@ header h1 svg {
 }
 
 .build-placeholder {
-  font-size: 13px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--persian-blue);
   text-align: center;
@@ -509,8 +520,8 @@ header h1 svg {
   color: var(--persian-blue);
   font-family: inherit;
   font-weight: 700;
-  font-size: 12px;
-  padding: 4px 14px;
+  font-size: 15px;
+  padding: 5px 17px;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -533,23 +544,23 @@ header h1 svg {
   justify-content: center;
 }
 
-/* Capped to fit exactly 3 slots per row (3 x 90px + 2 x 14px gap = 298px)
+/* Capped to fit exactly 3 slots per row (3 x 110px + 2 x 17px gap = 364px)
    so a 5th/4th ingredient wraps to its own centered second row instead of
    spilling past the counter -- see the .stand sizing note above for why the
-   stand artwork is scaled large enough (640px) to fit two full rows here. */
+   stand artwork is scaled large enough (780px) to fit two full rows here. */
 .inventory-slots {
   display: flex;
   flex-wrap: wrap;
-  gap: 14px;
-  max-width: 300px;
+  gap: 17px;
+  max-width: 366px;
   margin: 0 auto;
   justify-content: center;
 }
 
 .inv-slot {
   position: relative;
-  width: 90px;
-  height: 90px;
+  width: 110px;
+  height: 110px;
   background: #ffffff;
   border: 3px solid var(--white);
   border-radius: 16px;
@@ -570,8 +581,8 @@ header h1 svg {
 }
 
 .inv-icon {
-  width: 58px;
-  height: 58px;
+  width: 71px;
+  height: 71px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -581,8 +592,8 @@ header h1 svg {
 }
 
 .inv-icon svg {
-  width: 30px;
-  height: 30px;
+  width: 37px;
+  height: 37px;
 }
 
 .inv-slot[data-supply="cups"] .inv-icon {
@@ -612,11 +623,11 @@ header h1 svg {
   right: -12px;
   background: var(--persian-blue);
   color: var(--white);
-  font-size: 15px;
+  font-size: 18px;
   font-weight: 800;
   border-radius: 50%;
-  width: 34px;
-  height: 34px;
+  width: 41px;
+  height: 41px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -969,6 +980,27 @@ header h1 svg {
 
 #tutorialBox {
   overflow: hidden;
+}
+
+/* Start-popup title uses Blue Black, matching Coin Catch and Budget
+   Builder's intro popups -- scoped to #tutorialBox only since the shared
+   .modal-box h2 rule (Persian Blue) still applies to the recipe guide,
+   restart-confirm, and level-up modals, which weren't part of this ask. */
+#tutorialBox h2 {
+  color: var(--blue-black);
+}
+
+/* Start button's offset shadow uses Sky Blue, matching the shared
+   design system's "pressable look" spec and the other games' intro
+   popups -- the shared .modal-box button rule (Hawkes Blue) still
+   applies to the recipe guide, restart-confirm, and level-up buttons,
+   which weren't part of this ask. */
+#tutorialBox button {
+  box-shadow: 0 5px 0 var(--sky-blue);
+}
+
+#tutorialBox button:active {
+  box-shadow: 0 2px 0 var(--sky-blue);
 }
 
 #tutorialBox::before,
