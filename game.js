@@ -33,6 +33,13 @@ const ICE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 182.38 123
 
 const SUGAR_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 159.92 133.08">\n  <g>\n    <g>\n      <path d="M119.94,133.08H40.04s-.05-12.21-.05-12.21C17.22,109.46,2.66,87.01,1.12,61.6l-1.12-18.52h159.92c-.52,8.79-.74,17.32-2.03,26.08-3.32,22.48-17.73,41.47-37.89,51.64l-.07,12.27ZM110,123.08l.04-8.39,10.66-5.71c16.26-9.98,26.64-27.27,27.9-46.33l.63-9.57H10.63s.98,12.73.98,12.73c2.37,18.49,13.04,34.9,29.2,44.13l9.15,4.64.02,8.5h60.02Z"/>\n      <g>\n        <ellipse cx="79.91" cy="20.17" rx="4.94" ry="4.93"/>\n        <path d="M96.95,11.28c-20.41-4.13-57.55,1.62-66.98,21.04l.03,12.79h-9.96s-.03-15.08-.03-15.08C31.58,2.46,79.31-5.5,105.93,3.58c12.96,4.42,28.59,14.11,33.98,26.46v15.06s-9.96,0-9.96,0v-12.79c-5.41-10.83-21.04-18.62-33-21.04Z"/>\n        <ellipse cx="59.93" cy="30.15" rx="4.94" ry="4.93"/>\n        <ellipse cx="99.89" cy="30.15" rx="4.94" ry="4.93"/>\n      </g>\n    </g>\n  </g>\n</svg>';
 
+// Kayla's real Font-Awesome-style export, dropped into images/teabag.svg --
+// replaces the earlier hand-built placeholder. Split from tea-glass.svg
+// (2026-08-28): the glass is now the finished-drink icon only, this is the
+// raw Tea Bags supply icon (shop tile, inventory slot, order-build tray,
+// recipe-ingredient rows).
+const TEA_BAG_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 136.25 177.22">\n  <g>\n    <path d="M88.26,36.42l31.75,14.16,16.24-36.47L104.71,0l-17.47,8.54c-14.38-6.37-29.09-4.56-37.52,4.64-6.7,7.31-7.64,17.62-2.45,26.92,7.76,13.9.1,24.86-3.12,28.54h-26.59L0,102.84v74.38h96.81v-74.41l-17.56-34.17h-22.94c4.51-8.26,7.01-20.3-.31-33.41-3.1-5.57-2.71-11.15,1.09-15.3,4.15-4.52,13.41-7.81,25.95-2.31l-.03.07,5.25,18.73ZM104.86,11l18.19,8.12-8.12,18.29-18.34-8.19-3.61-12.49,11.88-5.73ZM73.14,78.64l13.67,26.59v61.99H10v-61.96l13.67-26.62h49.47Z"/>\n  </g>\n</svg>';
+
 // Brand-icon lookup for the persistent UI (shop tiles, inventory slots,
 // the order-build tray, and the recipe guide). SUPPLIES[type].icon stays
 // emoji-only -- that field is used purely in the transient message-strip
@@ -42,7 +49,11 @@ const SUPPLY_ICON_SVGS = {
   lemons: LEMON_SVG,
   ice: ICE_SVG,
   sugar: SUGAR_SVG,
-  tea: TEA_CUP_SVG // same iced-tea glass as the finished-drink icon -- one icon, two jobs
+  // Split from the iced-tea glass (2026-08-28) -- the glass is now reserved
+  // for the finished-drink/order icon only (see RECIPES' icedTea/sweetTea
+  // .icon below, still TEA_CUP_SVG), so the raw supply reads as an actual
+  // tea bag in the shop tile, inventory slot, and recipe-ingredient row.
+  tea: TEA_BAG_SVG
 };
 
 function ingredientIconHTML(type) {
@@ -70,7 +81,7 @@ const RECIPES = [
   },
   {
     id: "sugar",
-    name: "Lemonade with Sugar",
+    name: "Sweetened Lemonade",
     icon: LEMONADE_CUP_SVG + '<span class="sugar-badge">' + SUGAR_SVG + '</span>',
     needs: { cups: 1, lemons: 1, ice: 1, sugar: 1 },
     price: 1.50,
@@ -81,15 +92,15 @@ const RECIPES = [
     name: "Iced Tea",
     icon: TEA_CUP_SVG,
     needs: { cups: 1, tea: 1, ice: 1 },
-    price: 1.25,
+    price: 2.00,
     unlockLevel: 2
   },
   {
     id: "sweetTea",
-    name: "Sweet Tea",
+    name: "Sweetened Tea",
     icon: TEA_CUP_SVG + '<span class="sugar-badge">' + SUGAR_SVG + '</span>',
     needs: { cups: 1, tea: 1, ice: 1, sugar: 1 },
-    price: 1.75,
+    price: 2.50,
     unlockLevel: 2
   }
 ];
@@ -117,8 +128,9 @@ const SPARKLE_TONES = ["tone-a", "tone-b", "tone-c"];
 
 // Three parked positions in the customer lane (px from the right edge).
 // Larger values sit further left in the lane (closer to the stand),
-// so index 0 = front of line gets the largest offset.
-const CUSTOMER_SLOTS = ["290px", "150px", "10px"];
+// so index 0 = front of line gets the largest offset. Spacing matches
+// the enlarged .customer width (139px) plus a ~29px gap between slots.
+const CUSTOMER_SLOTS = ["348px", "180px", "12px"];
 const MAX_CUSTOMERS = 3;
 
 // ==========================================
@@ -335,8 +347,13 @@ function spawnCustomer() {
     serveCustomer(id);
   };
 
+  // data-recipe-id keys the bubble's circle color to this order's recipe
+  // (see the [data-recipe-id="..."] rules in style.css) -- the same
+  // stable-id pattern already used for the Recipe Guide/Level Up rows.
   el.innerHTML =
-    '<div class="order-bubble"><span>' + recipe.icon + "</span></div>" +
+    '<div class="order-bubble" data-recipe-id="' + recipe.id + '">' +
+    '<span class="order-icon-circle">' + recipe.icon + "</span>" +
+    "</div>" +
     '<div class="customer-face">' + face + "</div>";
 
   document.getElementById("customerLane").appendChild(el);
@@ -472,9 +489,12 @@ function removeFromQueue(customer) {
 }
 
 function updateCustomerReadiness(customer) {
+  // Only "ready" is a real visual state now (green ring, current build
+  // matches this order) -- there's no more "missing" styling, since the
+  // bubble's default/no-match state is just its plain recipe-color circle
+  // with no outline (see .order-bubble in style.css, 2026-08-28).
   const bubble = customer.element.querySelector(".order-bubble");
-  bubble.classList.remove("ready", "missing");
-  bubble.classList.add(buildMatchesRecipe(customer.recipe) ? "ready" : "missing");
+  bubble.classList.toggle("ready", buildMatchesRecipe(customer.recipe));
 }
 
 function updateAllCustomerReadiness() {
@@ -511,31 +531,51 @@ function createSparkleBurst(customerEl) {
 // RECIPE GUIDE
 // ==========================================
 
+function buildIngredientsHTML(recipe) {
+  let html = '<div class="recipe-ingredients">';
+
+  // Iterate the recipe's OWN declared ingredient order (its `needs` object,
+  // in the order it's written in RECIPES above) rather than the fixed
+  // SUPPLY_TYPES order -- so each row reads in its natural recipe order
+  // (e.g. iced tea shows cup/tea/ice, not cup/ice/tea) instead of every
+  // recipe sharing one global ingredient sequence.
+  Object.keys(recipe.needs).forEach(function (type) {
+    const amount = recipe.needs[type];
+    if (amount) {
+      // Every current recipe only ever needs 1 of an ingredient, so the
+      // count is just noise -- only show "xN" if a future recipe needs
+      // more than one of something.
+      const countLabel = amount > 1 ? "<em>x" + amount + "</em>" : "";
+      html +=
+        '<span class="recipe-ingredient">' +
+        ingredientIconHTML(type) +
+        countLabel + "</span>";
+    }
+  });
+
+  html += "</div>";
+  return html;
+}
+
 function buildRecipeListHTML(recipeList) {
   let html = "";
 
   recipeList.forEach(function (recipe) {
-    html += '<div class="recipe-entry">';
+    // Drink icon -- title -- ingredients, all on one line, with the
+    // ingredients pushed to the row's far right via .recipe-ingredients'
+    // margin-left:auto (see the shared #recipeBox/#levelUpBox scoped CSS
+    // in style.css -- both modals' recipe lists use this exact layout).
+    // data-recipe-id drives each row's pale background color (see
+    // style.css) so a given recipe is always the same color everywhere,
+    // regardless of which popup shows it or how many other rows are
+    // present -- e.g. Iced Tea reads as peach in both the full Recipe
+    // Guide AND the "new recipes unlocked" popup that only shows 2 rows,
+    // rather than colors shifting with each list's own row position.
+    html += '<div class="recipe-entry" data-recipe-id="' + recipe.id + '">';
     html += '<div class="recipe-result">' + recipe.icon + "</div>";
-    html += '<div class="recipe-info">';
-    html += "<strong>" + recipe.name + "</strong>";
-    html += '<div class="recipe-ingredients">';
-
-    SUPPLY_TYPES.forEach(function (type) {
-      const amount = recipe.needs[type];
-      if (amount) {
-        // Every current recipe only ever needs 1 of an ingredient, so the
-        // count is just noise -- only show "xN" if a future recipe needs
-        // more than one of something.
-        const countLabel = amount > 1 ? "<em>x" + amount + "</em>" : "";
-        html +=
-          '<span class="recipe-ingredient">' +
-          ingredientIconHTML(type) +
-          countLabel + "</span>";
-      }
-    });
-
-    html += "</div></div></div>";
+    html += '<div class="recipe-info"><strong>' + recipe.name + "</strong></div>";
+    html += buildIngredientsHTML(recipe);
+    html += "</div>";
   });
 
   return html;

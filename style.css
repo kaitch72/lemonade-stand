@@ -16,6 +16,19 @@
     --mystic:       #E6ECEB;
     --white:        #FFFFFF;
 
+    /* Added for the Recipe Guide's colored rows (2026-08-28) -- exact hex
+       from Kayla, not sampled/approximated. Magnolia/Onahau above already
+       cover the lavender/blue rows, these two round the set out to four. */
+    --pale-yellow:  #FFFCD7;
+    --pale-peach:   #FFE8D7;
+
+    /* Plain black, for icons that should read as pure black rather than
+       the brand's single-color Persian Blue default (see the svg rule
+       below) -- introduced for the Recipe Guide's ingredient icons, which
+       Kayla wants matching a reference mock; she's flagged more icons may
+       move to this treatment later. */
+    --icon-black:   #000000;
+
     --font-brand: "Inter", Arial, Helvetica, sans-serif;
 
     /* Shared "stat card" chrome + header height --
@@ -216,8 +229,11 @@ header h1 svg {
 }
 
 .stat-subtext {
-  font-size: 15px;
-  font-weight: 700;
+  /* Matches .stat-value exactly (2026-08-28) -- Kayla wants the goal text
+     reading at the same weight/size as the Wallet/Bank dollar amounts. */
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.15;
   color: var(--blue-black);
   margin: 0;
 }
@@ -262,6 +278,7 @@ header h1 svg {
 .progress-track {
   width: 100%;
   height: 12px;
+  margin-top: 6px;
   background: var(--hawkes-blue);
   border-radius: 20px;
   overflow: hidden;
@@ -281,7 +298,7 @@ header h1 svg {
 
 .play-area {
   display: grid;
-  grid-template-columns: 207px 1fr 430px;
+  grid-template-columns: 191px 1fr 520px;
   gap: 18px;
   margin: 18px;
   padding: 20px;
@@ -297,27 +314,36 @@ header h1 svg {
 .shop {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 14px;
+  /* Fixed to match the stand column's own height (see .stand-wrap) rather
+     than growing with the item count -- five cards (tea unlocked) shrink
+     to fit the same box four cards used, instead of pushing the whole
+     game-container past the fixed 1080px stage height. See
+     start-screen-popups.md, 2026-08-28 shop-card pass, for the overflow
+     bug this replaces. */
+  height: 638px;
 }
 
 .shop-item {
   position: relative;
   background: #ffffff;
-  border: 3px solid var(--hawkes-blue);
   border-radius: 18px;
-  height: 159px;
+  /* No fixed height -- shares .shop's fixed height equally with however
+     many cards (4 or 5) are currently visible. */
+  flex: 1 1 0;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: transform 0.1s, border-color 0.1s;
+  transition: transform 0.1s, box-shadow 0.1s;
   box-shadow: 0 5px 10px rgba(10, 23, 36, 0.08);
 }
 
 .shop-item:hover {
   transform: translateY(-3px);
-  border-color: var(--persian-blue);
+  box-shadow: 0 8px 16px rgba(10, 23, 36, 0.14);
 }
 
 .shop-item:active {
@@ -330,63 +356,38 @@ header h1 svg {
   right: -12px;
   background: var(--persian-blue);
   color: var(--white);
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 800;
   border-radius: 50%;
-  width: 51px;
-  height: 51px;
+  width: 47px;
+  height: 47px;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 3px solid #ffffff;
 }
 
-/* Each ingredient gets its own pale-tint circular "token" badge -- same
-   character-token treatment as the piggy bank / scooter sprites in the
-   other two games -- so the five ingredients read apart from each other
-   at a glance instead of floating as identical outlines on white. Icon
-   glyphs themselves stay single-color Persian Blue; only the badge behind
-   them changes. */
+/* Plain black icons, no colored circle badge behind them -- matches
+   Kayla's reference: a plain white card with a black-line ingredient icon
+   and nothing else behind it. (2026-08-28; replaces the earlier pale-tint
+   circular "token" badge treatment.) */
 .shop-icon {
-  width: 78px;
-  height: 78px;
-  border-radius: 50%;
+  width: 72px;
+  height: 72px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--white);
-  box-shadow: 0 4px 0 rgba(10, 23, 36, 0.08), 0 3px 8px rgba(10, 23, 36, 0.12);
   margin-bottom: 4px;
 }
 
 .shop-icon svg {
-  width: 42px;
-  height: 42px;
-}
-
-.shop-item[data-supply="cups"] .shop-icon {
-  background: var(--white);
-  box-shadow: 0 4px 0 var(--hawkes-blue), 0 3px 8px rgba(10, 23, 36, 0.12);
-}
-
-.shop-item[data-supply="lemons"] .shop-icon {
-  background: var(--onahau);
-}
-
-.shop-item[data-supply="ice"] .shop-icon {
-  background: var(--hawkes-blue);
-}
-
-.shop-item[data-supply="sugar"] .shop-icon {
-  background: var(--magnolia);
-}
-
-.shop-item[data-supply="tea"] .shop-icon {
-  background: var(--mystic);
+  width: 52px;
+  height: 52px;
+  fill: var(--icon-black);
 }
 
 .qty-label {
-  font-size: 17px;
+  font-size: 16px;
   font-weight: 700;
   color: var(--persian-blue);
   margin-top: 2px;
@@ -402,11 +403,12 @@ header h1 svg {
 .stand {
   position: relative;
   width: 100%;
-  /* Enlarged from 640px to fill the blank space that used to sit below
-     the play area on the fixed 1080px-tall stage -- everything inside
-     (.awning/.build-zone/.counter) is positioned as a percentage of this
-     box already, so it scales along automatically. */
-  max-width: 780px;
+  /* Sized to pair with the shop column's height (both fill the play area
+     without either looking oversized) while leaving the customer lane
+     more room to be the bigger element on this screen -- everything
+     inside (.awning/.build-zone/.counter) is positioned as a percentage
+     of this box already, so it scales along automatically. */
+  max-width: 720px;
   aspect-ratio: 930 / 822;
 }
 
@@ -432,7 +434,7 @@ header h1 svg {
   height: 15.5%;
   box-sizing: border-box;
   color: var(--white);
-  font-size: 34px;
+  font-size: 32px;
   font-weight: 800;
   font-family: var(--font-brand);
   font-style: normal;
@@ -448,8 +450,8 @@ header h1 svg {
   position: absolute;
   top: 8px;
   right: 10px;
-  width: 41px;
-  height: 41px;
+  width: 38px;
+  height: 38px;
   border-radius: 50%;
   border: none;
   background: var(--white);
@@ -462,8 +464,8 @@ header h1 svg {
 }
 
 .recipe-button svg {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
 }
 
 .recipe-button:hover {
@@ -483,7 +485,7 @@ header h1 svg {
 }
 
 .build-display {
-  min-height: 73px;
+  min-height: 68px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -492,14 +494,14 @@ header h1 svg {
 }
 
 .build-display .build-icon {
-  font-size: 56px;
+  font-size: 52px;
   filter: drop-shadow(0 4px 3px rgba(10, 23, 36, 0.2));
   animation: pop-in 0.2s ease-out;
 }
 
 .build-icon-svg svg {
-  width: 54px;
-  height: 54px;
+  width: 50px;
+  height: 50px;
 }
 
 @keyframes pop-in {
@@ -508,7 +510,7 @@ header h1 svg {
 }
 
 .build-placeholder {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 700;
   color: var(--persian-blue);
   text-align: center;
@@ -520,8 +522,8 @@ header h1 svg {
   color: var(--persian-blue);
   font-family: inherit;
   font-weight: 700;
-  font-size: 15px;
-  padding: 5px 17px;
+  font-size: 14px;
+  padding: 5px 16px;
   border-radius: 10px;
   cursor: pointer;
 }
@@ -544,23 +546,23 @@ header h1 svg {
   justify-content: center;
 }
 
-/* Capped to fit exactly 3 slots per row (3 x 110px + 2 x 17px gap = 364px)
+/* Capped to fit exactly 3 slots per row (3 x 101px + 2 x 16px gap = 335px)
    so a 5th/4th ingredient wraps to its own centered second row instead of
    spilling past the counter -- see the .stand sizing note above for why the
-   stand artwork is scaled large enough (780px) to fit two full rows here. */
+   stand artwork is scaled large enough (720px) to fit two full rows here. */
 .inventory-slots {
   display: flex;
   flex-wrap: wrap;
-  gap: 17px;
-  max-width: 366px;
+  gap: 16px;
+  max-width: 335px;
   margin: 0 auto;
   justify-content: center;
 }
 
 .inv-slot {
   position: relative;
-  width: 110px;
-  height: 110px;
+  width: 101px;
+  height: 101px;
   background: #ffffff;
   border: 3px solid var(--white);
   border-radius: 16px;
@@ -580,41 +582,21 @@ header h1 svg {
   transform: translateY(1px);
 }
 
+/* Plain black icons, no colored circle badge -- matches the shop tiles'
+   2026-08-28 treatment (see .shop-icon), so the counter's supply icons
+   and the shop's supply icons read as the same visual language. */
 .inv-icon {
-  width: 71px;
-  height: 71px;
-  border-radius: 50%;
+  width: 65px;
+  height: 65px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--white);
-  box-shadow: 0 3px 0 rgba(10, 23, 36, 0.08), 0 2px 6px rgba(10, 23, 36, 0.1);
 }
 
 .inv-icon svg {
-  width: 37px;
-  height: 37px;
-}
-
-.inv-slot[data-supply="cups"] .inv-icon {
-  background: var(--white);
-  box-shadow: 0 3px 0 var(--hawkes-blue), 0 2px 6px rgba(10, 23, 36, 0.1);
-}
-
-.inv-slot[data-supply="lemons"] .inv-icon {
-  background: var(--onahau);
-}
-
-.inv-slot[data-supply="ice"] .inv-icon {
-  background: var(--hawkes-blue);
-}
-
-.inv-slot[data-supply="sugar"] .inv-icon {
-  background: var(--magnolia);
-}
-
-.inv-slot[data-supply="tea"] .inv-icon {
-  background: var(--mystic);
+  width: 46px;
+  height: 46px;
+  fill: var(--icon-black);
 }
 
 .inv-count {
@@ -623,11 +605,11 @@ header h1 svg {
   right: -12px;
   background: var(--persian-blue);
   color: var(--white);
-  font-size: 18px;
+  font-size: 17px;
   font-weight: 800;
   border-radius: 50%;
-  width: 41px;
-  height: 41px;
+  width: 38px;
+  height: 38px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -638,15 +620,15 @@ header h1 svg {
 
 .customer-lane {
   position: relative;
-  min-height: 430px;
+  min-height: 460px;
   overflow: hidden;
 }
 
 .customer {
   position: absolute;
-  top: 140px;
-  right: -220px;
-  width: 116px;
+  top: 168px;
+  right: -260px;
+  width: 139px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -660,55 +642,77 @@ header h1 svg {
 }
 
 .customer.leaving {
-  right: -220px !important;
+  right: -260px !important;
 }
 
+/* Outer frame: back to the original always-visible white rounded-square
+   card (2026-08-28 -- Kayla asked for the card to return after the
+   previous pass made it fully transparent by default). The colored
+   circle from that same pass stays inside it -- see .order-icon-circle
+   -- and the border still switches to red/green for the two gameplay
+   states below. */
 .order-bubble {
   background: #ffffff;
   border: 4px solid var(--hawkes-blue);
   border-radius: 20px;
+  width: 101px;
+  height: 101px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  margin-bottom: 14px;
+  box-shadow: 0 5px 0 rgba(10, 23, 36, 0.1);
+  transition: border-color 0.15s;
+}
+
+/* The actual colored circle behind the drink icon, keyed to the recipe's
+   own id -- same four tints as the Recipe Guide's colored rows, so a
+   customer's order bubble matches the color they'd see if they opened the
+   guide. (2026-08-28) */
+.order-icon-circle {
   width: 84px;
   height: 84px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 2px;
-  font-size: 22px;
-  margin-bottom: 12px;
-  box-shadow: 0 5px 0 rgba(10, 23, 36, 0.1);
 }
 
+.order-bubble[data-recipe-id="classic"] .order-icon-circle { background: var(--pale-yellow); }
+.order-bubble[data-recipe-id="sugar"] .order-icon-circle { background: var(--magnolia); }
+.order-bubble[data-recipe-id="icedTea"] .order-icon-circle { background: var(--pale-peach); }
+.order-bubble[data-recipe-id="sweetTea"] .order-icon-circle { background: var(--onahau); }
+
 .order-bubble svg {
-  width: 36px;
-  height: 36px;
+  width: 43px;
+  height: 43px;
 }
 
 .sugar-badge svg {
-  width: 18px;
-  height: 18px;
+  width: 22px;
+  height: 22px;
   vertical-align: middle;
 }
 
-/* Ready/missing are functional gameplay feedback (like a stoplight), kept
-   as universal green/red rather than brand blue so they read instantly. */
-.order-bubble.ready {
-  border-color: #53c878;
-}
-
-.order-bubble.missing {
+/* Gameplay feedback rings, universal green/red rather than brand blue so
+   they read instantly against any of the four recipe-color circles above.
+   Impatient (about to leave) turns the frame red; ready-to-serve (the
+   current build matches this order) turns it green -- ready wins if both
+   are true at once (!important), since that's the actionable state. */
+.customer.impatient .order-bubble {
   border-color: #e05c5c;
 }
 
-.customer-face {
-  font-size: 80px;
-  animation: bob 1.6s ease-in-out infinite;
-  transition: transform 0.15s;
+.order-bubble.ready {
+  border-color: #53c878 !important;
 }
 
-.customer.impatient .customer-face {
-  border: 3px solid #e05c5c;
-  border-radius: 50%;
-  box-shadow: 0 0 0 4px rgba(224, 92, 92, 0.25);
+.customer-face {
+  font-size: 96px;
+  animation: bob 1.6s ease-in-out infinite;
+  transition: transform 0.15s;
 }
 
 .customer:active .customer-face {
@@ -868,13 +872,6 @@ header h1 svg {
   font-size: 28px;
   font-weight: 800;
   margin: 8px 0;
-}
-
-.modal-box h2 svg {
-  width: 22px;
-  height: 22px;
-  vertical-align: -3px;
-  margin-right: 4px;
 }
 
 .modal-box p {
@@ -1165,6 +1162,146 @@ header h1 svg {
   font-weight: 700;
   font-size: 13px;
   color: var(--persian-blue);
+}
+
+/* ==========================================
+   RECIPE GUIDE -- enlarged, colorful rows
+   (2026-08-28, matching Kayla's reference mock)
+   Scoped to #recipeBox, #levelUpBox -- Kayla asked for the "new recipes
+   unlocked" popup's own recipe list to share this exact row treatment
+   (colors + layout) too, so every rule below applies to both modals'
+   .recipe-entry rows. #levelUpBox's own icon/title/message (trophy or
+   crown, "GOAL COMPLETE!", the level-up message paragraph) keep their
+   original look -- only its recipe LIST was asked to match.
+========================================== */
+
+#recipeBox,
+#levelUpBox {
+  /* Wider than the first pass -- rows are now a single line (drink icon,
+     title, ingredients pushed to the far right) instead of stacking the
+     title above the ingredients, so the row needs more horizontal room
+     to breathe rather than vertical room. */
+  max-width: 760px;
+  padding: 44px;
+}
+
+#recipeBox .modal-icon svg {
+  width: 60px;
+  height: 60px;
+}
+
+#recipeBox h2 {
+  color: var(--blue-black);
+  font-size: 34px;
+  margin: 10px 0 26px;
+}
+
+#recipeBox .recipe-list,
+#levelUpBox .recipe-list {
+  gap: 18px;
+  margin: 18px 0 28px;
+}
+
+#recipeBox .recipe-entry,
+#levelUpBox .recipe-entry {
+  gap: 20px;
+  border-radius: 22px;
+  padding: 20px 30px;
+}
+
+/* Each row's pale background is tied to the recipe's own id (a
+   data-recipe-id attribute set in buildRecipeListHTML, game.js), not its
+   position in whatever list is currently rendering -- so a given recipe
+   is always the same color everywhere. This matters specifically because
+   #levelUpBox's "new recipes unlocked" list is a SHORTER subset of
+   RECIPES (just the newly-unlocked ones): with position-based coloring,
+   Iced Tea would render peach (4th recipe) in the full Recipe Guide but
+   yellow (1st in that shorter list) in the level-up popup -- an
+   inconsistency of the exact color/layout parity Kayla asked for. */
+#recipeBox .recipe-entry[data-recipe-id="classic"],
+#levelUpBox .recipe-entry[data-recipe-id="classic"] { background: var(--pale-yellow); }
+#recipeBox .recipe-entry[data-recipe-id="sugar"],
+#levelUpBox .recipe-entry[data-recipe-id="sugar"] { background: var(--magnolia); }
+#recipeBox .recipe-entry[data-recipe-id="icedTea"],
+#levelUpBox .recipe-entry[data-recipe-id="icedTea"] { background: var(--pale-peach); }
+#recipeBox .recipe-entry[data-recipe-id="sweetTea"],
+#levelUpBox .recipe-entry[data-recipe-id="sweetTea"] { background: var(--onahau); }
+
+#recipeBox .recipe-result,
+#levelUpBox .recipe-result {
+  /* Bottom-align the drink icon with its sugar-badge companion (rather
+     than the shared .recipe-result rule's vertical-center) so the sugar
+     bowl's bottom edge lines up with the glass's bottom edge, matching
+     Kayla's reference. */
+  align-items: flex-end;
+  flex-shrink: 0;
+}
+
+#recipeBox .recipe-result svg,
+#levelUpBox .recipe-result svg {
+  width: 58px;
+  height: 58px;
+}
+
+#recipeBox .recipe-result .sugar-badge svg,
+#levelUpBox .recipe-result .sugar-badge svg {
+  width: 28px;
+  height: 28px;
+}
+
+#recipeBox .recipe-info,
+#levelUpBox .recipe-info {
+  /* Fixed-width column (overrides the base .recipe-info's `flex: 1`
+     shorthand entirely, rather than just `width` -- flex-basis takes
+     priority over width for a flex item's main size, so setting `width`
+     alone here was silently ignored) so the title reliably wraps to two
+     lines like Kayla's reference, instead of stretching out as one long
+     line. .recipe-ingredients (its sibling, not its child -- see
+     buildRecipeListHTML in game.js) gets pushed to the row's right edge
+     via its own margin-left:auto below, independent of how wide this
+     column is. */
+  flex: 0 0 176px;
+}
+
+#recipeBox .recipe-info strong,
+#levelUpBox .recipe-info strong {
+  display: block;
+  font-size: 23px;
+  color: var(--persian-blue);
+  margin-bottom: 0;
+  line-height: 1.25;
+}
+
+#recipeBox .recipe-ingredients,
+#levelUpBox .recipe-ingredients {
+  gap: 22px;
+  flex-shrink: 0;
+  /* Consumes all remaining row width, so the icons sit flush against the
+     row's right edge regardless of how much (or little) space the fixed-
+     width title column above leaves empty. */
+  margin-left: auto;
+}
+
+#recipeBox .recipe-ingredient svg,
+#levelUpBox .recipe-ingredient svg {
+  width: 38px;
+  height: 38px;
+  /* Matches the reference mock's plain-black ingredient icons rather
+     than the game's usual single-color Persian Blue default -- Kayla's
+     call, more icons may move to this treatment in a later pass. */
+  fill: var(--icon-black);
+}
+
+#recipeBox .recipe-ingredient em,
+#levelUpBox .recipe-ingredient em {
+  font-size: 15px;
+}
+
+#recipeBox button,
+#levelUpBox button {
+  padding: 18px 42px;
+  font-size: 21px;
+  border-radius: 16px;
 }
 
 .hidden {
