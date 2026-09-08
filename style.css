@@ -649,9 +649,11 @@ header h1 svg {
    card (2026-08-28 -- Kayla asked for the card to return after the
    previous pass made it fully transparent by default). The colored
    circle from that same pass stays inside it -- see .order-icon-circle
-   -- and the border still switches to red/green for the two gameplay
-   states below. */
+   -- the border still switches green for ready-to-serve below, and
+   `position: relative` anchors the patience-track bar to its bottom
+   edge (2026-09-08). */
 .order-bubble {
+  position: relative;
   background: #ffffff;
   border: 4px solid var(--hawkes-blue);
   border-radius: 20px;
@@ -696,15 +698,51 @@ header h1 svg {
   vertical-align: middle;
 }
 
-/* Gameplay feedback rings, universal green/red rather than brand blue so
-   they read instantly against any of the four recipe-color circles above.
-   Impatient (about to leave) turns the frame red; ready-to-serve (the
-   current build matches this order) turns it green -- ready wins if both
-   are true at once (!important), since that's the actionable state. */
-.customer.impatient .order-bubble {
-  border-color: #e05c5c;
+/* Patience countdown: sits directly on top of the order bubble's bottom
+   border stroke (rather than floating above it) -- the track itself is
+   transparent, so the normal blue border shows through until the red fill
+   creeps across and over it as the customer's patience runs out (2026-09-08
+   -- replaces the old sudden red-border swap with a continuous read on how
+   much time is left). `bottom: -4px` (equal to .order-bubble's own border
+   width) pushes it from the padding edge out onto the border itself. Width
+   is driven every tick by updatePatienceBar() in game.js; noPatience
+   tutorial customers never update theirs, so it just stays empty. */
+.patience-track {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: -4px;
+  height: 4px;
+  border-radius: 2px;
+  background: transparent;
+  overflow: hidden;
+  pointer-events: none;
 }
 
+.patience-fill {
+  height: 100%;
+  width: 0%;
+  background: #e05c5c;
+  border-radius: 2px;
+  transition: width 0.2s linear;
+}
+
+/* A gentle pulse once a customer is in the final stretch (see `warned` /
+   .impatient in game.js) -- a small extra cue on top of the bar itself
+   now being nearly full, in place of the old jarring border-color swap. */
+.customer.impatient .patience-fill {
+  animation: patience-pulse 0.6s ease-in-out infinite;
+}
+
+@keyframes patience-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+/* Gameplay feedback ring: ready-to-serve (the current build matches this
+   order) turns the frame green -- universal green rather than brand blue
+   so it reads instantly against any of the four recipe-color circles
+   above. */
 .order-bubble.ready {
   border-color: #53c878 !important;
 }
@@ -1302,6 +1340,145 @@ header h1 svg {
   padding: 18px 42px;
   font-size: 21px;
   border-radius: 16px;
+}
+
+/* ==========================================
+   TUTORIAL WALKTHROUGH
+   (start-popup Tutorial button, the six-card
+   spotlight tour, the guided-customer callouts,
+   and the first-challenge cheer popup)
+========================================== */
+
+.tutorial-start-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.tutorial-start-actions .secondary-button {
+  font-size: 14px;
+  padding: 10px 24px;
+}
+
+/* Invisible full-stage layer that blocks clicks on the dimmed game behind
+   a tour card -- the highlight box below is purely visual (box-shadow
+   isn't part of an element's hit area), so this is what actually stops
+   the player from buying supplies or opening the recipe guide mid-tour. */
+.tutorial-click-blocker {
+  position: absolute;
+  inset: 0;
+  z-index: 91;
+  background: transparent;
+}
+
+/* The "spotlight": a small transparent box positioned over whatever the
+   current card is talking about, with a giant box-shadow that dims
+   everything else on the stage. Left/top/width/height are set in JS from
+   the target element's on-screen rect, converted back into the stage's
+   unscaled 1920x1080 coordinate space. */
+.tutorial-highlight {
+  position: absolute;
+  z-index: 92;
+  border-radius: 16px;
+  box-shadow: 0 0 0 9999px rgba(10, 23, 36, 0.55);
+  pointer-events: none;
+  transition: left 0.35s ease, top 0.35s ease, width 0.35s ease, height 0.35s ease;
+}
+
+.tutorial-card {
+  position: absolute;
+  z-index: 96;
+  width: 320px;
+  background: #ffffff;
+  border-radius: 18px;
+  padding: 20px 22px 18px;
+  box-shadow: 0 16px 34px rgba(10, 23, 36, 0.28);
+  text-align: left;
+  transition: left 0.35s ease, top 0.35s ease;
+}
+
+.tutorial-card p {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--blue-black);
+  line-height: 1.45;
+  margin: 4px 0 16px;
+}
+
+.tutorial-next-btn {
+  border: none;
+  background: var(--persian-blue);
+  color: var(--white);
+  padding: 10px 22px;
+  border-radius: 12px;
+  font-family: inherit;
+  font-weight: 800;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--sky-blue);
+  transition: transform 0.15s ease;
+}
+
+.tutorial-next-btn:hover {
+  transform: translateY(-2px);
+}
+
+.tutorial-next-btn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--sky-blue);
+}
+
+.tutorial-skip {
+  display: block;
+  margin: 0 0 8px auto;
+  border: none;
+  background: none;
+  color: var(--blue-bird);
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+}
+
+.tutorial-skip:hover {
+  text-decoration: underline;
+}
+
+/* Floating callout used for the guided customers -- no click blocker, no
+   dimming, since the player needs to freely use the shop/counter/customer
+   at once. A small pointer triangle anchors it to the customer below. */
+.tutorial-callout {
+  position: absolute;
+  z-index: 96;
+  width: 260px;
+  transform: translateY(-100%);
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 14px 18px 16px;
+  box-shadow: 0 12px 26px rgba(10, 23, 36, 0.24);
+  text-align: left;
+  transition: left 0.35s ease, top 0.35s ease;
+}
+
+.tutorial-callout p {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--blue-black);
+  line-height: 1.4;
+  margin: 0;
+}
+
+.tutorial-callout::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -9px;
+  transform: translateX(-50%);
+  border-width: 9px 9px 0 9px;
+  border-style: solid;
+  border-color: #ffffff transparent transparent transparent;
 }
 
 .hidden {

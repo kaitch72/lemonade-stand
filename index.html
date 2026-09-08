@@ -322,7 +322,40 @@
 
       <h2>Lemonade Stand</h2>
       <p>Buy supplies to run your stand, save some of your money in your piggy bank, and serve customers to earn cash!</p>
-      <button onclick="startGame()">Start</button>
+      <div class="tutorial-start-actions">
+        <button onclick="startGame()">Start</button>
+        <button class="secondary-button" onclick="startTutorial()">Tutorial</button>
+      </div>
+    </section>
+
+    <!-- TUTORIAL WALKTHROUGH: spotlight highlight + positioned popup card.
+         Used for the six explanatory stops (cards 1-6). A full-stage click
+         blocker sits underneath so the dimmed area can't be interacted with
+         while a card is open -- the highlight box itself is purely visual
+         (its box-shadow spotlight isn't part of its hit area). -->
+    <div id="tutorialClickBlocker" class="tutorial-click-blocker hidden"></div>
+    <div id="tutorialHighlight" class="tutorial-highlight hidden"></div>
+    <div id="tutorialPointCard" class="tutorial-card hidden">
+      <button class="tutorial-skip" onclick="skipTutorial()">Skip tutorial ✕</button>
+      <p id="tutorialPointText"></p>
+      <button class="tutorial-next-btn" id="tutorialNextBtn" onclick="tutorialNext()">Next</button>
+    </div>
+
+    <!-- TUTORIAL WALKTHROUGH: floating callout used during the guided
+         "try it yourself" customers -- no dimming, since the player needs
+         to freely use the shop, counter, and customer at the same time. -->
+    <div id="tutorialCallout" class="tutorial-callout hidden">
+      <button class="tutorial-skip" onclick="skipTutorial()">Skip ✕</button>
+      <p id="tutorialCalloutText"></p>
+    </div>
+
+    <!-- TUTORIAL: first-challenge cheer popup, shown once when a tutorial
+         player hits the level 1 profit goal, instead of the usual toast. -->
+    <section id="tutorialCheerBox" class="modal-box hidden">
+      <div class="modal-icon" id="tutorialCheerIcon"></div>
+      <h2>Nice work!</h2>
+      <p id="tutorialCheerText">You completed your first challenge!</p>
+      <button onclick="closeTutorialCheer()">Keep Playing</button>
     </section>
 
     <!-- RECIPE GUIDE MODAL -->

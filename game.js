@@ -233,6 +233,350 @@ function startGame() {
 }
 
 // ==========================================
+// TUTORIAL WALKTHROUGH
+// Two phases:
+//  1) "Point" tour -- six spotlight+popup cards explaining the stand, the
+//     recipe guide, the shop, the wallet, the bank, and the goal bar. The
+//     game stays paused (no customers, no timers) and a full-stage click
+//     blocker keeps the player from poking at the dimmed game underneath.
+//  2) "Live" practice -- a Classic Lemonade customer (no patience timer),
+//     then a Sweetened Lemonade customer (no patience timer), then two
+//     ordinary customers with the normal timer running, after which
+//     control is handed back to the regular spawn loop.
+// A tutorial player's first level-1 goal (the $3 profit goal) also gets a
+// special cheer popup instead of the usual toast -- see checkLevelProgress.
+// ==========================================
+
+const TUTORIAL_POINTS = [
+  {
+    target: function () { return document.querySelector(".counter"); },
+    side: "right",
+    text: "Here is your stand. Down at the bottom, you'll find your supplies — the blue badge on each one shows how many you have."
+  },
+  {
+    target: function () { return document.querySelector(".recipe-button"); },
+    side: "left",
+    text: "Here's your recipe list — tap it anytime to see what ingredients each order needs."
+  },
+  {
+    target: function () { return document.querySelector(".shop"); },
+    side: "right",
+    text: "To buy more supplies, visit the shop! Tap a card for more materials at the price shown in its badge."
+  },
+  {
+    target: function () { return document.querySelector(".wallet-card"); },
+    side: "bottom",
+    text: "Here's how much money you have. Use it to buy supplies — and watch it grow every time a customer buys your lemonade!"
+  },
+  {
+    target: function () { return document.querySelector(".bank-card"); },
+    side: "bottom",
+    text: "Here's your piggy bank. Move money from your wallet into savings to earn interest on cash you're not using — but you can't spend savings on supplies, so keep some cash on hand!"
+  },
+  {
+    target: function () { return document.querySelector(".goal-card"); },
+    side: "bottom",
+    text: "Here are your challenges — complete them to level up!",
+    buttonLabel: "Let's try it!"
+  }
+];
+
+const STAGE_W = 1920;
+const STAGE_H = 1080;
+
+let tutorialPointStep = -1;
+let tutorialActive = false;    // true anytime the tutorial owns customer spawning
+let tutorialLiveStep = null;   // "classic" | "sugar" | null
+let tutorialCustomerId = null;
+let tutorialFirstGoalPending = false;
+
+function startTutorial() {
+  document.getElementById("tutorialBox").classList.add("hidden");
+  document.getElementById("modalBackdrop").classList.add("hidden");
+
+  tutorialActive = true;
+  tutorialFirstGoalPending = true;
+  tutorialPointStep = -1;
+
+  tutorialNext();
+}
+
+function tutorialNext() {
+  tutorialPointStep += 1;
+
+  if (tutorialPointStep >= TUTORIAL_POINTS.length) {
+    beginTutorialLive();
+    return;
+  }
+
+  showTutorialPoint(TUTORIAL_POINTS[tutorialPointStep]);
+}
+
+function showTutorialPoint(point) {
+  const targetEl = point.target();
+
+  if (!targetEl) {
+    tutorialNext();
+    return;
+  }
+
+  document.getElementById("tutorialClickBlocker").classList.remove("hidden");
+  document.getElementById("tutorialHighlight").classList.remove("hidden");
+
+  const card = document.getElementById("tutorialPointCard");
+  card.classList.remove("hidden");
+  document.getElementById("tutorialPointText").textContent = point.text;
+  document.getElementById("tutorialNextBtn").textContent = point.buttonLabel || "Next";
+
+  positionTutorialSpotlight(targetEl, card, point.side);
+}
+
+// Converts a target element's on-screen rect into the stage's own
+// unscaled 1920x1080 coordinate space (the stage is scaled down to fit
+// the window via CSS transform -- see .game-container in style.css), then
+// positions the spotlight box and the popup card relative to it.
+function positionTutorialSpotlight(targetEl, card, side) {
+  const stage = document.querySelector(".game-container");
+  const stageRect = stage.getBoundingClientRect();
+  const scale = stageRect.width / STAGE_W;
+  const targetRect = targetEl.getBoundingClientRect();
+
+  const left = (targetRect.left - stageRect.left) / scale;
+  const top = (targetRect.top - stageRect.top) / scale;
+  const width = targetRect.width / scale;
+  const height = targetRect.height / scale;
+
+  const pad = 10;
+  const highlight = document.getElementById("tutorialHighlight");
+  highlight.style.left = (left - pad) + "px";
+  highlight.style.top = (top - pad) + "px";
+  highlight.style.width = (width + pad * 2) + "px";
+  highlight.style.height = (height + pad * 2) + "px";
+
+  const cardWidth = card.offsetWidth || 320;
+  const cardHeight = card.offsetHeight || 160;
+  const gap = 24;
+
+  let cardLeft;
+  let cardTop;
+
+  if (side === "left") {
+    cardLeft = left - gap - cardWidth;
+    cardTop = top + height / 2 - cardHeight / 2;
+  } else if (side === "right") {
+    cardLeft = left + width + gap;
+    cardTop = top + height / 2 - cardHeight / 2;
+  } else if (side === "top") {
+    cardLeft = left + width / 2 - cardWidth / 2;
+    cardTop = top - gap - cardHeight;
+  } else {
+    // bottom
+    cardLeft = left + width / 2 - cardWidth / 2;
+    cardTop = top + height + gap;
+  }
+
+  // Keep the card fully inside the stage.
+  cardLeft = Math.max(16, Math.min(cardLeft, STAGE_W - cardWidth - 16));
+  cardTop = Math.max(16, Math.min(cardTop, STAGE_H - cardHeight - 16));
+
+  card.style.left = cardLeft + "px";
+  card.style.top = cardTop + "px";
+}
+
+function hideTutorialPoint() {
+  document.getElementById("tutorialClickBlocker").classList.add("hidden");
+  document.getElementById("tutorialHighlight").classList.add("hidden");
+  document.getElementById("tutorialPointCard").classList.add("hidden");
+}
+
+function beginTutorialLive() {
+  hideTutorialPoint();
+  resumeGame();
+  spawnTutorialCustomer(
+    "classic",
+    "This customer ordered a Classic Lemonade. Buy the supplies, build the order, then tap the customer to serve them!"
+  );
+}
+
+// A scripted customer used during the guided-practice steps: parked in
+// the front slot with its patience timer disabled (see noPatience in
+// startCustomerTicker) so the player can take as long as they need.
+function spawnTutorialCustomer(recipeId, calloutText) {
+  tutorialLiveStep = recipeId;
+
+  const recipe = RECIPES.find(function (r) { return r.id === recipeId; });
+  const face = CUSTOMER_EMOJIS[Math.floor(Math.random() * CUSTOMER_EMOJIS.length)];
+  const id = nextCustomerId++;
+  const el = buildCustomerElement(recipe, face, id);
+
+  document.getElementById("customerLane").appendChild(el);
+
+  const customer = {
+    id: id,
+    element: el,
+    recipe: recipe,
+    remainingMs: PATIENCE_MS,
+    warned: false,
+    noPatience: true
+  };
+  customers.push(customer);
+  tutorialCustomerId = id;
+
+  positionCustomer(customer, 0);
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      el.classList.add("parked");
+    });
+  });
+  updateCustomerReadiness(customer);
+
+  // The customer slides in over .5s (see .customer's `right` transition in
+  // style.css) -- wait for it to land before measuring its position, or
+  // the callout would anchor to its off-screen starting spot instead.
+  setTimeout(function () {
+    showTutorialCallout(el, calloutText);
+  }, 600);
+}
+
+// Two ordinary customers with the normal patience timer, spawned once the
+// player has practiced an order -- after this the tutorial hands control
+// back to the regular spawn loop.
+function spawnScriptedTimedCustomer() {
+  const availableRecipes = recipesUnlockedByLevel(currentGameLevel);
+  const recipe = availableRecipes[Math.floor(Math.random() * availableRecipes.length)];
+  const face = CUSTOMER_EMOJIS[Math.floor(Math.random() * CUSTOMER_EMOJIS.length)];
+  const id = nextCustomerId++;
+  const el = buildCustomerElement(recipe, face, id);
+
+  document.getElementById("customerLane").appendChild(el);
+
+  const customer = {
+    id: id,
+    element: el,
+    recipe: recipe,
+    remainingMs: PATIENCE_MS,
+    warned: false
+  };
+  customers.push(customer);
+
+  positionCustomer(customer, customers.length - 1);
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      el.classList.add("parked");
+    });
+  });
+  updateCustomerReadiness(customer);
+
+  return customer;
+}
+
+function showTutorialCallout(customerEl, text) {
+  const callout = document.getElementById("tutorialCallout");
+  callout.classList.remove("hidden");
+  document.getElementById("tutorialCalloutText").textContent = text;
+
+  const stage = document.querySelector(".game-container");
+  const stageRect = stage.getBoundingClientRect();
+  const scale = stageRect.width / STAGE_W;
+  const targetRect = customerEl.getBoundingClientRect();
+
+  const left = (targetRect.left - stageRect.left) / scale;
+  const top = (targetRect.top - stageRect.top) / scale;
+  const width = targetRect.width / scale;
+
+  const cardWidth = callout.offsetWidth || 260;
+  let cardLeft = left + width / 2 - cardWidth / 2;
+  cardLeft = Math.max(16, Math.min(cardLeft, STAGE_W - cardWidth - 16));
+
+  callout.style.left = cardLeft + "px";
+  callout.style.top = (top - 18) + "px"; // transform: translateY(-100%) lifts it clear above
+}
+
+function hideTutorialCallout() {
+  document.getElementById("tutorialCallout").classList.add("hidden");
+}
+
+// Runs fn immediately, unless the first-challenge cheer popup is showing --
+// in that case it waits, so a tutorial customer served at the exact moment
+// the $3 goal completes doesn't spawn the next step underneath that modal.
+function runAfterTutorialCheer(fn) {
+  const cheerBox = document.getElementById("tutorialCheerBox");
+  if (cheerBox && !cheerBox.classList.contains("hidden")) {
+    setTimeout(function () { runAfterTutorialCheer(fn); }, 300);
+    return;
+  }
+  fn();
+}
+
+function advanceTutorialLiveStep() {
+  if (tutorialLiveStep === "classic") {
+    setTimeout(function () {
+      runAfterTutorialCheer(function () {
+        spawnTutorialCustomer("sugar", "Nice! Now complete this customer's order for a Sweetened Lemonade.");
+      });
+    }, 500);
+  } else if (tutorialLiveStep === "sugar") {
+    tutorialLiveStep = null;
+    tutorialCustomerId = null;
+    setTimeout(function () {
+      runAfterTutorialCheer(finishTutorialIntro);
+    }, 500);
+  }
+}
+
+function finishTutorialIntro() {
+  hideTutorialCallout();
+
+  spawnScriptedTimedCustomer();
+  const lastCustomer = spawnScriptedTimedCustomer();
+
+  // Same slide-in delay as spawnTutorialCustomer -- wait for the customer
+  // to reach its parked spot before anchoring the callout to it.
+  setTimeout(function () {
+    showTutorialCallout(lastCustomer.element, "Customers don't like to wait — serve them quickly before they leave your stand!");
+
+    setTimeout(function () {
+      hideTutorialCallout();
+    }, 4500);
+  }, 600);
+
+  // Hand spawning back to the regular loop -- round 1 continues as usual.
+  tutorialActive = false;
+}
+
+function skipTutorial() {
+  hideTutorialPoint();
+  hideTutorialCallout();
+  document.getElementById("tutorialBox").classList.add("hidden");
+  document.getElementById("tutorialCheerBox").classList.add("hidden");
+
+  document.getElementById("customerLane").innerHTML = "";
+  customers = [];
+
+  tutorialActive = false;
+  tutorialLiveStep = null;
+  tutorialCustomerId = null;
+  tutorialFirstGoalPending = false;
+
+  resumeGame();
+}
+
+function showTutorialCheer(text) {
+  document.getElementById("tutorialCheerText").textContent = text;
+  document.getElementById("tutorialCheerIcon").innerHTML = TROPHY_SVG;
+
+  pauseGame();
+  document.getElementById("tutorialCheerBox").classList.remove("hidden");
+  updateDisplay();
+}
+
+function closeTutorialCheer() {
+  document.getElementById("tutorialCheerBox").classList.add("hidden");
+  resumeGame();
+  updateDisplay();
+}
+
+// ==========================================
 // BUY SUPPLIES
 // ==========================================
 
@@ -327,7 +671,7 @@ const TICK_MS = 200;
 function spawnLoop() {
   clearTimeout(spawnTimeout);
 
-  if (!isPaused && customers.length < MAX_CUSTOMERS) {
+  if (!isPaused && !tutorialActive && customers.length < MAX_CUSTOMERS) {
     spawnCustomer();
   }
 
@@ -335,26 +679,35 @@ function spawnLoop() {
   spawnTimeout = setTimeout(spawnLoop, nextDelay);
 }
 
-function spawnCustomer() {
-  const id = nextCustomerId++;
-  const availableRecipes = recipesUnlockedByLevel(currentGameLevel);
-  const recipe = availableRecipes[Math.floor(Math.random() * availableRecipes.length)];
-  const face = CUSTOMER_EMOJIS[Math.floor(Math.random() * CUSTOMER_EMOJIS.length)];
-
+// Shared markup for every customer, however they're spawned (the normal
+// random loop, or the tutorial's scripted customers) -- includes the
+// order bubble (colored by data-recipe-id, see style.css), the patience
+// track/fill (a thin bar along the bubble's bottom edge, filled in by
+// updatePatienceBar as remainingMs counts down -- see startCustomerTicker),
+// and the customer's face.
+function buildCustomerElement(recipe, face, id) {
   const el = document.createElement("div");
   el.className = "customer";
   el.onclick = function () {
     serveCustomer(id);
   };
 
-  // data-recipe-id keys the bubble's circle color to this order's recipe
-  // (see the [data-recipe-id="..."] rules in style.css) -- the same
-  // stable-id pattern already used for the Recipe Guide/Level Up rows.
   el.innerHTML =
     '<div class="order-bubble" data-recipe-id="' + recipe.id + '">' +
     '<span class="order-icon-circle">' + recipe.icon + "</span>" +
+    '<div class="patience-track"><div class="patience-fill"></div></div>' +
     "</div>" +
     '<div class="customer-face">' + face + "</div>";
+
+  return el;
+}
+
+function spawnCustomer() {
+  const id = nextCustomerId++;
+  const availableRecipes = recipesUnlockedByLevel(currentGameLevel);
+  const recipe = availableRecipes[Math.floor(Math.random() * availableRecipes.length)];
+  const face = CUSTOMER_EMOJIS[Math.floor(Math.random() * CUSTOMER_EMOJIS.length)];
+  const el = buildCustomerElement(recipe, face, id);
 
   document.getElementById("customerLane").appendChild(el);
 
@@ -393,7 +746,14 @@ function startCustomerTicker() {
 
     // Snapshot the array since customerGaveUp() may remove entries mid-loop
     customers.slice().forEach(function (customer) {
+      // Tutorial practice customers have no patience limit -- see
+      // spawnTutorialCustomer -- so they never trigger customerGaveUp.
+      if (customer.noPatience) {
+        return;
+      }
+
       customer.remainingMs -= TICK_MS;
+      updatePatienceBar(customer);
 
       if (!customer.warned && customer.remainingMs <= WARNING_MS) {
         customer.warned = true;
@@ -405,6 +765,19 @@ function startCustomerTicker() {
       }
     });
   }, TICK_MS);
+}
+
+// Fills the thin bar along the bottom of the order bubble as the customer's
+// patience runs out -- empty when they arrive, full red right before they
+// give up. Replaces the old sudden red-border swap with a continuous cue.
+function updatePatienceBar(customer) {
+  const fill = customer.element.querySelector(".patience-fill");
+  if (!fill) {
+    return;
+  }
+
+  const elapsedPct = Math.max(0, Math.min(100, (1 - customer.remainingMs / PATIENCE_MS) * 100));
+  fill.style.width = elapsedPct + "%";
 }
 
 function positionCustomer(customer, index) {
@@ -472,6 +845,10 @@ function serveCustomer(id) {
 
   updateDisplay();
   checkLevelProgress();
+
+  if (tutorialCustomerId === id) {
+    advanceTutorialLiveStep();
+  }
 }
 
 function removeFromQueue(customer) {
@@ -699,6 +1076,11 @@ function checkLevelProgress() {
 
   if (goalsCompletedThisLevel >= levelDef.goals.length) {
     advanceGameLevel();
+  } else if (tutorialFirstGoalPending && currentGameLevel === 1 && goalsCompletedThisLevel === 1) {
+    // A tutorial player's very first goal gets a special cheer popup
+    // instead of the usual toast -- see showTutorialCheer.
+    tutorialFirstGoalPending = false;
+    showTutorialCheer("You completed your first challenge! 🎉 Keep hitting your targets to move on to Round 2 — you've got this!");
   } else {
     const nextGoal = levelDef.goals[goalsCompletedThisLevel];
     showMessage("Goal complete! 🎉 Next: " + nextGoal.name);
@@ -869,6 +1251,18 @@ function confirmRestart() {
   document.getElementById("levelUpBox").classList.add("hidden");
   document.getElementById("levelUpBox").classList.remove("statement");
   document.getElementById("recipeBox").classList.add("hidden");
+
+  // Clear out any in-progress tutorial (spotlight card, callout, cheer
+  // popup, scripted no-patience customer) so a restart mid-tutorial
+  // doesn't leave stray UI or a stuck customer behind.
+  hideTutorialPoint();
+  hideTutorialCallout();
+  document.getElementById("tutorialCheerBox").classList.add("hidden");
+  tutorialPointStep = -1;
+  tutorialActive = false;
+  tutorialLiveStep = null;
+  tutorialCustomerId = null;
+  tutorialFirstGoalPending = false;
 
   document.getElementById("customerLane").innerHTML = "";
   customers = [];
