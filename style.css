@@ -238,21 +238,26 @@ header h1 svg {
   margin: 0;
 }
 
+/* Pushed to the right edge of the card (2026-09-09, per Kayla) -- the
+   bank card was leaving a lot of empty white space to the right of these
+   buttons; right-aligning them (and sizing them up below) puts that space
+   to use instead. */
 .save-row {
   display: flex;
   align-items: center;
-  gap: 6px;
+  justify-content: flex-end;
+  gap: 8px;
 }
 
 .save-button {
   background: var(--persian-blue);
   border: none;
   color: var(--white);
-  border-radius: 8px;
-  padding: 6px 10px;
+  border-radius: 10px;
+  padding: 10px 16px;
   font-family: inherit;
   font-weight: 700;
-  font-size: 12px;
+  font-size: 16px;
   cursor: pointer;
   box-shadow: 0 3px 0 var(--hawkes-blue);
   transition: transform 0.1s ease;
@@ -268,7 +273,11 @@ header h1 svg {
 }
 
 .interest-caption {
-  margin-left: auto;
+  /* .save-row now handles right-alignment itself (justify-content:
+     flex-end), so this no longer needs its own auto margin to get pushed
+     over -- it just sits after the buttons in the same right-aligned
+     cluster. */
+  margin-left: 0;
   font-size: 11px;
   font-weight: 700;
   color: var(--blue-bird);
@@ -298,7 +307,11 @@ header h1 svg {
 
 .play-area {
   display: grid;
-  grid-template-columns: 191px 1fr 520px;
+  /* Stand column is 1fr (flexible), so shrinking the stand's own max-width
+     below and growing the customer-lane track here both free up/consume
+     that flexible middle space together (2026-09-09, per Kayla: smaller
+     stand, bigger customers/orders). */
+  grid-template-columns: 191px 1fr 700px;
   gap: 18px;
   margin: 18px;
   padding: 20px;
@@ -326,7 +339,9 @@ header h1 svg {
 
 .shop-item {
   position: relative;
-  background: #ffffff;
+  /* Sky Blue instead of white (2026-09-09, per Kayla -- white was reading
+     too light/washed out for the shop cards). */
+  background: var(--sky-blue);
   border-radius: 18px;
   /* No fixed height -- shares .shop's fixed height equally with however
      many cards (4 or 5) are currently visible. */
@@ -408,7 +423,7 @@ header h1 svg {
      more room to be the bigger element on this screen -- everything
      inside (.awning/.build-zone/.counter) is positioned as a percentage
      of this box already, so it scales along automatically. */
-  max-width: 720px;
+  max-width: 700px;
   aspect-ratio: 930 / 822;
 }
 
@@ -446,10 +461,13 @@ header h1 svg {
   justify-content: center;
 }
 
+/* Positioned as a % of .stand (it's a direct child now, not nested in
+   .awning) so it lands on the bottom right blue rounded scallop of the
+   awning artwork -- see the HTML comment above the button for the math. */
 .recipe-button {
   position: absolute;
-  top: 8px;
-  right: 10px;
+  top: 11.8%;
+  right: 2.9%;
   width: 38px;
   height: 38px;
   border-radius: 50%;
@@ -472,20 +490,24 @@ header h1 svg {
   transform: translateY(-2px);
 }
 
+/* top raised from 34% to 40.3% (2026-09-09) to compensate for the Undo
+   button (now a separate element above, ~39px/6.3% of stand height) no
+   longer taking up space in this flex column -- keeps the ingredient tray
+   itself pixel-for-pixel where it already was; see the .clear-button rule
+   below for where Undo went instead. */
 .build-zone {
   position: absolute;
-  top: 22%;
+  top: 40.3%;
   left: 50%;
   transform: translateX(-50%);
   width: 74%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
 }
 
 .build-display {
-  min-height: 68px;
+  min-height: 92px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -494,14 +516,14 @@ header h1 svg {
 }
 
 .build-display .build-icon {
-  font-size: 52px;
+  font-size: 72px;
   filter: drop-shadow(0 4px 3px rgba(10, 23, 36, 0.2));
   animation: pop-in 0.2s ease-out;
 }
 
 .build-icon-svg svg {
-  width: 50px;
-  height: 50px;
+  width: 70px;
+  height: 70px;
 }
 
 @keyframes pop-in {
@@ -516,7 +538,14 @@ header h1 svg {
   text-align: center;
 }
 
+/* Own absolute position now (2026-09-09, per Kayla) -- pushed back up
+   toward the awning, further from the ingredient tray in .build-zone
+   below (which stayed put; only Undo moved). */
 .clear-button {
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  transform: translateX(-50%);
   border: 2px solid var(--persian-blue);
   background: var(--white);
   color: var(--persian-blue);
@@ -529,7 +558,10 @@ header h1 svg {
 }
 
 .clear-button:hover {
-  transform: translateY(-2px);
+  /* Combines with the base translateX(-50%) centering above -- setting
+     transform alone here would overwrite it and knock the button
+     off-center on hover. */
+  transform: translateX(-50%) translateY(-2px);
 }
 
 /* Positioned to sit inside the counter box painted in images/stand.svg
@@ -548,8 +580,8 @@ header h1 svg {
 
 /* Capped to fit exactly 3 slots per row (3 x 101px + 2 x 16px gap = 335px)
    so a 5th/4th ingredient wraps to its own centered second row instead of
-   spilling past the counter -- see the .stand sizing note above for why the
-   stand artwork is scaled large enough (720px) to fit two full rows here. */
+   spilling past the counter -- comfortably under .counter's width even at
+   the smaller 620px stand size (2026-09-09), so both rows still fit. */
 .inventory-slots {
   display: flex;
   flex-wrap: wrap;
@@ -563,7 +595,8 @@ header h1 svg {
   position: relative;
   width: 101px;
   height: 101px;
-  background: #ffffff;
+  /* Sky Blue instead of white (2026-09-09, per Kayla -- see .shop-item). */
+  background: var(--sky-blue);
   border: 3px solid var(--white);
   border-radius: 16px;
   display: flex;
@@ -620,15 +653,15 @@ header h1 svg {
 
 .customer-lane {
   position: relative;
-  min-height: 460px;
+  min-height: 520px;
   overflow: hidden;
 }
 
 .customer {
   position: absolute;
-  top: 168px;
+  top: 150px;
   right: -260px;
-  width: 139px;
+  width: 180px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -657,24 +690,25 @@ header h1 svg {
   background: #ffffff;
   border: 4px solid var(--hawkes-blue);
   border-radius: 20px;
-  width: 101px;
-  height: 101px;
+  width: 140px;
+  height: 140px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 26px;
   margin-bottom: 14px;
   box-shadow: 0 5px 0 rgba(10, 23, 36, 0.1);
-  transition: border-color 0.15s;
+  transition: border-color 0.15s, background-color 0.15s;
 }
 
-/* The actual colored circle behind the drink icon, keyed to the recipe's
-   own id -- same four tints as the Recipe Guide's colored rows, so a
-   customer's order bubble matches the color they'd see if they opened the
-   guide. (2026-08-28) */
+/* The drink icon's positioning wrapper -- no longer a colored circle of its
+   own (2026-09-09, per Kayla): the color that used to live here now fills
+   the whole .order-bubble card instead (see the [data-recipe-id] rules
+   below), so the order box itself reads as that recipe's color at a
+   glance, still inside the same blue outline/green-ready/red-timer frame. */
 .order-icon-circle {
-  width: 84px;
-  height: 84px;
+  width: 114px;
+  height: 114px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -682,14 +716,16 @@ header h1 svg {
   gap: 2px;
 }
 
-.order-bubble[data-recipe-id="classic"] .order-icon-circle { background: var(--pale-yellow); }
-.order-bubble[data-recipe-id="sugar"] .order-icon-circle { background: var(--magnolia); }
-.order-bubble[data-recipe-id="icedTea"] .order-icon-circle { background: var(--pale-peach); }
-.order-bubble[data-recipe-id="sweetTea"] .order-icon-circle { background: var(--onahau); }
+/* Same four tints the Recipe Guide's colored rows use, now on the card
+   itself rather than the circle behind the icon. */
+.order-bubble[data-recipe-id="classic"] { background: var(--pale-yellow); }
+.order-bubble[data-recipe-id="sugar"] { background: var(--magnolia); }
+.order-bubble[data-recipe-id="icedTea"] { background: var(--pale-peach); }
+.order-bubble[data-recipe-id="sweetTea"] { background: var(--onahau); }
 
 .order-bubble svg {
-  width: 43px;
-  height: 43px;
+  width: 57px;
+  height: 57px;
 }
 
 .sugar-badge svg {
@@ -748,9 +784,15 @@ header h1 svg {
 }
 
 .customer-face {
-  font-size: 96px;
+  height: 168px;
   animation: bob 1.6s ease-in-out infinite;
   transition: transform 0.15s;
+}
+
+.customer-face svg {
+  display: block;
+  height: 100%;
+  width: auto;
 }
 
 .customer:active .customer-face {
