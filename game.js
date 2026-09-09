@@ -1,5 +1,5 @@
 // ==========================================
-// 🍋 LEMONADE STAND — ROUND 1
+// LEMONADE STAND — ROUND 1
 // ==========================================
 
 // ==========================================
@@ -7,11 +7,11 @@
 // ==========================================
 
 const SUPPLIES = {
-  cups: { icon: "🥤", name: "Cups", buyAmount: 10, price: 2.00 },
-  lemons: { icon: "🍋", name: "Lemons", buyAmount: 10, price: 2.00 },
-  ice: { icon: "🧊", name: "Ice", buyAmount: 10, price: 1.00 },
-  sugar: { icon: "🍬", name: "Sugar", buyAmount: 10, price: 1.00 },
-  tea: { icon: "🫖", name: "Tea Bags", buyAmount: 10, price: 2.00 }
+  cups: { name: "Cups", buyAmount: 10, price: 2.00 },
+  lemons: { name: "Lemons", buyAmount: 10, price: 2.00 },
+  ice: { name: "Ice", buyAmount: 10, price: 1.00 },
+  sugar: { name: "Sugar", buyAmount: 10, price: 1.00 },
+  tea: { name: "Tea Bags", buyAmount: 10, price: 2.00 }
 };
 
 // ==========================================
@@ -41,9 +41,9 @@ const SUGAR_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 194.74 1
 const TEA_BAG_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 125.39 149.06"><defs><style>.teabagsvg-cls-1 { fill: #dbdbdb; } .teabagsvg-cls-2 { fill: #cecece; } .teabagsvg-cls-3 { fill: #fff; opacity: .3; } .teabagsvg-cls-4 { fill: #8c7d70; } .teabagsvg-cls-5 { fill: #eae9e5; } .teabagsvg-cls-6 { fill: #ffc58b; } .teabagsvg-cls-7 { fill: #0a223a; opacity: .05; }</style></defs><g><polyline class="teabagsvg-cls-5" points="115.86 83.3 115.86 149.06 52.83 149.06 52.83 83.3 67.8 61.74 100.89 61.74 115.86 83.3"/><polyline class="teabagsvg-cls-6" points="0 22.22 0 0 29.13 0 29.13 22.22 22.21 29.51 6.92 29.51 0 22.22"/><polygon class="teabagsvg-cls-2" points="120.06 139.37 115.86 149.06 115.86 83.3 125.39 141.5 120.06 139.37"/><path class="teabagsvg-cls-4" d="M55.2,130.22c1.44-1.95,4.51-2.58,6.96-4.07,2.84-1.41,4.91-4.27,7.6-5.97,4.53-2.27,10.4-2.54,15.43-2.54,4.03.09,7.44,2.23,11.32,3.02,1.98.43,4.06.89,5.97,1.68,2.9,1.25,5.41,3.87,8.35,4.88,1.9.61,3.13,2.02,3.2,4.62.23,3.24.38,8.57.23,11.63-.09,1.64-.16,4.12-1.87,3.96-4.53.03-22.45,0-37.14.01-8.21,0-13.43,0-18.81,0-1.56-.01-1.96.22-2.03-2.65-.05-2.61-.02-5.46-.03-8.11.04-2.19-.2-4.78.74-6.36l.07-.11Z"/><polygon class="teabagsvg-cls-1" points="52.83 83.3 78.28 73.27 67.8 61.74 52.83 83.3"/><polygon class="teabagsvg-cls-1" points="115.86 83.3 90.42 73.27 100.89 61.74 115.86 83.3"/><polygon class="teabagsvg-cls-2" points="67.8 61.74 100.89 61.74 90.29 78.33 78.4 78.33 67.8 61.74"/><path class="teabagsvg-cls-1" d="M12.62,26.79c-.95,7.04.23,14.37,4.89,19.94,4.19,5.01,10.59,7.92,16.96,8.88,7.79,1.16,15.67-.44,23.09-2.79,7.08-2.23,15.04-6.67,22.62-4.39,3.73,1.12,6.54,3.83,7.14,7.77.65,4.3-.84,8.86-3.11,12.46-.77,1.23,1.17,2.36,1.94,1.14,3.55-5.64,5.57-14.44.64-19.91s-12.88-4.81-19.17-2.87c-8,2.46-15.66,5.82-24.1,6.57-7.02.63-14.26-.54-20.17-4.58-7.12-4.86-9.7-13.31-8.58-21.62.19-1.42-1.98-2.03-2.17-.6h0Z"/><path class="teabagsvg-cls-7" d="M52.83,149.06s25.41-.41,42.26-20.16c16.85-19.75,20.78-43.57,20.78-43.57v63.73h-63.04Z"/><path class="teabagsvg-cls-3" d="M52.83,106.56s3.87-18.46,12.72-29.32,17.45-15.51,17.45-15.51h-15.21s-14.97,21.56-14.97,21.56v23.27Z"/></g></svg>';
 
 // Brand-icon lookup for the persistent UI (shop tiles, inventory slots,
-// the order-build tray, and the recipe guide). SUPPLIES[type].icon stays
-// emoji-only -- that field is used purely in the transient message-strip
-// toasts ("Bought 10 lemons!"), which keep their emoji per Kayla's call.
+// the order-build tray, and the recipe guide). The transient message-strip
+// toasts (e.g. "Bought 10 lemons!") are plain text -- no icons or emoji
+// (2026-09-09, per Kayla: no emoji anywhere in the game).
 const SUPPLY_ICON_SVGS = {
   cups: EMPTY_CUP_SVG,
   lemons: LEMON_SVG,
@@ -766,7 +766,7 @@ function buySupplies(type) {
   const supply = SUPPLIES[type];
 
   if (cash < supply.price) {
-    showMessage("Not enough cash for more " + supply.name.toLowerCase() + "! 💵");
+    showMessage("Not enough cash for more " + supply.name.toLowerCase() + "!");
     return;
   }
 
@@ -774,7 +774,7 @@ function buySupplies(type) {
   totalSpent += supply.price;
   inventory[type] += supply.buyAmount;
 
-  showMessage("Bought " + supply.buyAmount + " " + supply.name.toLowerCase() + "! " + supply.icon);
+  showMessage("Bought " + supply.buyAmount + " " + supply.name.toLowerCase() + "!");
 
   updateDisplay();
   checkLevelProgress();
@@ -980,7 +980,7 @@ function customerGaveUp(id) {
     return;
   }
 
-  showMessage("A customer left without ordering. 😞");
+  showMessage("A customer left without ordering.");
   removeFromQueue(customer);
 }
 
@@ -996,7 +996,7 @@ function serveCustomer(id) {
   }
 
   if (!buildMatchesRecipe(customer.recipe)) {
-    showMessage("That's not quite what they ordered! Check the build. 🤔");
+    showMessage("That's not quite what they ordered! Check the build.");
     customer.element.classList.add("shake");
     setTimeout(function () {
       customer.element.classList.remove("shake");
@@ -1017,7 +1017,7 @@ function serveCustomer(id) {
     teaOrdersServed += 1;
   }
 
-  showMessage(customer.recipe.name + " served! +$" + customer.recipe.price.toFixed(2) + " 💰");
+  showMessage(customer.recipe.name + " served! +$" + customer.recipe.price.toFixed(2));
 
   createSparkleBurst(customer.element);
 
@@ -1162,14 +1162,14 @@ function closeRecipeGuide() {
 
 function saveMoney(amount) {
   if (cash < amount) {
-    showMessage("You don't have enough cash to save that much! 🐷");
+    showMessage("You don't have enough cash to save that much!");
     return;
   }
 
   cash -= amount;
   savings += amount;
 
-  showMessage("You put $" + amount.toFixed(2) + " in your bank! 🐷");
+  showMessage("You put $" + amount.toFixed(2) + " in your bank!");
 
   updateDisplay();
   checkLevelProgress();
@@ -1204,7 +1204,7 @@ function growSavings() {
   const growth = savings * 0.05;
   savings += growth;
 
-  showMessage("✨ Your bank grew by $" + growth.toFixed(2) + "!");
+  showMessage("Your bank grew by $" + growth.toFixed(2) + "!");
 
   updateDisplay();
   checkLevelProgress();
@@ -1263,10 +1263,10 @@ function checkLevelProgress() {
     // A tutorial player's very first goal gets a special cheer popup
     // instead of the usual toast -- see showTutorialCheer.
     tutorialFirstGoalPending = false;
-    showTutorialCheer("You completed your first challenge! 🎉 Keep hitting your targets to move on to Round 2 — you've got this!");
+    showTutorialCheer("You completed your first challenge! Keep hitting your targets to move on to Round 2 — you've got this!");
   } else {
     const nextGoal = levelDef.goals[goalsCompletedThisLevel];
-    showMessage("Goal complete! 🎉 Next: " + nextGoal.name);
+    showMessage("Goal complete! Next: " + nextGoal.name);
     updateDisplay();
   }
 }
@@ -1277,7 +1277,7 @@ function advanceGameLevel() {
 
   const newLevelDef = getCurrentLevelDef();
 
-  document.getElementById("levelUpTitle").textContent = "🎉 LEVEL " + currentGameLevel + "!";
+  document.getElementById("levelUpTitle").textContent = "LEVEL " + currentGameLevel + "!";
 
   const levelUpIcon = document.getElementById("levelUpIcon");
 
@@ -1371,7 +1371,7 @@ function updateGoalDisplay() {
 
   if (!levelDef) {
     document.getElementById("goalLevelLabel").textContent = "Complete!";
-    document.getElementById("goalText").textContent = "All goals complete! 👑";
+    document.getElementById("goalText").textContent = "All goals complete!";
     document.getElementById("goalProgress").style.width = "100%";
     return;
   }
@@ -1450,7 +1450,7 @@ function confirmRestart() {
   document.getElementById("customerLane").innerHTML = "";
   customers = [];
 
-  showMessage("Welcome back! Let's build your lemonade empire! 🍋");
+  showMessage("Welcome back! Let's build your lemonade empire!");
 
   resumeGame();
   updateDisplay();

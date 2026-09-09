@@ -100,10 +100,86 @@ body {
           )
       );
 
-  background: #ffffff;
+  /* Kayla's sky/hills illustration (2026-09-09) -- drawn at the stage's
+     exact 1920x1080, so it fills edge to edge with no cropping. The header
+     and topbar cards paint over the top of it naturally. */
+  background-image: url("images/Background.svg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
   border-radius: var(--stage-radius);
   overflow: hidden;
   box-shadow: 0 15px 40px rgba(10, 23, 36, 0.16);
+}
+
+/* ==========================================
+   SKY DECORATION (2026-09-09, per Kayla)
+   Two clouds drift slowly across the sky and a
+   sun sits under the Level card, pulsing gently.
+   Purely decorative -- aria-hidden, no pointer
+   events, and pinned behind every real UI layer.
+========================================== */
+
+.sky-decor {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  /* .game-container is the positioned ancestor (position: relative) that
+     this stacks within. Without a negative z-index here, this being
+     *positioned* would paint it ABOVE .topbar/.play-area even though it
+     comes first in the markup -- positioned descendants always paint over
+     plain in-flow content, regardless of source order. Negative z-index is
+     what actually pushes it behind, so the cards and stand genuinely float
+     on top of the sky the way Kayla wants. */
+  z-index: -1;
+}
+
+.cloud {
+  position: absolute;
+  opacity: 0.92;
+}
+
+.cloud-1 {
+  /* Below the WALLET/BANK/LEVEL card row (which ends at ~222px) so the
+     cloud never gets its top clipped off passing behind those opaque
+     cards -- see start-screen-popups.md, 2026-09-09 sky-decor pass. */
+  top: 230px;
+  width: 300px;
+  animation: drift-cloud-1 75s linear infinite;
+}
+
+.cloud-2 {
+  top: 300px;
+  width: 210px;
+  animation: drift-cloud-2 100s linear infinite;
+  /* Negative delay starts it partway through its own loop so the two
+     clouds never line up or move in lockstep. */
+  animation-delay: -35s;
+}
+
+@keyframes drift-cloud-1 {
+  from { left: -320px; }
+  to   { left: 1920px; }
+}
+
+@keyframes drift-cloud-2 {
+  from { left: -230px; }
+  to   { left: 1920px; }
+}
+
+/* Sits in the sky under the Level card, top-right. */
+.sun {
+  position: absolute;
+  top: 245px;
+  right: 110px;
+  width: 130px;
+  height: 130px;
+  animation: pulse-sun 4s ease-in-out infinite;
+}
+
+@keyframes pulse-sun {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.08); }
 }
 
 /* ==========================================
@@ -133,8 +209,12 @@ header {
   /* Locked to exactly 1/12 of the stage height -- the shared header
      standard across the finlit game suite (see Budget Builder). */
   height: calc(var(--stage-height) / 12);
-  /* Flat Sky Blue, matching Budget Builder's top-bar color. */
-  background: var(--sky-blue);
+  /* White instead of Sky Blue (2026-09-09, per Kayla) -- floats as a card
+     over the sky background now, like Driver Decides' top bar, with the
+     .topbar row's own cards below it. Rounded bottom corners so it reads
+     as a distinct floating panel rather than a flat edge-to-edge band. */
+  background: var(--white);
+  border-radius: 0 0 var(--card-radius) var(--card-radius);
   box-shadow: 0 4px 14px rgba(10, 23, 36, 0.08);
   display: grid;
   grid-template-columns: 1fr auto 1fr;
@@ -316,10 +396,11 @@ header h1 svg {
   margin: 18px;
   padding: 20px;
   align-items: start;
-  /* White -- blends into the game-container itself,
-     no separate colored panel/box behind the shop,
-     stand, and customer lane. */
-  background: var(--white);
+  /* Transparent (2026-09-09, per Kayla) -- .game-container now has the
+     sky/hills background art painted behind it, so this panel needs to let
+     it show through in the gaps around the shop cards, stand, and customer
+     lane rather than covering it with a solid color. */
+  background: transparent;
 }
 
 /* SHOP */
@@ -342,6 +423,10 @@ header h1 svg {
   /* Sky Blue instead of white (2026-09-09, per Kayla -- white was reading
      too light/washed out for the shop cards). */
   background: var(--sky-blue);
+  /* Same white outline as the stand's .inv-slot counter cards (2026-09-09,
+     per Kayla) so both sets of ingredient cards pop off the background the
+     same way. */
+  border: 3px solid var(--white);
   border-radius: 18px;
   /* No fixed height -- shares .shop's fixed height equally with however
      many cards (4 or 5) are currently visible. */
@@ -387,25 +472,49 @@ header h1 svg {
    and nothing else behind it. (2026-08-28; replaces the earlier pale-tint
    circular "token" badge treatment.) */
 .shop-icon {
-  width: 72px;
-  height: 72px;
+  width: 80px;
+  height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   margin-bottom: 4px;
 }
 
+/* Slightly larger (2026-09-09, per Kayla). */
 .shop-icon svg {
-  width: 52px;
-  height: 52px;
+  width: 64px;
+  height: 64px;
   fill: var(--icon-black);
 }
 
+/* Item name + quantity, side by side (2026-09-09, per Kayla: "next to the
+   x10 put the names" -- the shop cards have the most spare room of any HUD
+   element, so the ingredient name sits right next to its quantity). */
+.qty-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 2px;
+  max-width: 100%;
+  padding: 0 4px;
+}
+
+.item-label {
+  font-size: 14px;
+  font-weight: 700;
+  /* Same blue as .qty-label (2026-09-09, per Kayla) for consistency. */
+  color: var(--persian-blue);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .qty-label {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 700;
   color: var(--persian-blue);
-  margin-top: 2px;
+  white-space: nowrap;
 }
 
 /* STAND */
@@ -882,25 +991,28 @@ header h1 svg {
    RESTART BUTTON
 ========================================== */
 
+/* Outlined blue circle + icon, no filled backdrop -- matches the plain
+   line-icon restart button used on Driver Decides' game bar (2026-09-09,
+   per Kayla), instead of the filled white button used before. */
 #restartButton {
   justify-self: end;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 40px;
-  height: 40px;
+  width: 44px;
+  height: 44px;
   padding: 0;
-  border: var(--card-border);
+  border: 3px solid var(--persian-blue);
   border-radius: 50%;
-  background: var(--white);
-  box-shadow: var(--card-shadow);
+  background: transparent;
+  box-shadow: none;
   cursor: pointer;
   transition: transform 0.15s ease, background 0.15s ease;
 }
 
 #restartButton svg {
-  width: 17px;
-  height: 17px;
+  width: 20px;
+  height: 20px;
   fill: var(--persian-blue);
 }
 
