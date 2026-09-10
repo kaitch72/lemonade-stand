@@ -392,8 +392,20 @@ header h1 svg {
      that flexible middle space together (2026-09-09, per Kayla: smaller
      stand, bigger customers/orders). */
   grid-template-columns: 191px 1fr 700px;
-  gap: 18px;
-  margin: 18px;
+  /* Header row (Shop / Your Supplies) above the card row (2026-09-10, per
+     Kayla). Customer lane has no header of its own, but stays in the same
+     card row via .customer-lane's explicit grid-row below, so all three
+     columns still line up along one top edge. */
+  grid-template-rows: auto 1fr;
+  gap: 10px 18px;
+  /* Top margin (2026-09-10, per Kayla). Originally bumped to 60px to push
+     the play area down and fill the empty band of sky below it -- but once
+     the shop/stand/customer-lane grew taller to fill that same reclaimed
+     space (see .shop, .stand, .customer-lane below), keeping a 60px margin
+     here on top of that left a second, now-too-big gap above the cards.
+     Brought back down so the row grows into the space instead of just
+     shifting downward. */
+  margin: 14px 18px 18px;
   padding: 20px;
   align-items: start;
   /* Transparent (2026-09-09, per Kayla) -- .game-container now has the
@@ -403,9 +415,55 @@ header h1 svg {
   background: transparent;
 }
 
+/* Column header above the shop cards (2026-09-10, per Kayla: label what
+   the shop card row is, since players asked for clarity). Sits in its own
+   grid row above the cards; .shop/.stand-wrap/.customer-lane are pinned to
+   row 2 below (see each), so the header row's height pushes all three down
+   together and they stay top-aligned with each other either way. The
+   "Supplies" counterpart used to live here too (grid row 1, column 2,
+   centered above the whole stand) but moved down onto the stand itself
+   (2026-09-10, per Kayla: "front of the stand with the items") -- see
+   .stand-label near the STAND section below. */
+.section-header {
+  grid-row: 1;
+  margin: 0 0 2px 2px;
+  font-family: var(--font-brand);
+  /* Bumped from 26px to 32px (2026-09-10, per Kayla) -- 26px matched
+     #goalText's computed size exactly (both .stat-subtext and this were
+     26px/800, confirmed with getComputedStyle), but sitting directly on
+     the busy sky/hill art instead of a solid card made it read visually
+     smaller/weaker than the boxed goal text. Sized up so it unmistakably
+     reads as at least as big. */
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1.2;
+  /* Electric blue -- the same Persian Blue used by the price/qty badges on
+     the cards below, not the game's usual near-black text color. */
+  color: var(--persian-blue);
+  /* White stroke around the text, echoing the white outline drawn around
+     the ingredient icons (see EMPTY_CUP_SVG etc. in game.js -- a white
+     14px-stroke path behind the colored artwork). paint-order keeps the
+     stroke fully behind the blue fill instead of splitting the line width
+     across both edges of each letter. */
+  -webkit-text-stroke: 2px #ffffff;
+  paint-order: stroke fill;
+}
+
+.shop-header {
+  grid-column: 1;
+}
+
 /* SHOP */
 
 .shop {
+  /* Explicit placement (2026-09-10) -- without this, grid auto-flow would
+     skip row 1's cell taken by .shop-header and place .shop itself in row 1
+     col 2 instead of under its own header. (Row 1 col 2 above .stand-wrap
+     is empty now that "Supplies" moved onto the stand itself -- see
+     .stand-label -- but .stand-wrap still needs its own grid-row:2 below to
+     stay out of that empty cell.) */
+  grid-column: 1;
+  grid-row: 2;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -414,8 +472,12 @@ header h1 svg {
      to fit the same box four cards used, instead of pushing the whole
      game-container past the fixed 1080px stage height. See
      start-screen-popups.md, 2026-08-28 shop-card pass, for the overflow
-     bug this replaces. */
-  height: 638px;
+     bug this replaces. Bumped from 638 to 670px (2026-09-10, per Kayla)
+     alongside .stand's own growth below, to fill the top gap that opened
+     up once .play-area's margin was brought back down -- kept a bit short
+     of matching .stand's full growth so it still clears the message strip
+     at the bottom with room to spare. */
+  height: 670px;
 }
 
 .shop-item {
@@ -520,6 +582,9 @@ header h1 svg {
 /* STAND */
 
 .stand-wrap {
+  /* Explicit placement -- see .shop's matching comment above. */
+  grid-column: 2;
+  grid-row: 2;
   display: flex;
   justify-content: center;
 }
@@ -532,8 +597,29 @@ header h1 svg {
      more room to be the bigger element on this screen -- everything
      inside (.awning/.build-zone/.counter) is positioned as a percentage
      of this box already, so it scales along automatically. */
-  max-width: 700px;
-  aspect-ratio: 930 / 822;
+  /* Bumped from 700 to 760px (2026-09-10, per Kayla), paired with .shop's
+     matching height bump and .play-area's smaller top margin -- grows the
+     stand into the vertical space that opened up above the cards instead
+     of leaving it as empty sky. Also gives .counter (a % of this box) a
+     little more absolute headroom above its icon grid for .stand-label. */
+  /* Brought back down from 760 to 713px (2026-09-10) -- stand.svg's new
+     taller aspect-ratio (below) means the same width now renders taller
+     than before, which pushed the stand's bottom edge into the message
+     strip. 713px keeps the stand's rendered height at ~670px, matching
+     .shop's height so the two columns still line up top and bottom. */
+  max-width: 713px;
+  /* Updated to match the new stand.svg's viewBox (2026-09-10, per Kayla --
+     she extended the counter panel taller by growing the canvas at the
+     bottom, from 831.62 to 871.622 tall) so the artwork renders at its
+     true proportions instead of getting stretched. Every top-offset below
+     that anchors to the unchanged upper part of the art (awning, recipe
+     button, undo button, build tray) was rescaled by the old/new height
+     ratio (831.62/871.622 = 0.9541) so each stays pinned to the same
+     absolute spot in the artwork it always was, even though it's now a
+     smaller percentage of the taller whole. .stand-label and .counter
+     were NOT just rescaled -- they're repositioned to actually use the
+     new room in the taller counter panel (see each below). */
+  aspect-ratio: 927.192 / 871.622;
 }
 
 /* Kayla's hand-drawn stand artwork (images/stand.svg), colored to brand --
@@ -555,7 +641,10 @@ header h1 svg {
   top: 0;
   left: 0;
   width: 100%;
-  height: 15.5%;
+  /* Rescaled from 15.5% (2026-09-10, see .stand's aspect-ratio comment) --
+     the roofline itself didn't move, just a smaller share of the now-taller
+     stand. */
+  height: 14.79%;
   box-sizing: border-box;
   color: var(--white);
   font-size: 32px;
@@ -575,7 +664,8 @@ header h1 svg {
    awning artwork -- see the HTML comment above the button for the math. */
 .recipe-button {
   position: absolute;
-  top: 11.8%;
+  /* Rescaled from 11.8% (2026-09-10, see .stand's aspect-ratio comment). */
+  top: 11.26%;
   right: 2.9%;
   width: 38px;
   height: 38px;
@@ -606,7 +696,8 @@ header h1 svg {
    below for where Undo went instead. */
 .build-zone {
   position: absolute;
-  top: 40.3%;
+  /* Rescaled from 40.3% (2026-09-10, see .stand's aspect-ratio comment). */
+  top: 38.45%;
   left: 50%;
   transform: translateX(-50%);
   width: 74%;
@@ -652,7 +743,8 @@ header h1 svg {
    below (which stayed put; only Undo moved). */
 .clear-button {
   position: absolute;
-  top: 22%;
+  /* Rescaled from 22% (2026-09-10, see .stand's aspect-ratio comment). */
+  top: 21%;
   left: 50%;
   transform: translateX(-50%);
   border: 2px solid var(--persian-blue);
@@ -673,12 +765,41 @@ header h1 svg {
   transform: translateX(-50%) translateY(-2px);
 }
 
+/* "Supplies" label, sitting on the front of the stand with the items
+   (2026-09-10, per Kayla). It used to float in the narrow gap above the
+   counter box because the box (~39% of the stand's height) was almost
+   entirely filled by the icon grid already, leaving no real room inside
+   it. Kayla grew the counter panel in the artwork itself to fix this --
+   stand.svg's canvas is now 831.62->871.622 tall, all of it added to the
+   bottom of the counter panel, taking the panel from ~39% to ~42% of the
+   stand's height (box now runs from 57.9% to 100%, was 60.7%-100%). That's
+   enough absolute room (even after this size increase) to fit the label
+   fully inside the dark brown panel with real padding above the icons
+   instead of straddling the seam with the lighter shelf lip above it. */
+.stand-label {
+  position: absolute;
+  top: 59.4%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: var(--font-brand);
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--persian-blue);
+  -webkit-text-stroke: 2px #ffffff;
+  paint-order: stroke fill;
+  white-space: nowrap;
+}
+
 /* Positioned to sit inside the counter box painted in images/stand.svg
-   (the box runs from ~60% to 100% of the artwork's height) -- no background
-   of its own anymore, the artwork supplies the Hawkes Blue color. */
+   (the box now runs from ~57.9% to 100% of the artwork's height -- see
+   .stand-label above) -- no background of its own anymore, the artwork
+   supplies the brown color. Pushed down from 63% to 66.3% (2026-09-10) to
+   sit below .stand-label with a clean gap, using the counter panel's extra
+   height instead of crowding the label against the icons. */
 .counter {
   position: absolute;
-  top: 63%;
+  top: 66%;
   left: 50%;
   transform: translateX(-50%);
   width: 74%;
@@ -761,6 +882,11 @@ header h1 svg {
 /* CUSTOMER LANE */
 
 .customer-lane {
+  /* Explicit placement -- see .shop's matching comment above. No header of
+     its own, but staying in row 2 keeps its top edge level with the shop
+     and stand cards rather than starting a header's-height higher. */
+  grid-column: 3;
+  grid-row: 2;
   position: relative;
   min-height: 520px;
   overflow: hidden;
@@ -832,14 +958,17 @@ header h1 svg {
 .order-bubble[data-recipe-id="icedTea"] { background: var(--pale-peach); }
 .order-bubble[data-recipe-id="sweetTea"] { background: var(--onahau); }
 
+/* Bigger (2026-09-10, per Kayla: fill the order box more). */
 .order-bubble svg {
-  width: 57px;
-  height: 57px;
+  width: 86px;
+  height: 86px;
 }
 
+/* Scaled up to match the bigger .order-bubble drink icon above
+   (2026-09-10, per Kayla). */
 .sugar-badge svg {
-  width: 22px;
-  height: 22px;
+  width: 30px;
+  height: 30px;
   vertical-align: middle;
 }
 
@@ -940,14 +1069,18 @@ header h1 svg {
 }
 
 .sparkle svg {
-  width: 22px;
-  height: 22px;
+  /* Bumped from 22px to 26px (2026-09-10) -- Kayla's new star artwork has
+     more internal detail (a shaded facet + highlight per point) than the
+     old flat glyph, so it needs a touch more size to read clearly at a
+     glance. No more .tone-a/b/c fill overrides here -- those recolored the
+     old single-color glyph through three brand tones, but the new stars
+     are already fully colored, shaded artwork, so variety now comes from
+     randomly picking one of the four shapes instead (see randomStarSVG in
+     game.js). */
+  width: 26px;
+  height: 26px;
   display: block;
 }
-
-.sparkle.tone-a svg { fill: var(--persian-blue); }
-.sparkle.tone-b svg { fill: var(--blue-bird); }
-.sparkle.tone-c svg { fill: var(--malibu); }
 
 @keyframes sparkle-burst {
   0% {
@@ -968,6 +1101,62 @@ header h1 svg {
   }
 }
 
+/* GOAL STAR BURST -- bigger celebration when a single challenge is
+   completed (2026-09-10, per Kayla), not just at the level-up popup that
+   fires once every goal in a level is done. Same idea as the sparkle burst
+   above, sized up and given a sense of gravity: stars pop out of the
+   bottom of the goal card (right where the progress bar sits) and tumble
+   down past the card's edge instead of just radiating outward in place.
+   See createGoalStarBurst in game.js. */
+.goal-card {
+  /* Positioning context for the absolutely-placed .goal-star children --
+     .stat-card itself has no position set, so without this they'd anchor
+     to the next positioned ancestor up the tree instead of this card. */
+  position: relative;
+}
+
+.goal-star {
+  position: absolute;
+  left: var(--gx);
+  bottom: 6px;
+  pointer-events: none;
+  transform: translate(-50%, 50%) rotate(var(--rot-start)) scale(0.4);
+  animation: goal-star-fall 1.1s cubic-bezier(0.25, 0.6, 0.35, 1) forwards;
+  z-index: 6;
+}
+
+.goal-star svg {
+  width: var(--star-size);
+  height: var(--star-size);
+  display: block;
+  filter: drop-shadow(0 3px 4px rgba(10, 23, 36, 0.18));
+}
+
+@keyframes goal-star-fall {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 50%) rotate(var(--rot-start)) scale(0.4);
+  }
+  18% {
+    opacity: 1;
+    transform: translate(-50%, 50%) rotate(var(--rot-start)) scale(1.15);
+  }
+  35% {
+    opacity: 1;
+    transform: translate(-50%, 50%) rotate(var(--rot-start)) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform:
+      translate(
+        calc(-50% + var(--dx)),
+        calc(50% + var(--fall))
+      )
+      rotate(var(--rot-end))
+      scale(0.85);
+  }
+}
+
 /* ==========================================
    MESSAGE STRIP
 ========================================== */
@@ -978,13 +1167,25 @@ header h1 svg {
      edge-to-edge. */
   width: fit-content;
   max-width: min(640px, calc(100% - 36px));
-  margin: 0 auto 18px;
   padding: 12px 28px;
   background: var(--blue-bird);
   border-radius: 20px;
   text-align: center;
   font-weight: 700;
   color: var(--white);
+  /* Pinned a fixed distance above the stage's bottom edge instead of
+     relying on normal-flow margin (2026-09-10, per Kayla: it was touching
+     the bottom of the screen) -- .game-container is a fixed 1080px-tall
+     box with overflow:hidden, so the old `margin: 0 auto 18px` at the end
+     of the document flow was getting squeezed down to ~3px of real gap
+     whenever the content stack above it grew (as it did once .play-area's
+     top margin was increased to push everything down). Taking this out of
+     flow with an explicit bottom offset guarantees the gap regardless of
+     what's above it. */
+  position: absolute;
+  left: 50%;
+  bottom: 26px;
+  transform: translateX(-50%);
 }
 
 /* ==========================================
@@ -1146,19 +1347,22 @@ header h1 svg {
 }
 
 #tutorialBox .start-sparkle--a {
-  top: -6px;
-  left: -10px;
-  width: 22px;
-  height: 22px;
-  fill: var(--blue-bird);
+  top: -8px;
+  left: -12px;
+  /* Bumped from 22px to 26px (2026-09-10, see .sparkle's matching note) --
+     no more `fill` override either, since Kayla's new star artwork is
+     already fully colored/shaded instead of a flat glyph meant to be
+     re-tinted through CSS. */
+  width: 26px;
+  height: 26px;
 }
 
 #tutorialBox .start-sparkle--b {
-  bottom: 2px;
-  right: -8px;
-  width: 16px;
-  height: 16px;
-  fill: var(--malibu);
+  bottom: 0px;
+  right: -10px;
+  /* Bumped from 16px to 20px (2026-09-10, see .start-sparkle--a above). */
+  width: 20px;
+  height: 20px;
   animation-delay: 0.5s;
 }
 
@@ -1315,13 +1519,13 @@ header h1 svg {
 }
 
 .recipe-result svg {
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
 }
 
 .recipe-ingredient svg {
-  width: 22px;
-  height: 22px;
+  width: 30px;
+  height: 30px;
 }
 
 .recipe-info {
@@ -1429,16 +1633,17 @@ header h1 svg {
   flex-shrink: 0;
 }
 
+/* Bigger (2026-09-10, per Kayla: recipe sheet icons were too small). */
 #recipeBox .recipe-result svg,
 #levelUpBox .recipe-result svg {
-  width: 58px;
-  height: 58px;
+  width: 78px;
+  height: 78px;
 }
 
 #recipeBox .recipe-result .sugar-badge svg,
 #levelUpBox .recipe-result .sugar-badge svg {
-  width: 28px;
-  height: 28px;
+  width: 38px;
+  height: 38px;
 }
 
 #recipeBox .recipe-info,
@@ -1474,10 +1679,11 @@ header h1 svg {
   margin-left: auto;
 }
 
+/* Bigger (2026-09-10, per Kayla: recipe sheet icons were too small). */
 #recipeBox .recipe-ingredient svg,
 #levelUpBox .recipe-ingredient svg {
-  width: 38px;
-  height: 38px;
+  width: 52px;
+  height: 52px;
   /* Matches the reference mock's plain-black ingredient icons rather
      than the game's usual single-color Persian Blue default -- Kayla's
      call, more icons may move to this treatment in a later pass. */
@@ -1552,12 +1758,27 @@ header h1 svg {
   transition: left 0.35s ease, top 0.35s ease;
 }
 
+/* Bold, glanceable title (2026-09-10, per Kayla: skimmable for kids who
+   don't want to stop and read a paragraph) -- same electric blue as the
+   Shop/Supplies column headers, just without their white stroke since
+   this card already sits on plain white, not over the background art. */
+.tutorial-card h3 {
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--persian-blue);
+  line-height: 1.25;
+  margin: 0 0 6px;
+}
+
+/* Lighter than the old single-sentence explanation (2026-09-10, per
+   Kayla) -- the title now carries the headline, so this is just one
+   short supporting line. */
 .tutorial-card p {
   font-size: 15px;
-  font-weight: 600;
-  color: var(--blue-black);
-  line-height: 1.45;
-  margin: 4px 0 16px;
+  font-weight: 500;
+  color: rgba(10, 23, 36, 0.72);
+  line-height: 1.4;
+  margin: 0 0 16px;
 }
 
 .tutorial-next-btn {
