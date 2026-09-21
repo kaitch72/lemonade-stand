@@ -27,6 +27,13 @@ const LEMONADE_CUP_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1
 
 const TEA_CUP_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 154.361 213.1"><g><path d="M145.18,16.94v.01l-.07.01c-.04,0-.08.03-.12.03-.08.01-.16.01-.23,0l-36.17,3.68-2.49,10.45c14.6,1.91,24.04,4.98,24.04,8.44v.02c0,.08-.01.17-.02.25l-12.55,159.47c0,3.75-21.24,6.8-47.46,6.8s-47.45-3.05-47.45-6.8h-.01l-7.62-98.08H7v-13.7l4.26-4.49h2.35l-3.36-43.19c-.01-.09-.02-.19-.02-.28,0-5.83,26.84-10.55,59.95-10.55,9.27,0,18.04.37,25.88,1.03l4.44-18.6,43.66-4.44v.01c1.52-.12,2.94,2.01,3.17,4.76.22,2.64-.74,4.87-2.15,5.17Z" fill="#fff" stroke="#fff" stroke-linejoin="round" stroke-width="14"/><g><path d="M130.138,39.559v.02c0,.08-.01.17-.02.25-.82,5.7-27.34,10.27-59.94,10.27s-59.08-4.57-59.93-10.26c-.01-.09-.02-.19-.02-.28,0-5.83,26.84-10.55,59.95-10.55s59.96,4.72,59.96,10.55Z" fill="#b9dff5"/><path d="M130.118,39.829l-12.55,159.47c0,3.75-21.24,6.8-47.46,6.8s-47.45-3.05-47.45-6.8h-.01l-8.53-109.77-3.87-49.69c.85,5.69,27.36,10.26,59.93,10.26s59.12-4.57,59.94-10.27Z" fill="#cfe5f0"/><path d="M112.982,118.403c2.976.262,5.19,2.876,4.955,5.855l-5.599,71v.03c0,3.82-19.21,6.92-42.93,6.92s-42.93-3.1-42.93-6.92l-3.958-51.124c-.257-3.325,2.504-6.11,5.829-5.851,6.22.485,15.822.556,25.84-1.945,3.81-.94,7.68-2.26,11.44-4.07,1.54-.75,3.1-1.59,4.62-2.51.58-.36,1.15-.7,1.71-1.03,4.49-2.71,8.33-4.79,11.8-6.37,10.51-4.801,17.622-5.007,29.224-3.984Z" fill="#ffac27"/><g opacity=".68"><path d="M50.079,155.264l-10.218.111c-1.508.016-2.882.87-3.565,2.215l-5.377,10.596c-.683,1.345-.561,2.958.317,4.185l5.943,8.313c.769,1.075,2.014,1.707,3.336,1.693l10.218-.111c1.508-.016,2.882-.87,3.565-2.215l5.377-10.596c.683-1.345.561-2.958-.317-4.185l-5.943-8.313c-.769-1.075-2.014-1.707-3.336-1.693Z" fill="#d7e7ff"/><g opacity=".05"><path d="M58.506,167.895c-.698.472-1.318.24-2.405.313-2.564.029-6.916.072-8.613.094-.553.007-1.07-.003-1.339.561-1.373,2.625-3.954,7.787-5.146,10.108-.162.313-.335.648-.574.862-.523.464-1.223.063-1.146-.623.036-.324.206-.663.364-.981,1.179-2.359,3.837-7.497,5.118-10.126.289-.572-.111-.996-.427-1.462-1.139-1.596-4.028-5.633-5.373-7.515-.474-.726-1.035-1.254-.54-1.904.527-.533,1.239.164,1.578.698,1.246,1.736,4.427,6.192,5.64,7.885.225.296.428.633.729.81.502.22.882.114,1.586.134,2.316-.024,7.184-.079,9.205-.098.366,0,.765.002,1.073.125.51.202.619.741.286,1.103l-.017.017Z" fill="#0a223a"/></g></g><g opacity=".68"><path d="M96.625,129.919l-10.218.111c-1.508.016-2.882.87-3.565,2.215l-5.377,10.596c-.683,1.345-.561,2.958.317,4.185l5.943,8.313c.769,1.075,2.014,1.707,3.336,1.693l10.218-.111c1.508-.016,2.882-.87,3.565-2.215l5.377-10.596c.683-1.345.561-2.958-.317-4.185l-5.943-8.313c-.769-1.075-2.014-1.707-3.336-1.693Z" fill="#d7e7ff"/><g opacity=".05"><path d="M105.051,142.55c-.698.472-1.318.24-2.405.313-2.564.029-6.916.072-8.613.094-.553.007-1.07-.003-1.339.561-1.373,2.625-3.954,7.787-5.146,10.108-.162.313-.335.648-.574.862-.523.464-1.223.063-1.146-.623.036-.324.206-.663.364-.981,1.179-2.359,3.837-7.497,5.118-10.126.289-.572-.111-.996-.427-1.462-1.139-1.596-4.028-5.633-5.373-7.515-.474-.726-1.035-1.254-.54-1.904.527-.533,1.239.164,1.578.698,1.246,1.736,4.427,6.192,5.64,7.885.225.296.428.633.729.81.502.22.882.114,1.586.134,2.316-.024,7.184-.079,9.205-.098.366,0,.765.002,1.073.125.51.202.619.741.286,1.103l-.017.017Z" fill="#0a223a"/></g></g><g opacity=".68"><path d="M73.223,167.063l-5.388,8.682c-.795,1.282-.812,2.899-.043,4.197l6.057,10.222c.769,1.298,2.195,2.06,3.701,1.978l10.203-.555c1.32-.072,2.522-.784,3.219-1.907l5.388-8.682c.795-1.282.812-2.899.043-4.197l-6.057-10.222c-.769-1.298-2.195-2.06-3.701-1.978l-10.203.555c-1.32.072-2.522.784-3.219,1.907Z" fill="#d7e7ff"/><g opacity=".05"><path d="M88.403,166.728c.024.842-.505,1.241-1.026,2.198-1.352,2.179-3.65,5.875-4.541,7.319-.291.471-.577.901-.245,1.431,1.478,2.567,4.451,7.515,5.769,9.766.177.305.367.631.419.947.111.69-.603,1.066-1.141.633-.254-.204-.449-.53-.633-.833-1.358-2.261-4.268-7.26-5.799-9.752-.327-.551-.9-.441-1.463-.424-1.958.105-6.915.377-9.224.502-.867.01-1.613.201-1.896-.566-.167-.731.803-.958,1.435-.958,2.134-.12,7.601-.413,9.68-.529.37-.031.763-.021,1.075-.181.455-.306.569-.683.964-1.267,1.222-1.967,3.788-6.105,4.856-7.821.197-.309.412-.644.681-.838.444-.322.958-.125,1.084.35l.005.023Z" fill="#0a223a"/></g></g><path d="M145.184,16.95l-36.59,3.72-2.49,10.45-3.01,12.6-1.14,4.78c-3.3.36-6.82.67-10.51.92l1.36-5.7,3.26-13.68,4.44-18.6,43.66-4.44,1.02,9.95Z" fill="#258bff"/><path d="M101.954,48.5l-17.55,73.61c-3.47,1.58-7.31,3.66-11.8,6.37l18.84-79.06c3.69-.25,7.21-.56,10.51-.92Z" fill="#8bd1ff"/><g><polyline points="66.733 80.94 66.733 121.489 27.866 121.489 27.866 80.94 37.097 67.647 57.501 67.647 66.733 80.94" fill="#eae9e5"/><polygon points="69.323 115.516 66.733 121.489 66.733 80.94 72.604 116.83 69.323 115.516" fill="#cecece"/><path d="M29.325,109.876c.89-1.2,2.779-1.592,4.294-2.507,1.749-.868,3.029-2.634,4.686-3.681,2.794-1.402,6.411-1.568,9.511-1.569,2.485.056,4.586,1.375,6.977,1.864,1.221.267,2.501.546,3.679,1.035,1.787.77,3.333,2.385,5.148,3.011,1.174.374,1.93,1.246,1.976,2.852.139,1.996.237,5.283.14,7.171-.058,1.011-.097,2.538-1.15,2.441-2.79.02-13.843.003-22.899.009-5.062-.004-8.283.003-11.596,0-.964-.009-1.209.134-1.249-1.634-.033-1.609-.012-3.364-.017-5.002.025-1.352-.121-2.948.458-3.923l.043-.067Z" fill="#8c7d70"/><polygon points="27.866 80.94 43.557 74.756 37.097 67.647 27.866 80.94" fill="#dbdbdb"/><polygon points="66.733 80.94 51.042 74.756 57.501 67.647 66.733 80.94" fill="#dbdbdb"/><polygon points="37.097 67.647 57.501 67.647 50.965 77.876 43.633 77.876 37.097 67.647" fill="#cecece"/><path d="M27.866,121.489s15.668-.253,26.055-12.431c10.387-12.178,12.812-26.862,12.812-26.862v39.293H27.866Z" fill="#0a223a" opacity=".05"/></g><path d="M31.229,47.572c1.539.12,4.097,1.276,5.314,2.191,6.709,5.045,8.292,12.592,9.762,20.161.276,1.42,2.445.819,2.17-.598h0c-1.326-6.829-2.89-14.162-8.172-19.135-3.718-3.501-9.22-5.588-13.824-3.419l4.75.8Z" fill="#dbdbdb"/><path d="M127.634,71.33l-10.07,127.97c0,3.75-21.24,6.8-47.46,6.8s-47.45-3.05-47.45-6.8h-.01l-.9-11.53.26-.52s31.808,6.871,59.18-4.599c33.98-14.239,45.85-109.671,46.45-111.321Z" fill="#0a223a" opacity=".05"/><path d="M86.044,49.72c-.36.13-.74.26-1.15.38-60.26,17.64-59.39,31.38-62.89,137.15l-7.89-97.72-3.87-49.69c.85,5.69,27.36,10.26,59.93,10.26,5.49,0,10.82-.13,15.87-.38Z" fill="#fff" opacity=".3"/><ellipse cx="144.567" cy="11.997" rx="2.775" ry="5.009" transform="translate(-.497 12.186) rotate(-4.819)" fill="#8bd1ff"/><polyline points="24.959 87.512 24.959 101.214 6.997 101.214 6.997 87.512 11.263 83.021 20.693 83.021 24.959 87.512" fill="#ffac27"/><path d="M31.229,47.572c-1.72-.13-3.513.802-5.033,1.961-2.42,1.84-3.72,4.84-4.94,7.59,0,.01-.01.03-.01.04-.02.07-.05.14-.08.21-.02.04-.97,1.96-1.92,6.23s-1.91,10.89-1.95,20.3c-.01.62-.51,1.12-1.13,1.12-.63,0-1.13-.51-1.12-1.13.08-19.47,3.95-27.23,4.11-27.55.02-.03.03-.06.05-.09.01-.01.02-.03.03-.05,1.27-2.84,2.59-5.82,4.96-7.92.72-.64,1.49-1.14,2.28-1.51l4.753.799Z" fill="#dbdbdb"/></g></g></svg>';
 
+// Kayla's real export, dropped into images/lemon-tea-glass.svg
+// (2026-09-21) -- the finished-drink icon for the new Lemon Tea /
+// Sweetened Lemon Tea recipes (see RECIPES below). Same cup shape as
+// TEA_CUP_SVG, but with the lemon-slice motif from LEMON_SVG worked
+// into the base so it reads as "tea with lemon," not plain tea.
+const LEMON_TEA_CUP_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 183.091 218.64"><g><path d="M173.91,22.48v.01l-.07.01c-.04,0-.08.03-.12.03-.08.01-.16.01-.23,0l-36.17,3.68-2.49,10.45c14.6,1.91,24.04,4.98,24.04,8.44v.02c0,.08-.01.17-.02.25l-12.55,159.47c0,3.75-21.24,6.8-47.46,6.8s-47.45-3.05-47.45-6.8h-.01l-7.58-97.51h-4.62v-13.7l3.29-3.47-1.04-13.3c-19.07-.27-34.43-15.8-34.43-34.93C7,22.64,22.64,7,41.94,7c17.03,0,31.22,12.2,34.3,28.33,6.99-.5,14.65-.78,22.67-.78,9.27,0,18.04.37,25.88,1.03l4.44-18.6,43.66-4.44v.01c1.52-.12,2.94,2.01,3.17,4.75.22,2.64-.74,4.87-2.15,5.18Z" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="14"/><g><path d="M158.868,45.1v.02c0,.08-.01.17-.02.25-.82,5.7-27.34,10.27-59.94,10.27s-59.08-4.57-59.93-10.26c-.01-.09-.02-.19-.02-.28,0-5.83,26.84-10.55,59.95-10.55s59.96,4.72,59.96,10.55Z" fill="#b9dff5"/><path d="M158.848,45.37l-12.55,159.47c0,3.75-21.24,6.8-47.46,6.8s-47.45-3.05-47.45-6.8h-.01l-8.53-109.77-3.87-49.69c.85,5.69,27.36,10.26,59.93,10.26s59.12-4.57,59.94-10.27Z" fill="#cfe5f0"/><path d="M141.712,123.943c2.976.262,5.19,2.876,4.955,5.855l-5.599,71v.03c0,3.82-19.21,6.92-42.93,6.92s-42.93-3.1-42.93-6.92l-3.958-51.124c-.257-3.325,2.504-6.11,5.829-5.851,6.22.485,15.822.556,25.84-1.945,3.81-.94,7.68-2.26,11.44-4.07,1.54-.75,3.1-1.59,4.62-2.51.58-.36,1.15-.7,1.71-1.03,4.49-2.71,8.33-4.79,11.8-6.37,10.51-4.801,17.622-5.007,29.224-3.984Z" fill="#ffce26"/><g opacity=".68"><path d="M78.809,160.805l-10.218.111c-1.508.016-2.882.87-3.565,2.215l-5.377,10.596c-.683,1.345-.561,2.958.317,4.185l5.943,8.313c.769,1.075,2.014,1.707,3.336,1.693l10.218-.111c1.508-.016,2.882-.87,3.565-2.215l5.377-10.596c.683-1.345.561-2.958-.317-4.185l-5.943-8.313c-.769-1.075-2.014-1.707-3.336-1.693Z" fill="#d7e7ff"/><g opacity=".05"><path d="M87.235,173.436c-.698.472-1.318.24-2.405.313-2.564.029-6.916.072-8.613.094-.553.007-1.07-.003-1.339.561-1.373,2.625-3.954,7.787-5.146,10.108-.162.313-.335.648-.574.862-.523.464-1.223.063-1.146-.623.036-.324.206-.663.364-.981,1.179-2.359,3.837-7.497,5.118-10.126.289-.572-.111-.996-.427-1.462-1.139-1.596-4.028-5.633-5.373-7.515-.474-.726-1.035-1.254-.54-1.904.527-.533,1.239.164,1.578.698,1.246,1.736,4.427,6.192,5.64,7.885.225.296.428.633.729.81.502.22.882.114,1.586.134,2.316-.024,7.184-.079,9.205-.098.366,0,.765.002,1.073.125.51.202.619.741.286,1.103l-.017.017Z" fill="#0a223a"/></g></g><g opacity=".68"><path d="M125.355,135.46l-10.218.111c-1.508.016-2.882.87-3.565,2.215l-5.377,10.596c-.683,1.345-.561,2.958.317,4.185l5.943,8.313c.769,1.075,2.014,1.707,3.336,1.693l10.218-.111c1.508-.016,2.882-.87,3.565-2.215l5.377-10.596c.683-1.345.561-2.958-.317-4.185l-5.943-8.313c-.769-1.075-2.014-1.707-3.336-1.693Z" fill="#d7e7ff"/><g opacity=".05"><path d="M133.781,148.091c-.698.472-1.318.24-2.405.313-2.564.029-6.916.072-8.613.094-.553.007-1.07-.003-1.339.561-1.373,2.625-3.954,7.787-5.146,10.108-.162.313-.335.648-.574.862-.523.464-1.223.063-1.146-.623.036-.324.206-.663.364-.981,1.179-2.359,3.837-7.497,5.118-10.126.289-.572-.111-.996-.427-1.462-1.139-1.596-4.028-5.633-5.373-7.515-.474-.726-1.035-1.254-.54-1.904.527-.533,1.239.164,1.578.698,1.246,1.736,4.427,6.192,5.64,7.885.225.296.428.633.729.81.502.22.882.114,1.586.134,2.316-.024,7.184-.079,9.205-.098.366,0,.765.002,1.073.125.51.202.619.741.286,1.103l-.017.017Z" fill="#0a223a"/></g></g><g opacity=".68"><path d="M101.953,172.603l-5.388,8.682c-.795,1.282-.812,2.899-.043,4.197l6.057,10.222c.769,1.298,2.195,2.06,3.701,1.978l10.203-.555c1.32-.072,2.522-.784,3.219-1.907l5.388-8.682c.795-1.282.812-2.899.043-4.197l-6.057-10.222c-.769-1.298-2.195-2.06-3.701-1.978l-10.203.555c-1.32.072-2.522.784-3.219,1.907Z" fill="#d7e7ff"/><g opacity=".05"><path d="M117.133,172.269c.024.842-.505,1.241-1.026,2.198-1.352,2.179-3.65,5.875-4.541,7.319-.291.471-.577.901-.245,1.431,1.478,2.567,4.451,7.515,5.769,9.766.177.305.367.631.419.947.111.69-.603,1.066-1.141.633-.254-.204-.449-.53-.633-.833-1.358-2.261-4.268-7.26-5.799-9.752-.327-.551-.9-.441-1.463-.424-1.958.105-6.915.377-9.224.502-.867.01-1.613.201-1.896-.566-.167-.731.803-.958,1.435-.958,2.134-.12,7.601-.413,9.68-.529.37-.031.763-.021,1.075-.181.455-.306.569-.683.964-1.267,1.222-1.967,3.788-6.105,4.856-7.821.197-.309.412-.644.681-.838.444-.322.958-.125,1.084.35l.005.023Z" fill="#0a223a"/></g></g><path d="M173.914,22.491l-36.59,3.72-2.49,10.45-3.01,12.6-1.14,4.78c-3.3.36-6.82.67-10.51.92l1.36-5.7,3.26-13.68,4.44-18.6,43.66-4.44,1.02,9.95Z" fill="#9d25ff"/><path d="M130.684,54.041l-17.55,73.61c-3.47,1.58-7.31,3.66-11.8,6.37l18.84-79.06c3.69-.25,7.21-.56,10.51-.92Z" fill="#b877f7"/><path d="M156.364,76.871l-10.07,127.97c0,3.75-21.24,6.8-47.46,6.8s-47.45-3.05-47.45-6.8h-.01l-.9-11.53.26-.52s31.808,6.871,59.18-4.599c33.98-14.239,45.85-109.671,46.45-111.321Z" fill="#0a223a" opacity=".05"/><g><circle cx="41.938" cy="41.935" r="34.936" fill="#ffee76" stroke="#ffed00" stroke-miterlimit="10" stroke-width="3"/><path d="M34.667,40.438H12.227c-.811,0-1.447-.686-1.403-1.497.347-6.404,2.903-12.221,6.92-16.7.54-.602,1.475-.634,2.047-.062l15.867,15.866c.883.883.258,2.393-.991,2.393Z" fill="#f4d316"/><path d="M37.372,36.282l-15.868-15.867c-.574-.574-.537-1.509.067-2.051,4.774-4.283,10.694-6.589,16.702-6.916.808-.044,1.491.595,1.491,1.404v22.438c0,1.249-1.509,1.874-2.392.991Z" fill="#f4d316"/><path d="M43.314,35.291V12.851c0-.811.686-1.447,1.497-1.403,6.404.347,12.221,2.903,16.7,6.92.602.54.634,1.475.062,2.047l-15.866,15.867c-.883.883-2.393.258-2.393-.991Z" fill="#f4d316"/><path d="M48.022,38.046l15.867-15.868c.574-.574,1.509-.537,2.051.067,4.283,4.774,6.589,10.694,6.916,16.702.044.808-.595,1.491-1.404,1.491h-22.438c-1.249,0-1.874-1.509-.991-2.392Z" fill="#f4d316"/><path d="M49.013,44.247h22.44c.811,0,1.447.686,1.403,1.497-.347,6.404-2.903,12.221-6.92,16.7-.54.602-1.475.634-2.047.062l-15.867-15.866c-.883-.883-.258-2.393.991-2.393Z" fill="#f4d316"/><path d="M45.235,48l15.868,15.867c.574.574.537,1.509-.067,2.051-4.774,4.283-10.694,6.589-16.702,6.916-.808.044-1.491-.595-1.491-1.404v-22.438c0-1.249,1.509-1.874,2.392-.991Z" fill="#f4d316"/><path d="M40.706,48.991v22.44c0,.811-.686,1.447-1.497,1.403-6.404-.347-12.221-2.903-16.7-6.92-.602-.54-.634-1.475-.062-2.047l15.866-15.867c.883-.883,2.393-.258,2.393.991Z" fill="#f4d316"/><path d="M35.658,45.841l-15.867,15.868c-.574.574-1.509.537-2.051-.067-4.283-4.774-6.589-10.694-6.916-16.702-.044-.808.595-1.491,1.404-1.491h22.438c1.249,0,1.874,1.509.991,2.392Z" fill="#f4d316"/></g><g><polyline points="98.912 87.06 98.912 127.609 60.045 127.609 60.045 87.06 69.276 73.767 89.68 73.767 98.912 87.06" fill="#eae9e5"/><polygon points="101.502 121.636 98.912 127.609 98.912 87.06 104.783 122.95 101.502 121.636" fill="#cecece"/><path d="M61.504,115.997c.89-1.2,2.779-1.592,4.294-2.507,1.749-.868,3.029-2.634,4.686-3.681,2.794-1.402,6.411-1.568,9.511-1.569,2.485.056,4.586,1.375,6.977,1.864,1.221.267,2.501.546,3.679,1.035,1.787.77,3.333,2.385,5.148,3.011,1.174.374,1.93,1.246,1.976,2.852.139,1.996.237,5.283.14,7.171-.058,1.011-.097,2.538-1.15,2.441-2.79.02-13.843.003-22.899.009-5.062-.004-8.283.003-11.596,0-.964-.009-1.209.134-1.249-1.634-.033-1.609-.012-3.364-.017-5.002.025-1.352-.121-2.948.458-3.923l.043-.067Z" fill="#8c7d70"/><polygon points="60.045 87.06 75.736 80.876 69.276 73.767 60.045 87.06" fill="#dbdbdb"/><polygon points="98.912 87.06 83.221 80.876 89.68 73.767 98.912 87.06" fill="#dbdbdb"/><polygon points="69.276 73.767 89.68 73.767 83.144 83.996 75.812 83.996 69.276 73.767" fill="#cecece"/><path d="M60.045,127.609s15.668-.253,26.055-12.431c10.387-12.178,12.812-26.862,12.812-26.862v39.293h-38.867Z" fill="#0a223a" opacity=".05"/></g><path d="M63.408,53.692c1.539.12,4.097,1.276,5.314,2.191,6.709,5.045,8.292,12.592,9.762,20.161.276,1.42,2.445.819,2.17-.598h0c-1.326-6.829-2.89-14.162-8.172-19.135-3.718-3.501-9.22-5.588-13.824-3.419l4.75.8Z" fill="#dbdbdb"/><path d="M114.774,55.261c-.36.13-.74.26-1.15.38-60.26,17.64-59.39,31.38-62.89,137.15l-7.89-97.72-3.87-49.69c.85,5.69,27.36,10.26,59.93,10.26,5.49,0,10.82-.13,15.87-.38Z" fill="#fff" opacity=".3"/><ellipse cx="173.297" cy="17.538" rx="2.775" ry="5.009" transform="translate(-.861 14.619) rotate(-4.819)" fill="#b877f7"/><polyline points="57.138 93.633 57.138 107.335 39.176 107.335 39.176 93.633 43.442 89.141 52.872 89.141 57.138 93.633" fill="#ffac27"/><path d="M63.408,53.692c-1.72-.13-3.513.802-5.033,1.961-2.42,1.84-3.72,4.84-4.94,7.59,0,.01-.01.03-.01.04-.02.07-.05.14-.08.21-.02.04-.97,1.96-1.92,6.23s-1.91,10.89-1.95,20.3c-.01.62-.51,1.12-1.13,1.12-.63,0-1.13-.51-1.12-1.13.08-19.47,3.95-27.23,4.11-27.55.02-.03.03-.06.05-.09.01-.01.02-.03.03-.05,1.27-2.84,2.59-5.82,4.96-7.92.72-.64,1.49-1.14,2.28-1.51l4.753.799Z" fill="#dbdbdb"/></g></g></svg>';
+
 const LEMON_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230.245 162.48"><g><path d="M221.29,138.606c-3.27,4.02-9.69,4.33-15.08,1.01-19.04,21.76-54.82,20.85-88.53-.98-.01,0-.02-.01-.03-.02-.27-.17-.55-.35-.82-.54-.27-.18-.54-.37-.81-.56-.05-.03-.1-.07-.15-.1-7.73-5.45-13.8-12.63-17.81-20.92-29.08,13.56-57.7,11.58-74.03-7.07-5.39,3.31-11.8,2.99-15.08-1.02-3.66-4.48-2.02-11.89,3.68-16.54.36-.29.72-.56,1.09-.82-7.4-23.33,3.1-50.64,35.97-73.14.01-.01.02-.01.02-.01.36-.27.73-.54,1.1-.8,12.03-8.49,26.66-11.78,41.17-9.28,14.51,2.51,27.18,10.52,35.67,22.56,1.99,2.82,3.7,5.79,5.11,8.87,1.8-.5,3.63-.91,5.5-1.23,14.52-2.5,29.14.79,41.17,9.28.27.19.55.38.81.59.03.02.05.04.08.06,33.05,22.53,43.61,49.9,36.2,73.29.38.26.74.54,1.1.83,5.69,4.65,7.34,12.06,3.67,16.54Z" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="14"/><g><g><g><ellipse cx="19.262" cy="99.983" rx="13.316" ry="10.484" transform="translate(-58.924 34.755) rotate(-39.258)" fill="#ffee57"/><path d="M50.835,17.131C9.818,44.634,2.648,79.55,21.009,105.584c18.361,26.035,57.159,25.894,93.223,1.748" fill="#ffee57"/><g><circle cx="82.588" cy="62.155" r="53.641" fill="#ffee76" stroke="#ffed00" stroke-miterlimit="10" stroke-width="3"/><path d="M74.79,70.468l-28.157,19.856c-1.018.718-1.207,2.143-.435,3.121,6.102,7.729,14.457,12.765,23.462,14.831,1.211.278,2.412-.51,2.623-1.734l5.869-33.948c.327-1.89-1.794-3.231-3.361-2.126Z" fill="#f4d316"/><path d="M81.862,73.289l-5.87,33.951c-.212,1.228.661,2.369,1.899,2.515,9.78,1.15,19.249-1.197,27.077-6.103,1.053-.66,1.345-2.066.629-3.081l-19.855-28.155c-1.105-1.567-3.553-1.016-3.88.874Z" fill="#f4d316"/><path d="M90.195,69.274l19.856,28.157c.718,1.018,2.143,1.207,3.121.435,7.729-6.102,12.765-14.457,14.831-23.462.278-1.211-.51-2.412-1.734-2.623l-33.948-5.869c-1.89-.327-3.231,1.794-2.126,3.361Z" fill="#f4d316"/><path d="M93.665,61.651l33.951,5.87c1.228.212,2.369-.661,2.515-1.899,1.15-9.78-1.197-19.249-6.103-27.077-.66-1.053-2.066-1.345-3.081-.629l-28.155,19.855c-1.567,1.105-1.016,3.553.874,3.88Z" fill="#f4d316"/><path d="M89.42,52.993l28.157-19.856c1.018-.718,1.207-2.143.435-3.121-6.102-7.729-14.457-12.765-23.462-14.831-1.211-.278-2.412.51-2.623,1.734l-5.869,33.948c-.327,1.89,1.794,3.231,3.361,2.126Z" fill="#f4d316"/><path d="M81.358,51.627l5.87-33.951c.212-1.228-.661-2.369-1.899-2.515-9.78-1.15-19.249,1.197-27.077,6.103-1.053.66-1.345,2.066-.629,3.081l19.855,28.155c1.105,1.567,3.553,1.016,3.88-.874Z" fill="#f4d316"/><path d="M74.799,54.391l-19.856-28.157c-.718-1.018-2.143-1.207-3.121-.435-7.729,6.102-12.765,14.457-14.831,23.462-.278,1.211.51,2.412,1.734,2.623l33.948,5.869c1.89.327,3.231-1.794,2.126-3.361Z" fill="#f4d316"/><path d="M71.252,62.812l-33.951-5.87c-1.228-.212-2.369.661-2.515,1.899-1.15,9.78,1.197,19.249,6.103,27.077.66,1.053,2.066,1.345,3.081.629l28.155-19.855c1.567-1.105,1.016-3.553-.874-3.88Z" fill="#f4d316"/></g></g><path d="M113.501,105.997c18.466-13.028,26.219-35.596,21.263-56.309-1.024.926-29.81,67.831-98.967,38.695.892,1.594,1.88,3.166,2.954,4.689,17.078,24.21,50.543,29.994,74.75,12.925Z" fill="#001d3a" opacity=".02"/><path d="M29.564,54.088c13.282-13.682,34.295-42.667,90.468-30.352C101.89,6.012,73.141,3.178,51.676,18.322c-12.42,8.764-19.996,21.834-22.112,35.766Z" fill="#fff" opacity=".3"/></g><g><g><ellipse cx="210.981" cy="130.183" rx="10.484" ry="13.316" transform="translate(-23.332 211.164) rotate(-50.742)" fill="#ffee57"/><path d="M179.408,47.33c41.017,27.503,48.187,62.419,29.826,88.453-18.361,26.035-57.159,25.894-93.223,1.748" fill="#ffee57"/><g><circle cx="147.654" cy="92.355" r="53.641" fill="#ffee76" stroke="#ffed00" stroke-miterlimit="10" stroke-width="3"/><path d="M155.452,100.667l28.157,19.856c1.018.718,1.207,2.143.435,3.121-6.102,7.729-14.457,12.765-23.462,14.831-1.211.278-2.412-.51-2.623-1.734l-5.869-33.948c-.327-1.89,1.794-3.231,3.361-2.126Z" fill="#f4d316"/><path d="M148.381,103.489l5.87,33.951c.212,1.228-.661,2.369-1.899,2.515-9.78,1.15-19.249-1.197-27.077-6.103-1.053-.66-1.345-2.066-.629-3.081l19.855-28.155c1.105-1.567,3.553-1.016,3.88.874Z" fill="#f4d316"/><path d="M140.048,99.473l-19.856,28.157c-.718,1.018-2.143,1.207-3.121.435-7.729-6.102-12.765-14.457-14.831-23.462-.278-1.211.51-2.412,1.734-2.623l33.948-5.869c1.89-.327,3.231,1.794,2.126,3.361Z" fill="#f4d316"/><path d="M136.578,91.851l-33.951,5.87c-1.228.212-2.369-.661-2.515-1.899-1.15-9.78,1.197-19.249,6.103-27.077.66-1.053,2.066-1.345,3.081-.629l28.155,19.855c1.567,1.105,1.016,3.553-.874,3.88Z" fill="#f4d316"/><path d="M140.823,83.192l-28.157-19.856c-1.018-.718-1.207-2.143-.435-3.121,6.102-7.729,14.457-12.765,23.462-14.831,1.211-.278,2.412.51,2.623,1.734l5.869,33.948c.327,1.89-1.794,3.231-3.361,2.126Z" fill="#f4d316"/><path d="M148.884,81.826l-5.87-33.951c-.212-1.228.661-2.369,1.899-2.515,9.78-1.15,19.249,1.197,27.077,6.103,1.053.66,1.345,2.066.629,3.081l-19.855,28.155c-1.105,1.567-3.553,1.016-3.88-.874Z" fill="#f4d316"/><path d="M155.443,84.591l19.856-28.157c.718-1.018,2.143-1.207,3.121-.435,7.729,6.102,12.765,14.457,14.831,23.462.278,1.211-.51,2.412-1.734,2.623l-33.948,5.869c-1.89.327-3.231-1.794-2.126-3.361Z" fill="#f4d316"/><path d="M158.99,93.011l33.951-5.87c1.228-.212,2.369.661,2.515,1.899,1.15,9.78-1.197,19.249-6.103,27.077-.66,1.053-2.066,1.345-3.081.629l-28.155-19.855c-1.567-1.105-1.016-3.553.874-3.88Z" fill="#f4d316"/></g></g><path d="M156.795,145.214c-22.269,3.845-43.71-6.631-54.852-24.781,1.379-.07,69.043,26.885,97.342-42.619.497,1.758.91,3.568,1.227,5.405,5.043,29.196-14.53,56.948-43.717,61.995Z" fill="#001d3a" opacity=".02"/><path d="M179.442,49.157c-19.066-.282-54.42-5.92-85.433,42.509.296-25.361,18.621-47.694,44.507-52.163,14.979-2.586,29.578,1.299,40.926,9.655Z" fill="#fff" opacity=".3"/></g></g></g></svg>';
 
 const ICE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 198.934 153.435"><g><path d="M191.451,96.764l-8.7,30.36c-1.13,3.92-4.1,7.05-7.96,8.38l-29.87,10.25c-4.41,1.52-9.29.45-12.67-2.76l-26.63-25.28c-3.38-3.21-4.69-8.03-3.41-12.52l2.96-10.31-4.42,1.3c-2.87.85-5.9.63-8.57-.55l-5.44,27.78c-.89,4.57-4.26,8.27-8.73,9.59l-30.28,8.95c-3.92,1.15-8.16.33-11.35-2.22l-24.68-19.71c-3.64-2.91-5.36-7.6-4.47-12.17l7.06-36.04c.89-4.57,4.26-8.27,8.73-9.59l30.28-8.95c2.86-.84,5.9-.62,8.57.56l5.44-27.79c.9-4.57,4.26-8.27,8.73-9.59l30.29-8.94c3.92-1.16,8.15-.33,11.35,2.22l24.67,19.7c3.64,2.91,5.37,7.6,4.47,12.18l-3.2,16.35,5.12-1.76c4.41-1.51,9.29-.45,12.67,2.76l26.63,25.29c3.38,3.21,4.69,8.03,3.41,12.51Z" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="14"/><g><path d="M53.304,53.278l-30.286,8.946c-4.47,1.32-7.835,5.017-8.73,9.591l-7.054,36.036c-.895,4.574.827,9.267,4.47,12.175l24.677,19.704c3.192,2.549,7.428,3.378,11.346,2.221l30.286-8.946c4.47-1.32,7.835-5.017,8.73-9.591l7.054-36.036c.895-4.574-.827-9.267-4.47-12.175l-24.677-19.704c-3.192-2.549-7.428-3.378-11.346-2.221Z" fill="#b9dff5"/><g opacity=".05"><path d="M89.006,83.728c-1.677,1.993-3.716,1.824-6.887,2.959-7.6,2.247-20.502,6.046-25.529,7.542-1.639.488-3.184.892-3.508,2.796-1.87,8.961-5.189,26.487-6.777,34.391-.219,1.067-.451,2.21-.981,3.046-1.163,1.819-3.584,1.218-3.933-.887-.166-.994.053-2.146.254-3.224,1.517-8.007,5.089-25.524,6.681-34.421.378-1.944-1.169-2.869-2.502-3.986-4.732-3.785-16.725-13.352-22.31-17.813-2.021-1.759-4.135-2.854-3.21-5.205,1.117-2.03,3.822-.558,5.281.744,5.169,4.111,18.382,14.679,23.418,18.688.917.69,1.805,1.521,2.852,1.794,1.677.23,2.718-.405,4.828-.94,6.865-2.025,21.293-6.291,27.287-8.053,1.089-.309,2.276-.638,3.295-.534,1.686.171,2.466,1.681,1.78,3.037l-.037.063Z" fill="#0a223a"/></g><path d="M106.33,7.511l-30.286,8.946c-4.47,1.32-7.835,5.017-8.73,9.591l-7.054,36.036c-.895,4.574.827,9.267,4.47,12.175l24.677,19.704c3.192,2.549,7.428,3.378,11.346,2.221l30.286-8.946c4.47-1.32,7.835-5.017,8.73-9.591l7.054-36.036c.895-4.574-.827-9.267-4.47-12.175l-24.677-19.704c-3.192-2.549-7.428-3.378-11.346-2.221Z" fill="#b9dff5"/><g opacity=".05"><path d="M142.032,37.961c-1.677,1.993-3.716,1.824-6.887,2.959-7.6,2.247-20.502,6.046-25.529,7.542-1.639.488-3.184.892-3.508,2.796-1.87,8.961-5.189,26.487-6.777,34.391-.219,1.067-.451,2.21-.981,3.046-1.163,1.819-3.584,1.218-3.933-.887-.166-.994.053-2.146.254-3.224,1.517-8.007,5.089-25.524,6.681-34.421.378-1.944-1.169-2.869-2.502-3.986-4.732-3.785-16.725-13.352-22.31-17.813-2.021-1.759-4.135-2.854-3.21-5.205,1.117-2.03,3.822-.558,5.281.744,5.169,4.111,18.382,14.679,23.418,18.688.917.69,1.805,1.521,2.852,1.794,1.677.23,2.718-.405,4.828-.94,6.865-2.025,21.293-6.291,27.287-8.053,1.089-.309,2.276-.638,3.295-.534,1.686.171,2.466,1.681,1.78,3.037l-.037.063Z" fill="#0a223a"/></g><path d="M110.911,74.841l-8.7,30.357c-1.284,4.481.03,9.304,3.41,12.513l26.626,25.286c3.38,3.21,8.264,4.274,12.673,2.76l29.868-10.254c3.864-1.326,6.836-4.456,7.961-8.383l8.7-30.357c1.284-4.481-.03-9.304-3.41-12.513l-26.626-25.286c-3.38-3.21-8.264-4.274-12.673-2.76l-29.868,10.254c-3.864,1.326-6.836,4.456-7.961,8.383Z" fill="#b9dff5"/><g opacity=".05"><path d="M155.762,61.05c.782,2.484-.454,4.115-1.198,7.4-2.181,7.619-5.898,20.545-7.332,25.59-.467,1.645-.955,3.166.478,4.46,6.559,6.386,19.568,18.59,25.387,24.171.783.757,1.623,1.566,2.044,2.462.911,1.958-.895,3.678-2.859,2.843-.928-.393-1.782-1.196-2.585-1.944-5.944-5.576-18.81-17.989-25.464-24.105-1.438-1.362-3.048-.553-4.706-.027-5.733,1.963-20.241,6.951-27.002,9.271-2.569.762-4.627,1.958-6.114-.083-1.114-2.032,1.579-3.525,3.461-4.057,6.243-2.156,22.249-7.637,28.335-9.736,1.074-.404,2.252-.707,3.044-1.444,1.094-1.292,1.116-2.511,1.797-4.578,1.975-6.879,6.115-21.344,7.844-27.348.324-1.085.683-2.263,1.318-3.067,1.049-1.331,2.741-1.179,3.518.128l.034.065Z" fill="#0a223a"/></g></g></g></svg>';
@@ -96,7 +103,7 @@ const RECIPES = [
     icon: LEMONADE_CUP_SVG,
     needs: { cups: 1, lemons: 1, ice: 1 },
     price: 1.00,
-    unlockLevel: 1
+    unlockDay: 1
   },
   {
     id: "sugar",
@@ -104,7 +111,7 @@ const RECIPES = [
     icon: LEMONADE_CUP_SVG + '<span class="sugar-badge">' + SUGAR_SVG + '</span>',
     needs: { cups: 1, lemons: 1, ice: 1, sugar: 1 },
     price: 1.50,
-    unlockLevel: 1
+    unlockDay: 1
   },
   {
     id: "icedTea",
@@ -112,7 +119,7 @@ const RECIPES = [
     icon: TEA_CUP_SVG,
     needs: { cups: 1, tea: 1, ice: 1 },
     price: 2.00,
-    unlockLevel: 2
+    unlockDay: 3
   },
   {
     id: "sweetTea",
@@ -120,12 +127,33 @@ const RECIPES = [
     icon: TEA_CUP_SVG + '<span class="sugar-badge">' + SUGAR_SVG + '</span>',
     needs: { cups: 1, tea: 1, ice: 1, sugar: 1 },
     price: 2.50,
-    unlockLevel: 2
+    unlockDay: 3
+  },
+  {
+    // New for Day 5 (2026-09-21, per Kayla) -- tea bag + lemon together,
+    // using Kayla's new images/lemon-tea-glass.svg art. Priced at $2 flat,
+    // per Kayla's ask; the sweetened version follows the same +$0.50
+    // sugar upcharge every other sweetened recipe already uses (Classic
+    // ->Sweetened Lemonade, Iced Tea->Sweetened Tea).
+    id: "lemonTea",
+    name: "Lemon Tea",
+    icon: LEMON_TEA_CUP_SVG,
+    needs: { cups: 1, tea: 1, ice: 1, lemons: 1 },
+    price: 2.00,
+    unlockDay: 5
+  },
+  {
+    id: "sweetLemonTea",
+    name: "Sweetened Lemon Tea",
+    icon: LEMON_TEA_CUP_SVG + '<span class="sugar-badge">' + SUGAR_SVG + '</span>',
+    needs: { cups: 1, tea: 1, ice: 1, lemons: 1, sugar: 1 },
+    price: 2.50,
+    unlockDay: 5
   }
 ];
 
-function recipesUnlockedByLevel(level) {
-  return RECIPES.filter(function (r) { return r.unlockLevel <= level; });
+function recipesUnlockedByDay(day) {
+  return RECIPES.filter(function (r) { return r.unlockDay <= day; });
 }
 
 const SUPPLY_TYPES = Object.keys(SUPPLIES);
@@ -297,9 +325,9 @@ function setCharacterMouth(container, mouthStyle) {
 
 
 // Kayla's four-star artwork (2026-09-10), replacing the old single-glyph
-// "sparkle" everywhere it appeared -- the on-serve burst, the intro modal's
-// decorative twinkles (see index.html's .start-sparkle spans), and the
-// goal-card burst below. Each is a full-color, pre-shaded 4-point star (or
+// "sparkle" everywhere it appeared -- the on-serve burst and the intro
+// modal's decorative twinkles (see index.html's .start-sparkle spans).
+// Each is a full-color, pre-shaded 4-point star (or
 // a diagonal pair of them), baked with a pale sky-blue (#8fcefa) base fill
 // plus a dark corner shadow and a white highlight facet for depth. The
 // pale base read as too washed-out against the sky background and white
@@ -343,31 +371,69 @@ function randomStarSVG() {
 // sits further from the lane's right edge (closer to the stand) instead of
 // hugging the right side of the screen.
 const CUSTOMER_SLOTS = ["480px", "270px", "60px"];
-const MAX_CUSTOMERS = 3;
 
 // ==========================================
-// GAME LEVELS
-// Each level has a set of goals. Completing
-// all goals in a level advances to the next
-// level, which can unlock new recipes.
+// GAME DAYS
+// The stand is open for a fixed number of days.
+// Each day gives the player a fixed number of
+// customers -- once that many have been resolved
+// (served OR walked away), the day ends, win or
+// lose. A day can also unlock new recipes for the
+// day that follows it.
+//
+// Per-day knobs:
+//   customerCount -- how many customers must be
+//     resolved before the day ends.
+//   noPatience -- true means customers never time
+//     out (used for Day 1 only, to ease players in).
+//   maxOnScreen -- how many customers can be in
+//     line at once. The queue is capped at 3
+//     (CUSTOMER_SLOTS only has 3 positions), but
+//     ramps up progressively: 1 on Day 1, 2 on
+//     Day 2, 3 from Day 3 on.
+//
+// Day 5 (2026-09-21, per Kayla) adds Lemon Tea / Sweetened Lemon Tea, using
+// her new images/lemon-tea-glass.svg art -- this replaces the earlier
+// half-lemonade/half-tea combo-drink idea that had been paused pending
+// artwork; that idea is no longer planned. Day 6 is the same lineup as
+// Day 5, just more customers -- nothing new unlocks there.
 // ==========================================
 
-const GAME_LEVELS = [
+const GAME_DAYS = [
   {
-    goals: [
-      { name: "Make your first $3 profit!", target: 3, type: "profit" },
-      { name: "Serve 10 lemonades!", target: 10, type: "orders" },
-      { name: "Have $15 in your checking!", target: 15, type: "cash" }
-    ]
+    day: 1,
+    customerCount: 5,
+    noPatience: true,
+    maxOnScreen: 1
   },
   {
+    day: 2,
+    customerCount: 10,
+    maxOnScreen: 2
+  },
+  {
+    day: 3,
+    customerCount: 10,
+    maxOnScreen: 3,
     unlockMessage: "Customers are asking for Iced Tea now! Tea bags just got added to your shop.",
-    newRecipeIds: ["icedTea", "sweetTea"],
-    goals: [
-      { name: "Grow your savings to $10!", target: 10, type: "savings" },
-      { name: "Serve 5 teas!", target: 5, type: "teaOrders" },
-      { name: "Reach $30 total wealth!", target: 30, type: "wealth" }
-    ]
+    newRecipeIds: ["icedTea", "sweetTea"]
+  },
+  {
+    day: 4,
+    customerCount: 15,
+    maxOnScreen: 3
+  },
+  {
+    day: 5,
+    customerCount: 15,
+    maxOnScreen: 3,
+    unlockMessage: "Customers are asking for Lemon Tea now! Try it with or without sugar.",
+    newRecipeIds: ["lemonTea", "sweetLemonTea"]
+  },
+  {
+    day: 6,
+    customerCount: 20,
+    maxOnScreen: 3
   }
 ];
 
@@ -377,6 +443,11 @@ const GAME_LEVELS = [
 
 let cash = 10.00;
 let savings = 0;
+// How much the player has moved into savings during the CURRENT day-recap
+// popup (reset every time populateDayRecap() opens one) -- lets the Undo
+// button in that popup put back exactly what was added this time, without
+// touching whatever savings already carried in from earlier days.
+let savingsAddedThisRecap = 0;
 let inventory = { cups: 0, lemons: 0, ice: 0, sugar: 0, tea: 0 };
 let build = { cups: 0, lemons: 0, ice: 0, sugar: 0, tea: 0 };
 // Order the ingredients were tapped in, most-recent-last -- lets the Undo
@@ -388,10 +459,18 @@ let totalSpent = 0;
 let ordersServed = 0;
 let teaOrdersServed = 0;
 
-let currentGameLevel = 1;
-let goalsCompletedThisLevel = 0;
-let interestTimer = 20;
-let interestInterval;
+let currentDay = 1;
+
+// Reset at the start of every day (see startNextDay/confirmRestart) --
+// drives the end-of-day recap popup's stats and the "day closes after N
+// customers" cutoff itself.
+let customersSpawnedToday = 0;
+let customersResolvedToday = 0;
+let servedToday = 0;
+let missedToday = 0;
+let earnedToday = 0;
+let spentToday = 0;
+
 let spawnTimeout;
 let customerTickInterval;
 
@@ -429,7 +508,6 @@ document.addEventListener("DOMContentLoaded", function () {
   // These loops run continuously but no-op while isPaused is true,
   // so it's safe to start them before the tutorial is dismissed.
   spawnLoop();
-  startInterestTimer();
   startCustomerTicker();
 
   // Kiosk auto-launch: the Intuiface home screen's "play" action opens this
@@ -463,15 +541,15 @@ function startGame() {
 // TUTORIAL WALKTHROUGH
 // Two phases:
 //  1) "Point" tour -- six spotlight+popup cards explaining the stand, the
-//     recipe guide, the shop, checking, savings, and the goal bar. The
+//     recipe guide, the shop, checking, savings, and the customer line. The
 //     game stays paused (no customers, no timers) and a full-stage click
 //     blocker keeps the player from poking at the dimmed game underneath.
 //  2) "Live" practice -- a Classic Lemonade customer (no patience timer),
 //     then a Sweetened Lemonade customer (no patience timer), then two
 //     ordinary customers with the normal timer running, after which
 //     control is handed back to the regular spawn loop.
-// A tutorial player's first level-1 goal (the $3 profit goal) also gets a
-// special cheer popup instead of the usual toast -- see checkLevelProgress.
+// A tutorial player's first served customer also gets a special cheer
+// popup instead of the usual toast -- see serveCustomer/showTutorialCheer.
 // ==========================================
 
 // Header + short body per stop (2026-09-10, per Kayla: reworked for
@@ -480,22 +558,28 @@ function startGame() {
 // it, instead of one longer sentence carrying the whole explanation.
 const TUTORIAL_POINTS = [
   {
-    target: function () { return document.querySelector(".counter"); },
+    // Whole wood counter panel (ledge + face), not just the supply cards
+    // sitting on it -- see standWoodRect() (2026-09-21, per Kayla).
+    target: function () { return standWoodRect(); },
     side: "right",
     title: "Your Stand",
     text: "Here are your supplies. The blue badge shows how many you have."
   },
   {
-    target: function () { return document.querySelector(".shop"); },
-    side: "right",
-    title: "The Shop",
-    text: "Tap to buy more supplies at the price shown in its badge."
-  },
-  {
+    // Moved up to 2nd (2026-09-21, per Kayla: "do the recipe book scond,
+    // instead of third") -- was after "The Shop", now before it.
     target: function () { return document.querySelector(".recipe-button"); },
     side: "left",
     title: "Your Recipes",
     text: "Here are your formulas with ingredients to make each order."
+  },
+  {
+    // Header + card column together -- see unionRect() (2026-09-21, per
+    // Kayla: "make sure to get the header in the highlight box as well").
+    target: function () { return unionRect([document.querySelector(".shop-header"), document.querySelector(".shop")]); },
+    side: "right",
+    title: "The Shop",
+    text: "Tap to buy more supplies at the price shown in its badge."
   },
   {
     target: function () { return document.querySelector(".wallet-card"); },
@@ -510,11 +594,17 @@ const TUTORIAL_POINTS = [
     text: "Move money from your checking account here to earn interest on cash you're not using. You can't use this money to buy supplies."
   },
   {
-    target: function () { return document.querySelector(".goal-card"); },
-    side: "bottom",
-    title: "Challenges",
-    text: "Here are your challenges, complete them to level up your stand!",
-    buttonLabel: "Let's try it!"
+    target: function () { return document.querySelector(".customer-lane"); },
+    side: "left",
+    title: "Customers",
+    text: "Customers line up here. You've got " + GAME_DAYS[0].customerCount + " for the day -- even ones who leave without ordering count, so keep the line moving!",
+    buttonLabel: "Let's try it!",
+    // Lane is otherwise empty at this point in the tour (no day has
+    // started yet) -- spawn a decorative customer so the highlight has
+    // something to actually point at (2026-09-21, per Kayla: "there are
+    // none there, so have one show up when you light it up"). Already the
+    // last stop, after Checking/Savings, per her ask.
+    onShow: spawnTutorialDemoCustomer
   }
 ];
 
@@ -525,14 +615,83 @@ let tutorialPointStep = -1;
 let tutorialActive = false;    // true anytime the tutorial owns customer spawning
 let tutorialLiveStep = null;   // "classic" | "sugar" | null
 let tutorialCustomerId = null;
-let tutorialFirstGoalPending = false;
+let tutorialFirstServePending = false;
+let tutorialDemoCustomerEl = null; // decorative-only customer for the "Customers" spotlight step, see spawnTutorialDemoCustomer()
+
+// Returns a rect-like object (duck-typed to getBoundingClientRect(), same
+// interface a real DOM element exposes) spanning the union of several
+// elements' on-screen boxes at once -- lets a tutorial spotlight target
+// more than one element (2026-09-21, per Kayla: get the "Shop" header
+// included in that step's highlight, not just the card column below it).
+// Returns null if none of the elements exist, same as a missing target.
+function unionRect(elements) {
+  const rects = elements.filter(Boolean).map(function (el) { return el.getBoundingClientRect(); });
+  if (!rects.length) {
+    return null;
+  }
+  const left = Math.min.apply(null, rects.map(function (r) { return r.left; }));
+  const top = Math.min.apply(null, rects.map(function (r) { return r.top; }));
+  const right = Math.max.apply(null, rects.map(function (r) { return r.right; }));
+  const bottom = Math.max.apply(null, rects.map(function (r) { return r.bottom; }));
+  return {
+    getBoundingClientRect: function () {
+      return { left: left, top: top, right: right, bottom: bottom, width: right - left, height: bottom - top };
+    }
+  };
+}
+
+// Returns a rect-like object covering just the wood counter panel at the
+// bottom of the stand -- the tan ledge + brown counter face painted into
+// stand.svg -- rather than the whole stand (awning included) or just the
+// supply cards sitting on it (2026-09-21, per Kayla: "highlight the
+// entire bottom of the stand, the wood part. Not just the cards."). 50.5%
+// matches the ledge's top edge, the same value the CLOSED sign anchors to
+// (see .closed-sign in style.css).
+function standWoodRect() {
+  const stand = document.querySelector(".stand");
+  if (!stand) {
+    return null;
+  }
+  const r = stand.getBoundingClientRect();
+  const woodTop = r.top + r.height * 0.505;
+  return {
+    getBoundingClientRect: function () {
+      return { left: r.left, top: woodTop, right: r.right, bottom: r.bottom, width: r.width, height: r.bottom - woodTop };
+    }
+  };
+}
+
+// Decorative-only customer shown just for the "Customers" spotlight step
+// (2026-09-21, per Kayla: the lane was empty when this step lit up, which
+// didn't read as "customers line up here"). Not pushed onto the real
+// `customers` array and not clickable -- the tutorial's full-stage click
+// blocker already sits above it regardless -- purely a visual prop,
+// cleared out by hideTutorialPoint() like the rest of this step's UI.
+function spawnTutorialDemoCustomer() {
+  if (tutorialDemoCustomerEl) {
+    return;
+  }
+  const recipe = recipesUnlockedByDay(currentDay)[0] || RECIPES[0];
+  const face = createRandomCharacterSVG();
+  const el = buildCustomerElement(recipe, face, -1);
+  el.onclick = null;
+  document.getElementById("customerLane").appendChild(el);
+  tutorialDemoCustomerEl = el;
+
+  positionCustomer({ element: el }, 0);
+  requestAnimationFrame(function () {
+    requestAnimationFrame(function () {
+      el.classList.add("parked");
+    });
+  });
+}
 
 function startTutorial() {
   document.getElementById("tutorialBox").classList.add("hidden");
   document.getElementById("modalBackdrop").classList.add("hidden");
 
   tutorialActive = true;
-  tutorialFirstGoalPending = true;
+  tutorialFirstServePending = true;
   tutorialPointStep = -1;
 
   tutorialNext();
@@ -550,6 +709,10 @@ function tutorialNext() {
 }
 
 function showTutorialPoint(point) {
+  if (typeof point.onShow === "function") {
+    point.onShow();
+  }
+
   const targetEl = point.target();
 
   if (!targetEl) {
@@ -625,6 +788,15 @@ function hideTutorialPoint() {
   document.getElementById("tutorialClickBlocker").classList.add("hidden");
   document.getElementById("tutorialHighlight").classList.add("hidden");
   document.getElementById("tutorialPointCard").classList.add("hidden");
+
+  // Clear the "Customers" step's decorative demo customer, if one was
+  // spawned (see spawnTutorialDemoCustomer) -- it's only ever meant to be
+  // on screen for that one spotlight step, and beginTutorialLive() spawns
+  // the real first practice customer right after this runs.
+  if (tutorialDemoCustomerEl) {
+    tutorialDemoCustomerEl.remove();
+    tutorialDemoCustomerEl = null;
+  }
 }
 
 function beginTutorialLive() {
@@ -655,7 +827,9 @@ function spawnTutorialCustomer(recipeId, calloutText) {
     recipe: recipe,
     remainingMs: PATIENCE_MS,
     warned: false,
-    noPatience: true
+    noPatience: true,
+    isTutorialCustomer: true,
+    resolved: false
   };
   customers.push(customer);
   tutorialCustomerId = id;
@@ -676,11 +850,14 @@ function spawnTutorialCustomer(recipeId, calloutText) {
   }, 600);
 }
 
-// Two ordinary customers with the normal patience timer, spawned once the
-// player has practiced an order -- after this the tutorial hands control
-// back to the regular spawn loop.
+// Two ordinary customers, spawned once the player has practiced an order --
+// after this the tutorial hands control back to the regular spawn loop.
+// Their patience timer matches whatever the day they're about to play
+// actually uses (see noPatience on GAME_DAYS) -- Day 1 has no timer at all,
+// so these stay timer-free too rather than teaching a mechanic Day 1 won't
+// show.
 function spawnScriptedTimedCustomer() {
-  const availableRecipes = recipesUnlockedByLevel(currentGameLevel);
+  const availableRecipes = recipesUnlockedByDay(currentDay);
   const recipe = availableRecipes[Math.floor(Math.random() * availableRecipes.length)];
   const face = createRandomCharacterSVG();
   const id = nextCustomerId++;
@@ -693,7 +870,10 @@ function spawnScriptedTimedCustomer() {
     element: el,
     recipe: recipe,
     remainingMs: PATIENCE_MS,
-    warned: false
+    warned: false,
+    noPatience: !!getCurrentDayDef().noPatience,
+    isTutorialCustomer: true,
+    resolved: false
   };
   customers.push(customer);
 
@@ -794,7 +974,7 @@ function skipTutorial() {
   tutorialActive = false;
   tutorialLiveStep = null;
   tutorialCustomerId = null;
-  tutorialFirstGoalPending = false;
+  tutorialFirstServePending = false;
 
   resumeGame();
 }
@@ -828,12 +1008,12 @@ function buySupplies(type) {
 
   cash -= supply.price;
   totalSpent += supply.price;
+  spentToday += supply.price;
   inventory[type] += supply.buyAmount;
 
   showMessage("Bought " + supply.buyAmount + " " + supply.name.toLowerCase() + "!");
 
   updateDisplay();
-  checkLevelProgress();
 }
 
 // ==========================================
@@ -909,7 +1089,15 @@ const TICK_MS = 200;
 function spawnLoop() {
   clearTimeout(spawnTimeout);
 
-  if (!isPaused && !tutorialActive && customers.length < MAX_CUSTOMERS) {
+  const dayDef = getCurrentDayDef();
+
+  if (
+    !isPaused &&
+    !tutorialActive &&
+    dayDef &&
+    customers.length < dayDef.maxOnScreen &&
+    customersSpawnedToday < dayDef.customerCount
+  ) {
     spawnCustomer();
   }
 
@@ -942,7 +1130,7 @@ function buildCustomerElement(recipe, face, id) {
 
 function spawnCustomer() {
   const id = nextCustomerId++;
-  const availableRecipes = recipesUnlockedByLevel(currentGameLevel);
+  const availableRecipes = recipesUnlockedByDay(currentDay);
   const recipe = availableRecipes[Math.floor(Math.random() * availableRecipes.length)];
   const face = createRandomCharacterSVG();
   const el = buildCustomerElement(recipe, face, id);
@@ -954,9 +1142,15 @@ function spawnCustomer() {
     element: el,
     recipe: recipe,
     remainingMs: PATIENCE_MS,
-    warned: false
+    warned: false,
+    noPatience: !!getCurrentDayDef().noPatience,
+    // Set the instant they're served or given up (see serveCustomer /
+    // customerGaveUp) -- guards against double-counting the same customer
+    // toward customersResolvedToday, see the note above serveCustomer.
+    resolved: false
   };
   customers.push(customer);
+  customersSpawnedToday += 1;
 
   // Position at the back of the line (its current index)
   positionCustomer(customer, customers.length - 1);
@@ -1032,12 +1226,35 @@ function repositionQueue() {
 function customerGaveUp(id) {
   const customer = customers.find(function (c) { return c.id === id; });
 
-  if (!customer) {
+  // The resolved guard matters here: serveCustomer() leaves a served
+  // customer in the `customers` array for 350ms (so its sparkle/slide-out
+  // can play) before actually removing it -- see removeFromQueue below.
+  // The patience ticker runs every 200ms and doesn't know a customer was
+  // just served, so if that customer's patience had already ticked down
+  // to 0 (e.g. served right at the last second), this function could
+  // still fire for the SAME customer during that 350ms window, double-
+  // counting them toward customersResolvedToday. That let the day-end
+  // check (see checkDayProgress) trigger a customer early -- ending the
+  // day, and popping up the recap, while a genuinely unserved customer
+  // was still sitting on screen (2026-09-21, per Kayla: "it didn't let me
+  // serve my last customer before the popup came up").
+  if (!customer || customer.resolved) {
     return;
   }
+  customer.resolved = true;
 
   showMessage("A customer left without ordering.");
+
+  if (!customer.isTutorialCustomer) {
+    missedToday += 1;
+    customersResolvedToday += 1;
+  }
+
   removeFromQueue(customer);
+
+  if (!customer.isTutorialCustomer) {
+    checkDayProgress();
+  }
 }
 
 // ==========================================
@@ -1047,7 +1264,13 @@ function customerGaveUp(id) {
 function serveCustomer(id) {
   const customer = customers.find(function (c) { return c.id === id; });
 
-  if (!customer) {
+  // See the matching guard/comment in customerGaveUp -- a customer stays
+  // in the `customers` array for 350ms after being served (for the
+  // sparkle/slide-out animation), so it's still possible to tap the same
+  // customer again, or for its patience timer to expire, during that
+  // window. The resolved flag makes sure only the first resolution
+  // (whichever happens first) actually counts.
+  if (!customer || customer.resolved) {
     return;
   }
 
@@ -1059,6 +1282,8 @@ function serveCustomer(id) {
     }, 300);
     return;
   }
+
+  customer.resolved = true;
 
   for (const type of SUPPLY_TYPES) {
     build[type] = 0;
@@ -1073,6 +1298,12 @@ function serveCustomer(id) {
     teaOrdersServed += 1;
   }
 
+  if (!customer.isTutorialCustomer) {
+    servedToday += 1;
+    earnedToday += customer.recipe.price;
+    customersResolvedToday += 1;
+  }
+
   showMessage(customer.recipe.name + " served! +$" + customer.recipe.price.toFixed(2));
 
   createSparkleBurst(customer.element);
@@ -1083,7 +1314,17 @@ function serveCustomer(id) {
   }, 350);
 
   updateDisplay();
-  checkLevelProgress();
+
+  if (!customer.isTutorialCustomer) {
+    checkDayProgress();
+  }
+
+  if (tutorialFirstServePending && ordersServed === 1) {
+    // A tutorial player's very first served customer gets a special cheer
+    // popup instead of the usual toast -- see showTutorialCheer.
+    tutorialFirstServePending = false;
+    showTutorialCheer("You served your first customer! Keep the line moving until you've served everyone -- then it's time to close up shop for the day.");
+  }
 
   if (tutorialCustomerId === id) {
     advanceTutorialLiveStep();
@@ -1144,65 +1385,29 @@ function createSparkleBurst(customerEl) {
 }
 
 // ==========================================
-// GOAL STAR BURST (bigger celebration when a single challenge is
-// completed, 2026-09-10, per Kayla) -- the level-up popup only ever fired
-// once ALL goals in a level were done, so completing an individual
-// challenge along the way had no visual payoff beyond a toast message.
-// This is the same idea as the on-serve sparkle burst above but bigger and
-// with a real sense of gravity: stars pop out of the goal card's progress
-// bar and fall/tumble down past the bottom edge of the card instead of
-// just radiating outward, so it reads as a clear "you did it" moment even
-// out of the corner of your eye.
-// ==========================================
-
-const GOAL_STAR_COUNT = 7;
-
-function createGoalStarBurst() {
-  const card = document.querySelector(".goal-card");
-  if (!card) return;
-
-  for (let i = 0; i < GOAL_STAR_COUNT; i++) {
-    const star = document.createElement("div");
-    star.className = "goal-star";
-    star.innerHTML = randomStarSVG();
-
-    const gx = 8 + Math.random() * 84; // spread across the card, in %
-    const size = 30 + Math.random() * 26; // 30-56px -- clearly bigger than the 22px serve sparkle
-    const dx = (Math.random() - 0.5) * 100; // px of horizontal drift while falling
-    const fall = 100 + Math.random() * 80; // px fallen by the end of the animation
-    const rotStart = (Math.random() - 0.5) * 50;
-    const rotEnd = rotStart + (Math.random() - 0.5) * 200;
-    const delay = i * 55 + Math.random() * 45; // staggered so it reads as a shower, not one flat pop
-
-    star.style.setProperty("--gx", gx + "%");
-    star.style.setProperty("--star-size", size + "px");
-    star.style.setProperty("--dx", dx + "px");
-    star.style.setProperty("--fall", fall + "px");
-    star.style.setProperty("--rot-start", rotStart + "deg");
-    star.style.setProperty("--rot-end", rotEnd + "deg");
-    star.style.animationDelay = delay + "ms";
-
-    card.appendChild(star);
-
-    setTimeout(function () {
-      star.remove();
-    }, delay + 1100);
-  }
-}
-
-// ==========================================
 // RECIPE GUIDE
 // ==========================================
+
+// Cups and ice always lead a recipe's ingredient row (2026-09-21, per
+// Kayla: "make sure it always starts with cup then ice, then list the
+// others after but those should always lead"), whatever order the rest of
+// the ingredients happen to need -- every recipe needs both today, so this
+// always applies in practice, but a recipe that somehow skipped one would
+// just fall through to whatever it does need.
+const INGREDIENT_LEAD_ORDER = ["cups", "ice"];
 
 function buildIngredientsHTML(recipe) {
   let html = '<div class="recipe-ingredients">';
 
-  // Iterate the recipe's OWN declared ingredient order (its `needs` object,
-  // in the order it's written in RECIPES above) rather than the fixed
-  // SUPPLY_TYPES order -- so each row reads in its natural recipe order
-  // (e.g. iced tea shows cup/tea/ice, not cup/ice/tea) instead of every
-  // recipe sharing one global ingredient sequence.
-  Object.keys(recipe.needs).forEach(function (type) {
+  // Cup, then ice, then everything else in the recipe's OWN declared order
+  // (its `needs` object, in the order it's written in RECIPES above) --
+  // e.g. Lemon Tea reads cup/ice/tea/lemon, not cup/tea/ice/lemon.
+  const remainingTypes = Object.keys(recipe.needs).filter(function (type) {
+    return INGREDIENT_LEAD_ORDER.indexOf(type) === -1;
+  });
+  const orderedTypes = INGREDIENT_LEAD_ORDER.concat(remainingTypes);
+
+  orderedTypes.forEach(function (type) {
     const amount = recipe.needs[type];
     if (amount) {
       // Every current recipe only ever needs 1 of an ingredient, so the
@@ -1226,7 +1431,7 @@ function buildRecipeListHTML(recipeList) {
   recipeList.forEach(function (recipe) {
     // Drink icon -- title -- ingredients, all on one line, with the
     // ingredients pushed to the row's far right via .recipe-ingredients'
-    // margin-left:auto (see the shared #recipeBox/#levelUpBox scoped CSS
+    // margin-left:auto (see the shared #recipeBox/#dayRecapBox scoped CSS
     // in style.css -- both modals' recipe lists use this exact layout).
     // data-recipe-id drives each row's pale background color (see
     // style.css) so a given recipe is always the same color everywhere,
@@ -1246,7 +1451,7 @@ function buildRecipeListHTML(recipeList) {
 
 function populateRecipeGuide() {
   const container = document.getElementById("recipeList");
-  container.innerHTML = buildRecipeListHTML(recipesUnlockedByLevel(currentGameLevel));
+  container.innerHTML = buildRecipeListHTML(recipesUnlockedByDay(currentDay));
 }
 
 function openRecipeGuide() {
@@ -1261,6 +1466,9 @@ function closeRecipeGuide() {
 
 // ==========================================
 // SAVE MONEY
+// Only callable from the end-of-day recap popup now (see #dayRecapBox) --
+// there's no mid-day way to move cash into savings any more, so the day
+// stays focused on serving customers instead of account-juggling.
 // ==========================================
 
 function saveMoney(amount) {
@@ -1271,155 +1479,138 @@ function saveMoney(amount) {
 
   cash -= amount;
   savings += amount;
-
-  showMessage("You put $" + amount.toFixed(2) + " in your savings!");
+  savingsAddedThisRecap += amount;
 
   updateDisplay();
-  checkLevelProgress();
+  updateDayRecapMoneyStats();
 }
 
-// ==========================================
-// INTEREST TIMER
-// ==========================================
-
-function startInterestTimer() {
-  clearInterval(interestInterval);
-
-  interestTimer = 20;
-
-  interestInterval = setInterval(function () {
-    interestTimer -= 1;
-    updateInterestMessage();
-
-    if (interestTimer <= 0) {
-      growSavings();
-      interestTimer = 20;
-    }
-  }, 1000);
-}
-
-function growSavings() {
-  if (savings <= 0) {
-    updateInterestMessage();
+// Puts back exactly what the player has added to savings during THIS
+// viewing of the recap popup (see savingsAddedThisRecap above) -- lets
+// them back out of adding too much without having to know or type an
+// exact amount. Disabled/no-ops once there's nothing to undo.
+function undoSavings() {
+  if (savingsAddedThisRecap <= 0) {
     return;
   }
 
-  const growth = savings * 0.05;
-  savings += growth;
-
-  showMessage("Your savings grew by $" + growth.toFixed(2) + "!");
+  savings -= savingsAddedThisRecap;
+  cash += savingsAddedThisRecap;
+  savingsAddedThisRecap = 0;
 
   updateDisplay();
-  checkLevelProgress();
+  updateDayRecapMoneyStats();
 }
 
-function updateInterestMessage() {
-  const message = document.getElementById("interestMessage");
+// ==========================================
+// DAY PROGRESS
+// A day has no goals to hit any more -- the customer count itself is the
+// challenge. Once every customer for the day has been resolved (served OR
+// walked away), the day ends and the recap popup takes over.
+// ==========================================
 
-  if (savings > 0) {
-    message.textContent = "Next growth: " + interestTimer + "s";
-  } else {
-    message.textContent = "";
+function getCurrentDayDef() {
+  return GAME_DAYS[currentDay - 1];
+}
+
+function checkDayProgress() {
+  const dayDef = getCurrentDayDef();
+  if (!dayDef) return;
+
+  if (customersResolvedToday >= dayDef.customerCount) {
+    endDay();
   }
 }
 
 // ==========================================
-// LEVEL PROGRESS
+// END OF DAY / RECAP POPUP
+// Fires once every customer for the day has been resolved. Styled after
+// Budget Builder's stage-recap popup (per Kayla): a dark "statement" card
+// with the day's stats and a place to move cash into savings before
+// tomorrow. Looks identical every day (2026-09-21, per Kayla) -- no
+// recipe list here any more. When the day that's about to start adds new
+// recipes, a SEPARATE plain-white popup (#recipeUnlockBox) shows those
+// right after this one closes -- see handleDayRecapAction/showRecipeUnlock
+// below for the two-popup sequence.
+//
+// (2026-09-21, per Kayla) The "CLOSED" sign pops onto the stand first --
+// game stays paused/dimmed the moment the last customer is resolved, same
+// as any other popup, but the recap card itself waits so the sign has a
+// beat on screen before the stats appear. Started at 1s; bumped to 3s per
+// Kayla ("give it like a couple more seconds"), then per her follow-up
+// ("a little too long, shave off 2 secds") brought back down to 1s --
+// same value it started at, just confirmed as the right one this time.
 // ==========================================
 
-function getProgressValue(goal) {
-  const totalProfit = totalEarned - totalSpent;
+const CLOSED_SIGN_DELAY_MS = 1000;
 
-  if (goal.type === "profit") return totalProfit;
-  if (goal.type === "orders") return ordersServed;
-  if (goal.type === "teaOrders") return teaOrdersServed;
-  if (goal.type === "cash") return cash;
-  if (goal.type === "savings") return savings;
-  if (goal.type === "wealth") return cash + savings;
-
-  return 0;
-}
-
-function getCurrentLevelDef() {
-  return GAME_LEVELS[currentGameLevel - 1];
-}
-
-function getCurrentGoal() {
-  const levelDef = getCurrentLevelDef();
-  return levelDef ? levelDef.goals[goalsCompletedThisLevel] : null;
-}
-
-function checkLevelProgress() {
-  const levelDef = getCurrentLevelDef();
-  if (!levelDef) return;
-
-  const goal = levelDef.goals[goalsCompletedThisLevel];
-  if (!goal) return;
-
-  if (getProgressValue(goal) < goal.target) return;
-
-  goalsCompletedThisLevel += 1;
-
-  // Fires for every completed challenge, not just the level-up moment
-  // (2026-09-10, per Kayla) -- see createGoalStarBurst above.
-  createGoalStarBurst();
-
-  if (goalsCompletedThisLevel >= levelDef.goals.length) {
-    advanceGameLevel();
-  } else if (tutorialFirstGoalPending && currentGameLevel === 1 && goalsCompletedThisLevel === 1) {
-    // A tutorial player's very first goal gets a special cheer popup
-    // instead of the usual toast -- see showTutorialCheer.
-    tutorialFirstGoalPending = false;
-    showTutorialCheer("You completed your first challenge! Keep hitting your targets to move on to Round 2 — you've got this!");
-  } else {
-    const nextGoal = levelDef.goals[goalsCompletedThisLevel];
-    showMessage("Goal complete! Next: " + nextGoal.name);
-    updateDisplay();
-  }
-}
-
-function advanceGameLevel() {
-  currentGameLevel += 1;
-  goalsCompletedThisLevel = 0;
-
-  const newLevelDef = getCurrentLevelDef();
-
-  document.getElementById("levelUpTitle").textContent = "LEVEL " + currentGameLevel + "!";
-
-  const levelUpIcon = document.getElementById("levelUpIcon");
-
-  const levelUpBox = document.getElementById("levelUpBox");
-
-  if (newLevelDef) {
-    levelUpIcon.innerHTML = TROPHY_SVG;
-    levelUpBox.classList.remove("statement");
-    document.getElementById("levelUpMessage").textContent =
-      newLevelDef.unlockMessage || "New goals unlocked!";
-    revealNewSupplies(newLevelDef);
-    renderLevelUpRecipes(newLevelDef);
-    populateRecipeGuide();
-  } else {
-    levelUpIcon.innerHTML = CROWN_SVG;
-    // "statement" is the same dark Blue Black -> Persian Blue treatment used
-    // for the big win screen in Coin Catch / Driver Decides -- reserved for
-    // this one moment (every goal complete), not the in-between level-ups.
-    levelUpBox.classList.add("statement");
-    document.getElementById("levelUpMessage").textContent =
-      "You've completed every goal! You're a Lemonade Star!";
-    document.getElementById("levelUpRecipes").innerHTML = "";
-  }
-
+function endDay() {
   pauseGame();
-  levelUpBox.classList.remove("hidden");
-
-  updateDisplay();
+  showClosedSign();
+  setTimeout(function () {
+    populateDayRecap();
+    document.getElementById("dayRecapBox").classList.remove("hidden");
+  }, CLOSED_SIGN_DELAY_MS);
 }
 
-function revealNewSupplies(levelDef) {
-  if (!levelDef.newRecipeIds) return;
+// Restarts the CSS pop-in animation even on repeat days -- toggling the
+// class off and forcing a reflow (the .offsetWidth read) before adding it
+// back is what makes @keyframes closed-sign-pop replay from 0% instead of
+// silently no-op'ing because the class was technically already present.
+function showClosedSign() {
+  const sign = document.getElementById("closedSign");
+  sign.classList.remove("hidden");
+  sign.classList.remove("sign-appear");
+  void sign.offsetWidth;
+  sign.classList.add("sign-appear");
+}
+
+function hideClosedSign() {
+  const sign = document.getElementById("closedSign");
+  sign.classList.add("hidden");
+  sign.classList.remove("sign-appear");
+}
+
+function populateDayRecap() {
+  const dayDef = getCurrentDayDef();
+  const nextDayDef = GAME_DAYS[currentDay]; // GAME_DAYS is 0-indexed; currentDay (1-indexed) already points at the next day's def, if any
+
+  document.getElementById("dayRecapTitle").textContent = "Day " + currentDay + " Complete!";
+  document.getElementById("dayRecapServed").textContent = servedToday + " / " + dayDef.customerCount;
+
+  // Fresh popup, fresh undo history -- whatever was added to savings on a
+  // previous day (or earlier viewing of this same popup) isn't something
+  // this Undo button should be able to touch.
+  savingsAddedThisRecap = 0;
+  updateDayRecapMoneyStats();
+
+  const nextBtn = document.getElementById("dayRecapNextBtn");
+
+  if (nextDayDef) {
+    document.getElementById("dayRecapMessage").textContent =
+      "Nice work! Your cash and savings carry into tomorrow.";
+    nextBtn.textContent = "Start Day " + nextDayDef.day;
+  } else {
+    document.getElementById("dayRecapMessage").textContent =
+      "You've run your stand for " + GAME_DAYS.length + " days. Great work!";
+    nextBtn.textContent = "Play Again";
+  }
+}
+
+// Keeps the recap popup's Checking/Savings numbers -- and the Undo
+// button's enabled state -- live as the player taps +$1/+$5/+$10 or Undo,
+// without needing to close and reopen the popup.
+function updateDayRecapMoneyStats() {
+  document.getElementById("dayRecapCash").textContent = "$" + cash.toFixed(2);
+  document.getElementById("dayRecapSavings").textContent = "$" + savings.toFixed(2);
+  document.getElementById("undoSaveBtn").disabled = savingsAddedThisRecap <= 0;
+}
+
+function revealNewSupplies(dayDef) {
+  if (!dayDef.newRecipeIds) return;
 
   const newSupplyTypes = new Set();
-  levelDef.newRecipeIds.forEach(function (recipeId) {
+  dayDef.newRecipeIds.forEach(function (recipeId) {
     const recipe = RECIPES.find(function (r) { return r.id === recipeId; });
     if (recipe) {
       Object.keys(recipe.needs).forEach(function (type) { newSupplyTypes.add(type); });
@@ -1434,23 +1625,75 @@ function revealNewSupplies(levelDef) {
   });
 }
 
-function renderLevelUpRecipes(levelDef) {
-  const container = document.getElementById("levelUpRecipes");
+// The recap popup's single button -- opens the "new recipes" popup when the
+// day about to start unlocks any, jumps straight into the next day when it
+// doesn't, or (once every day that exists has been played) starts a fresh
+// game, since there's nothing further to play yet.
+function handleDayRecapAction() {
+  document.getElementById("dayRecapBox").classList.add("hidden");
 
-  if (!levelDef.newRecipeIds) {
-    container.innerHTML = "";
+  const nextDayDef = GAME_DAYS[currentDay];
+
+  if (!nextDayDef) {
+    confirmRestart();
     return;
   }
 
-  const newRecipes = RECIPES.filter(function (r) {
-    return levelDef.newRecipeIds.indexOf(r.id) !== -1;
-  });
-
-  container.innerHTML = buildRecipeListHTML(newRecipes);
+  if (nextDayDef.newRecipeIds) {
+    showRecipeUnlock(nextDayDef);
+  } else {
+    startNextDay();
+  }
 }
 
-function closeLevelUp() {
-  document.getElementById("levelUpBox").classList.add("hidden");
+// Plain white "new recipes" popup (not the dark .statement treatment) --
+// this is what #levelUpBox used to look like before the days-of-business
+// rework. The game is already paused from endDay() and stays paused
+// straight through into this popup, so there's no flash of live gameplay
+// showing through in between the two.
+function showRecipeUnlock(dayDef) {
+  document.getElementById("recipeUnlockMessage").textContent =
+    dayDef.unlockMessage || "New recipes unlocked!";
+
+  const newRecipes = RECIPES.filter(function (r) {
+    return dayDef.newRecipeIds.indexOf(r.id) !== -1;
+  });
+  document.getElementById("recipeUnlockList").innerHTML = buildRecipeListHTML(newRecipes);
+
+  document.getElementById("recipeUnlockBox").classList.remove("hidden");
+}
+
+function closeRecipeUnlock() {
+  document.getElementById("recipeUnlockBox").classList.add("hidden");
+  startNextDay();
+}
+
+function startNextDay() {
+  currentDay += 1;
+
+  hideClosedSign();
+  revealNewSupplies(getCurrentDayDef());
+  populateRecipeGuide();
+
+  customersSpawnedToday = 0;
+  customersResolvedToday = 0;
+  servedToday = 0;
+  missedToday = 0;
+  earnedToday = 0;
+  spentToday = 0;
+
+  // Supplies do NOT carry over day to day (per Kayla) -- whatever's left
+  // in the shop inventory at closing time is gone once the new day opens,
+  // same as the in-progress build tray (which should already be empty by
+  // now since a day only ends once every customer is resolved, but this
+  // clears it too as a safety net rather than leaving a stale half-built
+  // order sitting on top of a zeroed-out inventory).
+  SUPPLY_TYPES.forEach(function (type) {
+    inventory[type] = 0;
+    build[type] = 0;
+  });
+  buildOrder = [];
+
   resumeGame();
   updateDisplay();
 }
@@ -1467,29 +1710,8 @@ function updateDisplay() {
     document.getElementById("count-" + type).textContent = inventory[type];
   }
 
-  updateGoalDisplay();
   updateBuildDisplay();
   updateAllCustomerReadiness();
-  updateInterestMessage();
-}
-
-function updateGoalDisplay() {
-  const levelDef = getCurrentLevelDef();
-
-  if (!levelDef) {
-    document.getElementById("goalLevelLabel").textContent = "Complete!";
-    document.getElementById("goalText").textContent = "All goals complete!";
-    document.getElementById("goalProgress").style.width = "100%";
-    return;
-  }
-
-  document.getElementById("goalLevelLabel").textContent = "Level " + currentGameLevel;
-
-  const goal = levelDef.goals[goalsCompletedThisLevel];
-  document.getElementById("goalText").textContent = goal ? goal.name : "Level complete!";
-
-  const percentage = (goalsCompletedThisLevel / levelDef.goals.length) * 100;
-  document.getElementById("goalProgress").style.width = percentage + "%";
 }
 
 // ==========================================
@@ -1526,9 +1748,13 @@ function confirmRestart() {
   ordersServed = 0;
   teaOrdersServed = 0;
 
-  currentGameLevel = 1;
-  goalsCompletedThisLevel = 0;
-  interestTimer = 20;
+  currentDay = 1;
+  customersSpawnedToday = 0;
+  customersResolvedToday = 0;
+  servedToday = 0;
+  missedToday = 0;
+  earnedToday = 0;
+  spentToday = 0;
 
   document.querySelectorAll(".shop-item, .inv-slot").forEach(function (el) {
     if (el.dataset.supply === "tea") {
@@ -1538,9 +1764,10 @@ function confirmRestart() {
   populateRecipeGuide();
 
   document.getElementById("confirmBox").classList.add("hidden");
-  document.getElementById("levelUpBox").classList.add("hidden");
-  document.getElementById("levelUpBox").classList.remove("statement");
+  document.getElementById("dayRecapBox").classList.add("hidden");
+  document.getElementById("recipeUnlockBox").classList.add("hidden");
   document.getElementById("recipeBox").classList.add("hidden");
+  hideClosedSign();
 
   // Clear out any in-progress tutorial (spotlight card, callout, cheer
   // popup, scripted no-patience customer) so a restart mid-tutorial
@@ -1552,7 +1779,7 @@ function confirmRestart() {
   tutorialActive = false;
   tutorialLiveStep = null;
   tutorialCustomerId = null;
-  tutorialFirstGoalPending = false;
+  tutorialFirstServePending = false;
 
   document.getElementById("customerLane").innerHTML = "";
   customers = [];
