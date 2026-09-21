@@ -7,7 +7,7 @@
 // ==========================================
 
 const SUPPLIES = {
-  cups: { name: "Cups", buyAmount: 10, price: 2.00 },
+  cups: { name: "Cups", buyAmount: 10, price: 1.00 },
   lemons: { name: "Lemons", buyAmount: 10, price: 2.00 },
   ice: { name: "Ice", buyAmount: 10, price: 1.00 },
   sugar: { name: "Sugar", buyAmount: 10, price: 1.00 },
@@ -461,6 +461,12 @@ let teaOrdersServed = 0;
 
 let currentDay = 1;
 
+// Set once the player chooses "Keep Playing" from the final day's recap
+// (see startContinuousPlay) -- endless play on Day 6's recipes/settings,
+// no customer-count cutoff. Guards checkDayProgress/spawnLoop below, and
+// is reset back to false on a full restart (see confirmRestart).
+let continuousMode = false;
+
 // Reset at the start of every day (see startNextDay/confirmRestart) --
 // drives the end-of-day recap popup's stats and the "day closes after N
 // customers" cutoff itself.
@@ -470,6 +476,12 @@ let servedToday = 0;
 let missedToday = 0;
 let earnedToday = 0;
 let spentToday = 0;
+
+// Simple flat daily rate applied to whatever's in savings each time a new
+// day opens (see startNextDay) -- re-added per Kayla ("add the interest
+// growth to savings again"); the exact rate wasn't specified this round,
+// so 2%/day is a placeholder flagged for her to confirm/adjust.
+const SAVINGS_INTEREST_RATE = 0.02;
 
 let spawnTimeout;
 let customerTickInterval;
@@ -1096,7 +1108,7 @@ function spawnLoop() {
     !tutorialActive &&
     dayDef &&
     customers.length < dayDef.maxOnScreen &&
-    customersSpawnedToday < dayDef.customerCount
+    (continuousMode || customersSpawnedToday < dayDef.customerCount)
   ) {
     spawnCustomer();
   }
@@ -1514,6 +1526,10 @@ function getCurrentDayDef() {
 }
 
 function checkDayProgress() {
+  // Endless play once "Keep Playing" is chosen on the finale recap (see
+  // startContinuousPlay) -- no customer count ever ends the day again.
+  if (continuousMode) return;
+
   const dayDef = getCurrentDayDef();
   if (!dayDef) return;
 
@@ -1575,26 +1591,69 @@ function populateDayRecap() {
   const dayDef = getCurrentDayDef();
   const nextDayDef = GAME_DAYS[currentDay]; // GAME_DAYS is 0-indexed; currentDay (1-indexed) already points at the next day's def, if any
 
-  document.getElementById("dayRecapTitle").textContent = "Day " + currentDay + " Complete!";
-  document.getElementById("dayRecapServed").textContent = servedToday + " / " + dayDef.customerCount;
+  // The last day has no "tomorrow" to hand off to -- instead of the usual
+  // day-to-day recap, this is the finale: whole-game lifetime stats (per
+  // Kayla: "stats for the entire games customers, checking, savings etc"),
+  // a bigger/more celebratory popup (see .finale in style.css), and a
+  // choice instead of a single "next day" button -- Start Over (the old
+  // Play Again behavior) or Keep Playing on in endless mode (see
+  // startContinuousPlay/confirmRestart below).
+  const isFinale = !nextDayDef;
+  document.getElementById("dayRecapBox").classList.toggle("finale", isFinale);
+
+  const servedLabel = document.getElementById("dayRecapServedLabel");
+  const cashLabel = document.getElementById("dayRecapCashLabel");
+  const finaleGrid = document.getElementById("dayRecapFinaleGrid");
+  const savingsDivider = document.getElementById("dayRecapSavingsDivider");
+  const savingsCard = document.getElementById("dayRecapSavingsCard");
+  const nextBtn = document.getElementById("dayRecapNextBtn");
+  const finaleActions = document.getElementById("dayRecapFinaleActions");
 
   // Fresh popup, fresh undo history -- whatever was added to savings on a
   // previous day (or earlier viewing of this same popup) isn't something
   // this Undo button should be able to touch.
   savingsAddedThisRecap = 0;
-  updateDayRecapMoneyStats();
 
-  const nextBtn = document.getElementById("dayRecapNextBtn");
+  if (isFinale) {
+    document.getElementById("dayRecapTitle").textContent = "Final Results!";
+    document.getElementById("dayRecapMessage").textContent =
+      "You ran your stand for " + GAME_DAYS.length + " days. Here's the whole story!";
 
-  if (nextDayDef) {
+    servedLabel.textContent = "Total Customers Served";
+    document.getElementById("dayRecapServed").textContent = String(ordersServed);
+    cashLabel.textContent = "Final Checking Balance";
+
+    document.getElementById("dayRecapFinalSavings").textContent = "$" + savings.toFixed(2);
+    document.getElementById("dayRecapFinalEarned").textContent = "$" + totalEarned.toFixed(2);
+    finaleGrid.classList.remove("hidden");
+
+    // No more "tomorrow" to save cash for once the game's over, so the
+    // interactive add/undo savings card steps aside for the plain finale
+    // stat above.
+    savingsDivider.classList.add("hidden");
+    savingsCard.classList.add("hidden");
+
+    nextBtn.classList.add("hidden");
+    finaleActions.classList.remove("hidden");
+  } else {
+    document.getElementById("dayRecapTitle").textContent = "Day " + currentDay + " Complete!";
     document.getElementById("dayRecapMessage").textContent =
       "Nice work! Your cash and savings carry into tomorrow.";
+
+    servedLabel.textContent = "Customers Served";
+    document.getElementById("dayRecapServed").textContent = servedToday + " / " + dayDef.customerCount;
+    cashLabel.textContent = "Checking Account";
+
+    finaleGrid.classList.add("hidden");
+    savingsDivider.classList.remove("hidden");
+    savingsCard.classList.remove("hidden");
+
+    nextBtn.classList.remove("hidden");
     nextBtn.textContent = "Start Day " + nextDayDef.day;
-  } else {
-    document.getElementById("dayRecapMessage").textContent =
-      "You've run your stand for " + GAME_DAYS.length + " days. Great work!";
-    nextBtn.textContent = "Play Again";
+    finaleActions.classList.add("hidden");
   }
+
+  updateDayRecapMoneyStats();
 }
 
 // Keeps the recap popup's Checking/Savings numbers -- and the Undo
@@ -1625,10 +1684,13 @@ function revealNewSupplies(dayDef) {
   });
 }
 
-// The recap popup's single button -- opens the "new recipes" popup when the
-// day about to start unlocks any, jumps straight into the next day when it
-// doesn't, or (once every day that exists has been played) starts a fresh
-// game, since there's nothing further to play yet.
+// The recap popup's "Start Day N" button (every day but the last) -- opens
+// the "new recipes" popup when the day about to start unlocks any, or
+// jumps straight into the next day when it doesn't. The last day's recap
+// shows a two-button choice instead (Start Over / Keep Playing -- see
+// #dayRecapFinaleActions in populateDayRecap and confirmRestart/
+// startContinuousPlay below), so this function isn't reached from there;
+// the fallback is kept as a safety net in case it ever is.
 function handleDayRecapAction() {
   document.getElementById("dayRecapBox").classList.add("hidden");
 
@@ -1671,6 +1733,17 @@ function closeRecipeUnlock() {
 function startNextDay() {
   currentDay += 1;
 
+  // Savings grows a little every day it carries over -- see
+  // SAVINGS_INTEREST_RATE above. Rounded to the nearest cent so it can
+  // never add a fraction of a cent the display doesn't show.
+  if (savings > 0) {
+    const interestEarned = Math.round(savings * SAVINGS_INTEREST_RATE * 100) / 100;
+    if (interestEarned > 0) {
+      savings += interestEarned;
+      showMessage("Your savings earned $" + interestEarned.toFixed(2) + " in interest overnight!");
+    }
+  }
+
   hideClosedSign();
   revealNewSupplies(getCurrentDayDef());
   populateRecipeGuide();
@@ -1688,6 +1761,39 @@ function startNextDay() {
   // now since a day only ends once every customer is resolved, but this
   // clears it too as a safety net rather than leaving a stale half-built
   // order sitting on top of a zeroed-out inventory).
+  SUPPLY_TYPES.forEach(function (type) {
+    inventory[type] = 0;
+    build[type] = 0;
+  });
+  buildOrder = [];
+
+  resumeGame();
+  updateDisplay();
+}
+
+// "Keep Playing" on the finale recap (see populateDayRecap/
+// #dayRecapFinaleActions) -- endless play on the last day's recipes and
+// settings (currentDay/getCurrentDayDef are left alone, so Day 6's def
+// keeps applying forever), no customer-count cutoff (see continuousMode
+// in checkDayProgress/spawnLoop). Otherwise mirrors startNextDay's reset
+// of the day's counters and supplies -- no carryover into endless mode
+// either. Savings stops earning interest once this starts, since
+// startNextDay (where interest is applied) is never called again --
+// flagged as an assumption for Kayla in the status doc.
+function startContinuousPlay() {
+  continuousMode = true;
+
+  document.getElementById("dayRecapBox").classList.add("hidden");
+  document.getElementById("dayRecapBox").classList.remove("finale");
+  hideClosedSign();
+
+  customersSpawnedToday = 0;
+  customersResolvedToday = 0;
+  servedToday = 0;
+  missedToday = 0;
+  earnedToday = 0;
+  spentToday = 0;
+
   SUPPLY_TYPES.forEach(function (type) {
     inventory[type] = 0;
     build[type] = 0;
@@ -1748,6 +1854,8 @@ function confirmRestart() {
   ordersServed = 0;
   teaOrdersServed = 0;
 
+  continuousMode = false;
+
   currentDay = 1;
   customersSpawnedToday = 0;
   customersResolvedToday = 0;
@@ -1765,6 +1873,7 @@ function confirmRestart() {
 
   document.getElementById("confirmBox").classList.add("hidden");
   document.getElementById("dayRecapBox").classList.add("hidden");
+  document.getElementById("dayRecapBox").classList.remove("finale");
   document.getElementById("recipeUnlockBox").classList.add("hidden");
   document.getElementById("recipeBox").classList.add("hidden");
   hideClosedSign();

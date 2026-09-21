@@ -1084,13 +1084,14 @@ header h1 svg {
 .order-bubble[data-recipe-id="sugar"] { background: var(--magnolia); }
 .order-bubble[data-recipe-id="icedTea"] { background: var(--pale-peach); }
 .order-bubble[data-recipe-id="sweetTea"] { background: var(--onahau); }
-/* New for Day 5's Lemon Tea recipes (2026-09-21, per Kayla) -- reusing two
-   of the existing brand tokens (defined at the top of this file) that
-   weren't already claimed by a recipe row, rather than inventing new,
-   unapproved hex values the way pale-yellow/pale-peach were explicitly
-   given by Kayla for the original four. */
-.order-bubble[data-recipe-id="lemonTea"] { background: var(--hawkes-blue); }
-.order-bubble[data-recipe-id="sweetLemonTea"] { background: var(--mystic); }
+/* New for Day 5's Lemon Tea recipes. Originally reused two existing brand
+   tokens (Hawkes Blue/Mystic) since Kayla hadn't given explicit colors for
+   these two yet; she has since specified exact hex for both (2026-09-21:
+   "lets change the recipe background color in the lemon teas- unsweeteneed
+   can use #FFD7D7 and sweetedn can use #D8FFD7"), so these are now literal
+   hex like the original four, not tokens. */
+.order-bubble[data-recipe-id="lemonTea"] { background: #FFD7D7; }
+.order-bubble[data-recipe-id="sweetLemonTea"] { background: #D8FFD7; }
 
 /* Bigger (2026-09-10, per Kayla: fill the order box more). */
 .order-bubble svg {
@@ -1723,9 +1724,9 @@ header h1 svg {
 #recipeBox .recipe-entry[data-recipe-id="sweetTea"],
 #recipeUnlockBox .recipe-entry[data-recipe-id="sweetTea"] { background: var(--onahau); }
 #recipeBox .recipe-entry[data-recipe-id="lemonTea"],
-#recipeUnlockBox .recipe-entry[data-recipe-id="lemonTea"] { background: var(--hawkes-blue); }
+#recipeUnlockBox .recipe-entry[data-recipe-id="lemonTea"] { background: #FFD7D7; }
 #recipeBox .recipe-entry[data-recipe-id="sweetLemonTea"],
-#recipeUnlockBox .recipe-entry[data-recipe-id="sweetLemonTea"] { background: var(--mystic); }
+#recipeUnlockBox .recipe-entry[data-recipe-id="sweetLemonTea"] { background: #D8FFD7; }
 
 #recipeBox .recipe-result,
 #recipeUnlockBox .recipe-result {
@@ -1874,6 +1875,16 @@ header h1 svg {
   text-align: left;
 }
 
+/* The plain .hidden { display: none; } rule (see far below) is a single
+   class selector, so on its own it loses to the ID-scoped `display: grid`
+   just above whenever both apply to the same element -- exactly the case
+   for #dayRecapFinaleGrid, which carries both .recap-stats-grid and
+   .hidden together (see populateDayRecap in game.js, toggling it in/out
+   for the finale). This explicit override wins that fight. */
+#dayRecapBox .recap-stats-grid.hidden {
+  display: none;
+}
+
 /* The "move some of today's cash..." line now floats between the top two
    cards and the savings card below, on the popup's own dark gradient
    instead of a white .stat-card -- doubling as a divider with a thin rule
@@ -1903,6 +1914,13 @@ header h1 svg {
   flex: 1;
   height: 1px;
   background: rgba(255, 255, 255, 0.25);
+}
+
+/* Same specificity fight as #dayRecapFinaleGrid above -- the ID-scoped
+   `display: flex` on .recap-savings-divider otherwise beats the plain
+   .hidden class when the finale hides this line (see populateDayRecap). */
+#dayRecapBox .recap-savings-divider.hidden {
+  display: none;
 }
 
 /* Bigger now that it's the only card in the bottom section instead of one
@@ -1988,8 +2006,43 @@ header h1 svg {
    with well over 200px of clearance to the top/bottom of the stage at
    this size, so growing it here is free -- no need to shrink anything
    else to make room. */
-#dayRecapNextBtn {
+#dayRecapNextBtn,
+#dayRecapFinaleActions {
   margin-top: 28px;
+}
+
+/* ==========================================
+   DAY RECAP -- FINALE VARIANT
+   Shown instead of the regular day-to-day recap once there's no next day
+   (2026-09-21, per Kayla: "the popup at the end of all the rounds should
+   give stats for the entire games customers, checking, savings etc. Make
+   it a bigger finale."). Toggled via the .finale class on #dayRecapBox
+   itself (see populateDayRecap in game.js) -- bigger footprint, bigger
+   title/icon, and a soft gold ring (Pale Yellow, already an approved
+   brand token -- see :root -- not a new/unapproved color) instead of
+   inventing a separate "celebration" palette for a screen the player only
+   ever sees once per playthrough.
+========================================== */
+
+#dayRecapBox.finale {
+  max-width: 860px;
+  padding: 52px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45), 0 0 0 3px var(--pale-yellow);
+}
+
+#dayRecapBox.finale #dayRecapTitle {
+  font-size: 40px;
+}
+
+#dayRecapBox.finale .modal-icon svg {
+  width: 72px;
+  height: 72px;
+}
+
+/* Both stat rows (top grid + the finale-only second row) get equal
+   breathing room either side of the finale's bigger title/icon. */
+#dayRecapBox.finale .recap-stats-grid {
+  margin: 26px 0;
 }
 
 /* ==========================================

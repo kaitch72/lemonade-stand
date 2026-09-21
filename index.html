@@ -98,7 +98,7 @@
       <h2 class="section-header shop-header">Shop</h2>
       <div class="shop">
         <div class="shop-item" data-supply="cups" onclick="buySupplies('cups')">
-          <span class="price-badge" id="price-cups">$2</span>
+          <span class="price-badge" id="price-cups">$1</span>
           <div class="shop-icon"></div>
           <div class="qty-row">
             <span class="item-label">Cups</span>
@@ -327,20 +327,36 @@
 
       <div class="recap-stats-grid">
         <div class="stat-card">
-          <span class="stat-label">Customers Served</span>
+          <span class="stat-label" id="dayRecapServedLabel">Customers Served</span>
           <strong class="stat-value" id="dayRecapServed">0 / 10</strong>
         </div>
         <div class="stat-card">
-          <span class="stat-label">Checking Account</span>
+          <span class="stat-label" id="dayRecapCashLabel">Checking Account</span>
           <strong class="stat-value" id="dayRecapCash">$0.00</strong>
         </div>
       </div>
 
-      <div class="recap-savings-divider">
+      <!-- FINALE-ONLY: a second stat row, shown instead of the interactive
+           savings card once there's no next day to carry cash into (see
+           populateDayRecap in game.js) -- rounds out the whole-game stats
+           to four (Customers, Checking, Savings, Total Earned), per Kayla:
+           "stats for the entire games customers, checking, savings etc." -->
+      <div class="recap-stats-grid hidden" id="dayRecapFinaleGrid">
+        <div class="stat-card">
+          <span class="stat-label">Total Savings</span>
+          <strong class="stat-value" id="dayRecapFinalSavings">$0.00</strong>
+        </div>
+        <div class="stat-card">
+          <span class="stat-label">Total Earned</span>
+          <strong class="stat-value" id="dayRecapFinalEarned">$0.00</strong>
+        </div>
+      </div>
+
+      <div class="recap-savings-divider" id="dayRecapSavingsDivider">
         <span>Move some of today's cash into savings before you open tomorrow.</span>
       </div>
 
-      <div class="stat-card recap-savings-card">
+      <div class="stat-card recap-savings-card" id="dayRecapSavingsCard">
         <div class="recap-savings-head">
           <span class="stat-label">Savings</span>
           <strong class="stat-value" id="dayRecapSavings">$0.00</strong>
@@ -354,6 +370,15 @@
       </div>
 
       <button id="dayRecapNextBtn" onclick="handleDayRecapAction()">Start Day 2</button>
+
+      <!-- FINALE-ONLY: replaces the single next-day button once the last
+           day's recap is showing -- a real choice instead of the old
+           straight-to-restart behavior (per Kayla: "instead of start
+           over... they can choose to just keep playing on"). -->
+      <div class="confirm-actions recap-finale-actions hidden" id="dayRecapFinaleActions">
+        <button class="secondary-button" onclick="confirmRestart()">Start Over</button>
+        <button onclick="startContinuousPlay()">Keep Playing</button>
+      </div>
     </section>
 
     <!-- NEW RECIPE UNLOCKED MODAL: shown after the day-recap popup is
