@@ -541,9 +541,16 @@ document.addEventListener("DOMContentLoaded", function () {
   // to that day, skips the intro popup and tutorial, and starts that day
   // live with the normal $10 starting cash. Any number outside 1..last day
   // is ignored and the game loads normally.
+  //
+  // Add "result" to land on that day's end-of-day results popup instead
+  // (2026-09-23, per Kayla): #day4result, #day6result (#day6results and
+  // ?day=6&result=1 work too). Shows the CLOSED sign, then the recap, just
+  // like finishing the day for real -- so #day4result's "Start Day 5"
+  // button also leads into the Lemon Tea unlock popup, and #day6result
+  // opens the finale.
   const skipDay = getSkipToDayFromUrl(launchParams);
   if (skipDay) {
-    skipToDay(skipDay);
+    skipToDay(skipDay, getSkipToResultFromUrl(launchParams));
     return;
   }
 
@@ -564,15 +571,29 @@ function getSkipToDayFromUrl(params) {
   return n;
 }
 
-function skipToDay(n) {
+// True when the URL asks for that day's results popup: #day6result /
+// #day6results / #day6-result, or ?day=6&result=1.
+function getSkipToResultFromUrl(params) {
+  if (/day=?\d+[-_]?results?\b/i.test(window.location.hash)) return true;
+  return params.get("result") === "1" || params.has("results");
+}
+
+function skipToDay(n, showResult) {
   currentDay = n;
   // Reveal every supply unlocked on or before day n (tea, etc.).
   for (let i = 0; i < n; i++) {
     revealNewSupplies(GAME_DAYS[i]);
   }
   populateRecipeGuide();
-  resumeGame();
   updateDisplay();
+
+  if (showResult) {
+    // Straight to the end of day n: CLOSED sign, then the results popup.
+    endDay();
+    return;
+  }
+
+  resumeGame();
   showMessage("Test shortcut: jumped to Day " + n + "!");
 }
 
@@ -884,10 +905,16 @@ function spawnTutorialCustomer(recipeId, calloutText) {
     warned: false,
     noPatience: true,
     isTutorialCustomer: true,
+    // The tutorial's practice customer counts as Day 1's first customer
+    // (2026-09-23, per Kayla): serving them leaves 4 more, so tutorial
+    // players see 5 total, same as players who skip. See serveCustomer
+    // and skipTutorial.
+    countsTowardDay: true,
     resolved: false
   };
   customers.push(customer);
   tutorialCustomerId = id;
+  customersSpawnedToday += 1;
 
   positionCustomer(customer, 0);
   requestAnimationFrame(function () {
@@ -1037,6 +1064,11 @@ function skipTutorial() {
   document.getElementById("tutorialCheerBox").classList.add("hidden");
 
   document.getElementById("customerLane").innerHTML = "";
+  // Give back the Day 1 slot of any practice customer who's being cleared
+  // away unserved, so skipping still leaves the full 5 customers.
+  customers.forEach(function (c) {
+    if (c.countsTowardDay && !c.resolved) customersSpawnedToday -= 1;
+  });
   customers = [];
 
   tutorialActive = false;
@@ -1368,7 +1400,9 @@ function serveCustomer(id) {
     teaOrdersServed += 1;
   }
 
-  if (!customer.isTutorialCustomer) {
+  const countsTowardDay = !customer.isTutorialCustomer || customer.countsTowardDay;
+
+  if (countsTowardDay) {
     servedToday += 1;
     earnedToday += customer.recipe.price;
     customersResolvedToday += 1;
@@ -1385,7 +1419,7 @@ function serveCustomer(id) {
 
   updateDisplay();
 
-  if (!customer.isTutorialCustomer) {
+  if (countsTowardDay) {
     checkDayProgress();
   }
 
@@ -1673,16 +1707,29 @@ function populateDayRecap() {
   savingsAddedThisRecap = 0;
 
   if (isFinale) {
-    document.getElementById("dayRecapTitle").textContent = "Final Results!";
+    // Laid out like Budget Builder's grand finale (2026-09-23, per Kayla):
+    // "You Did It!" (the "All 6 Days Complete" eyebrow was removed per
+    // Kayla), then a big white hero card with the final
+    // total (Checking + Savings added together), with the four whole-game
+    // stats on glassy tiles underneath (see .finale rules in style.css).
+    document.getElementById("dayRecapTitle").textContent = "You Did It!";
     document.getElementById("dayRecapMessage").textContent =
-      "You ran your stand for " + GAME_DAYS.length + " days. Here's the whole story!";
+      "You ran your stand for " + GAME_DAYS.length + " days. Here's what you built.";
 
-    servedLabel.textContent = "Total Customers Served";
+    const finalTotal = Math.round((cash + savings) * 100) / 100;
+    document.getElementById("dayRecapTotalNote").textContent =
+      "$" + cash.toFixed(2) + " in checking + $" + savings.toFixed(2) + " in savings";
+    document.getElementById("dayRecapTotalHero").classList.remove("hidden");
+    countUpMoney(document.getElementById("dayRecapTotal"), finalTotal);
+
+    servedLabel.textContent = "Customers Served";
     document.getElementById("dayRecapServed").textContent = String(ordersServed);
-    cashLabel.textContent = "Final Checking Balance";
+    cashLabel.textContent = "Checking";
 
     document.getElementById("dayRecapFinalSavings").textContent = "$" + savings.toFixed(2);
-    document.getElementById("dayRecapFinalEarned").textContent = "$" + totalEarned.toFixed(2);
+    // Whole-game supply spending (swapped in for Total Earned, 2026-09-23,
+    // per Kayla -- the hero card already covers what they earned).
+    document.getElementById("dayRecapFinalSpent").textContent = "$" + totalSpent.toFixed(2);
     finaleGrid.classList.remove("hidden");
 
     // No more "tomorrow" to save cash for once the game's over, so the
@@ -1701,6 +1748,8 @@ function populateDayRecap() {
     document.getElementById("dayRecapMessage").textContent =
       "Nice work! Your cash and savings carry into tomorrow.";
 
+    document.getElementById("dayRecapTotalHero").classList.add("hidden");
+
     servedLabel.textContent = "Customers Served";
     document.getElementById("dayRecapServed").textContent = servedToday + " / " + dayDef.customerCount;
     cashLabel.textContent = "Checking Account";
@@ -1717,6 +1766,30 @@ function populateDayRecap() {
   }
 
   updateDayRecapMoneyStats();
+}
+
+// Counts a dollar amount up from $0 for the finale's hero card, same feel
+// as Budget Builder's "YOU SAVED" number. Jumps straight to the value when
+// the player prefers reduced motion.
+let countUpToken = 0;
+function countUpMoney(el, target) {
+  const token = ++countUpToken;
+  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (reduce || target <= 0) {
+    el.textContent = "$" + target.toFixed(2);
+    return;
+  }
+  const duration = 1400;
+  const start = performance.now();
+  function step(now) {
+    if (token !== countUpToken) return;
+    const t = Math.min(1, (now - start) / duration);
+    const eased = 1 - Math.pow(1 - t, 3);
+    el.textContent = "$" + (target * eased).toFixed(2);
+    if (t < 1) requestAnimationFrame(step);
+  }
+  el.textContent = "$0.00";
+  requestAnimationFrame(step);
 }
 
 // Keeps the recap popup's Checking/Savings numbers -- and the Undo

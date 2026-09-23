@@ -325,6 +325,15 @@
       <h2 id="dayRecapTitle">Day 1 Complete!</h2>
       <p id="dayRecapMessage">Nice work! Your cash and savings carry into tomorrow.</p>
 
+      <!-- FINALE-ONLY hero card: Checking + Savings added together, shown big
+           at the top like Budget Builder's "YOU SAVED" card (2026-09-23). -->
+      <div class="recap-total-hero hidden" id="dayRecapTotalHero">
+        <span class="recap-total-label">Your Final Total</span>
+        <strong class="recap-total-value" id="dayRecapTotal">$0.00</strong>
+        <p class="recap-total-note" id="dayRecapTotalNote">Checking + Savings</p>
+      </div>
+
+      <div class="recap-stats-wrap" id="dayRecapStatsWrap">
       <div class="recap-stats-grid">
         <div class="stat-card">
           <span class="stat-label" id="dayRecapServedLabel">Customers Served</span>
@@ -343,13 +352,14 @@
            "stats for the entire games customers, checking, savings etc." -->
       <div class="recap-stats-grid hidden" id="dayRecapFinaleGrid">
         <div class="stat-card">
-          <span class="stat-label">Total Savings</span>
+          <span class="stat-label">Savings</span>
           <strong class="stat-value" id="dayRecapFinalSavings">$0.00</strong>
         </div>
         <div class="stat-card">
-          <span class="stat-label">Total Earned</span>
-          <strong class="stat-value" id="dayRecapFinalEarned">$0.00</strong>
+          <span class="stat-label">Total Spent</span>
+          <strong class="stat-value" id="dayRecapFinalSpent">$0.00</strong>
         </div>
+      </div>
       </div>
 
       <div class="recap-savings-divider" id="dayRecapSavingsDivider">
