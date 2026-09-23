@@ -1390,9 +1390,9 @@ header h1 svg {
 
 #tutorialBox .start-badge-wrap {
   position: relative;
-  width: 104px;
-  height: 104px;
-  margin: 0 auto 22px;
+  width: 125px;
+  aspect-ratio: 1 / 1;
+  margin: 0 auto 26px;
   animation: startBadgeFloat 3.2s ease-in-out infinite;
 }
 
@@ -1433,22 +1433,21 @@ header h1 svg {
 }
 
 #tutorialBox .start-sparkle--a {
-  top: -8px;
-  left: -12px;
-  /* Bumped from 22px to 26px (2026-09-10, see .sparkle's matching note) --
-     no more `fill` override either, since Kayla's new star artwork is
-     already fully colored/shaded instead of a flat glyph meant to be
-     re-tinted through CSS. */
-  width: 26px;
-  height: 26px;
+  top: -6px;
+  left: -10px;
+  /* Sized to match the shared start-popup system across all four games
+     (2026-09-23) -- no more `fill` override either, since Kayla's new
+     star artwork is already fully colored/shaded instead of a flat glyph
+     meant to be re-tinted through CSS. */
+  width: 22px;
+  height: 22px;
 }
 
 #tutorialBox .start-sparkle--b {
-  bottom: 0px;
-  right: -10px;
-  /* Bumped from 16px to 20px (2026-09-10, see .start-sparkle--a above). */
-  width: 20px;
-  height: 20px;
+  bottom: 2px;
+  right: -8px;
+  width: 16px;
+  height: 16px;
   animation-delay: 0.5s;
 }
 
@@ -1459,6 +1458,13 @@ header h1 svg {
 
 #tutorialBox {
   overflow: hidden;
+
+  width: 640px;
+  max-width: 640px;
+
+  padding: 48px 40px 36px;
+
+  border-radius: 32px;
 }
 
 /* Start-popup title uses Blue Black, matching Coin Catch and Budget
@@ -1467,19 +1473,33 @@ header h1 svg {
    restart-confirm, and level-up modals, which weren't part of this ask. */
 #tutorialBox h2 {
   color: var(--blue-black);
+
+  font-size: 36px;
+  margin: 0 0 14px;
+  letter-spacing: -0.01em;
+  line-height: 50px;
 }
 
-/* Start button's offset shadow uses Sky Blue, matching the shared
-   design system's "pressable look" spec and the other games' intro
-   popups -- the shared .modal-box button rule (Hawkes Blue) still
-   applies to the recipe guide, restart-confirm, and level-up buttons,
-   which weren't part of this ask. */
+#tutorialBox p {
+  max-width: 480px;
+  margin: 0 auto 30px;
+
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: rgba(10, 23, 36, 0.68);
+}
+
+/* Start button's offset shadow is Hawkes Blue (#D7E7FF) (2026-09-23,
+   per Kayla: "make sure that the shadow under the start button is the
+   light blue color D7E7FF") -- was Sky Blue (#8BD1FF). The Tutorial
+   button keeps its own .secondary-button shadow. */
 #tutorialBox button {
-  box-shadow: 0 5px 0 var(--sky-blue);
+  box-shadow: 0 5px 0 var(--hawkes-blue);
 }
 
 #tutorialBox button:active {
-  box-shadow: 0 2px 0 var(--sky-blue);
+  box-shadow: 0 2px 0 var(--hawkes-blue);
 }
 
 #tutorialBox::before,
@@ -1493,17 +1513,17 @@ header h1 svg {
 }
 
 #tutorialBox::before {
-  width: 170px;
-  height: 170px;
-  top: -60px;
-  right: -60px;
+  width: 250px;
+  height: 250px;
+  top: -88px;
+  right: -88px;
 }
 
 #tutorialBox::after {
-  width: 130px;
-  height: 130px;
-  bottom: -46px;
-  left: -66px;
+  width: 150px;
+  height: 150px;
+  bottom: -76px;
+  left: -53px;
   opacity: 0.7;
 }
 
@@ -2056,12 +2076,40 @@ header h1 svg {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 26px;
 }
 
+/* Start/Tutorial share one equal-weight size now (2026-09-23, matching
+   Driver Decides' shared start-popup system) -- scoped to
+   .tutorial-start-actions so the other single-button modals (recipe
+   guide, restart confirm, day recap, etc.) keep the shared .modal-box
+   button's own sizing untouched. */
+.tutorial-start-actions button {
+  box-sizing: border-box;
+  width: 192px;
+  height: 70px;
+  /* Horizontal padding is 0 so the fixed width alone sets the size --
+     with 32px side padding, "Tutorial" in Inter at 30px was wider than
+     the space left inside the button, so the two could read as
+     different sizes. nowrap keeps each label on one line. */
+  padding: 18px 0;
+  border-radius: 18px;
+  font-size: 30px;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+/* Tutorial button's shadow is darker than the shared .secondary-button
+   one (2026-09-23, per Kayla: "make the grey under the tutorial button
+   a little darker so they contrast more") -- 0.22 alpha vs. the shared
+   0.1. Scoped to the start popup so Start Over / Cancel elsewhere keep
+   the lighter shadow. */
 .tutorial-start-actions .secondary-button {
-  font-size: 14px;
-  padding: 10px 24px;
+  box-shadow: 0 5px 0 rgba(10, 23, 36, 0.22) !important;
+}
+
+.tutorial-start-actions .secondary-button:active {
+  box-shadow: 0 2px 0 rgba(10, 23, 36, 0.22) !important;
 }
 
 /* Invisible full-stage layer that blocks clicks on the dimmed game behind
@@ -2207,3 +2255,212 @@ header h1 svg {
    .game-container) is uniformly scaled to fit any window, so a
    separate stacked/mobile layout is never needed; adding one back
    would conflict with the fixed-height stage and clip content. */
+
+
+/* ==========================================
+   HEADER + TOP CARDS MATCHED TO DRIVER DECIDES / COIN CATCH
+   (2026-09-23, per Kayla)
+   - Header: square bottom corners (flush to the edges, no rounding).
+   - Title: Luckiest Guy 38px, lemon icon removed, nudged down
+     5.5px so it sits visually centered in the 90px bar (the font's
+     letters sit high in their line box).
+   - Restart: 50px white circle, 3px Persian Blue ring, 24px icon,
+     Hawkes Blue on hover, 26px from the right edge (header padding),
+     no lift/press movement.
+   - Checking / Savings cards: same as Coin Catch's SAVED card --
+     width sizes to content, 14px 28px padding, 16px radius, 1.5px
+     Hawkes Blue border, soft shadow, left-aligned 17px/700 label with
+     1.8px tracking and a 20px icon, 46px/800 amount. Scoped to .topbar
+     so the day-recap popup's .stat-card tiles are untouched.
+========================================== */
+header {
+  border-radius: 0;
+  padding: 0 26px;
+}
+
+header h1 {
+  font-family: "Luckiest Guy", cursive;
+  font-size: 38px;
+  font-weight: 400;
+  line-height: 1;
+  position: relative;
+  top: 5.5px;
+}
+
+#restartButton {
+  width: 50px;
+  height: 50px;
+  border: 3px solid var(--persian-blue);
+  border-radius: 50%;
+  background: var(--white);
+  box-shadow: none;
+  padding: 0;
+  transition: none;
+}
+
+#restartButton svg {
+  width: 24px;
+  height: 24px;
+  fill: var(--persian-blue);
+}
+
+#restartButton:hover {
+  background: var(--hawkes-blue);
+  transform: none;
+}
+
+#restartButton:active {
+  transform: none;
+}
+
+.topbar .stat-card {
+  flex: none;
+  width: auto;
+  padding: 14px 28px;
+  border: 1.5px solid var(--hawkes-blue);
+  border-radius: 16px;
+  box-shadow: 0 2px 6px rgba(10, 23, 36, 0.06);
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.topbar .stat-head {
+  gap: 9px;
+}
+
+.topbar .mini-icon {
+  display: flex;
+}
+
+.topbar .mini-icon svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.topbar .stat-label {
+  font-size: 17px;
+  font-weight: 700;
+  letter-spacing: 1.8px;
+}
+
+.topbar .stat-value {
+  font-size: 46px;
+  font-weight: 800;
+  line-height: normal;
+}
+
+
+/* Checking / Savings cards sit 20px under the header and 20px in from
+   the screen's right edge -- same spacing as Coin Catch's and Driver
+   Decides' top cards (2026-09-23, per Kayla). see padding note below. */
+.topbar {
+  /* Bottom padding 14px -> 4px so the play area (stand, shop, customer
+     lane) sits a touch higher than before and clears the message strip
+     at the bottom of the screen -- the taller cards had nudged the
+     stand's bottom edge just under it. */
+  padding: 20px 20px 4px;
+}
+
+/* Intro popup description: 500px wide (was 480px) so Kayla's
+   2026-09-23 copy ("Buy supplies to run your stand, stash some money in
+   savings, and serve customers to earn cash!") sits on two even lines
+   with no orphaned last word. Card size unchanged. */
+#tutorialBox p {
+  max-width: 500px;
+}
+
+/* Shop + stand pulled up 50px (2026-09-23, per Kayla: give the message
+   strip at the bottom some breathing room -- the stand's bottom edge was
+   running right into it). Negative top margin lets the row tuck up into
+   the open sky left of the Checking/Savings cards; the customer lane's
+   content sits well below those cards so nothing collides. */
+.play-area {
+  margin-top: -50px;
+}
+
+/* SHOP / SUPPLIES text vertically centered in their white boxes
+   (2026-09-23, per Kayla: text sat too high). Luckiest Guy's line box
+   carries extra space under the letters, so equal padding reads top-heavy.
+   Measured with the real font: ink now has 17px above and 17px below in
+   both boxes (was 10/24 and 11/23). Box heights unchanged. */
+.section-header {
+  padding: 15px 22px 5px;
+}
+.stand-label {
+  padding: 14px 22px 6px;
+}
+
+/* Recipe Guide / New Recipes rows: no pastel fills + bigger icons
+   (2026-09-23, per Kayla: icons were hard to read against the pastel
+   colors). Rows are white with a light Mystic outline so they still read
+   as separate cards on the white popup. ID+attribute selectors match the
+   old per-recipe color rules' specificity; coming later, these win.
+   Order bubbles above customers keep their colors -- this is guide-only. */
+#recipeBox .recipe-entry,
+#recipeBox .recipe-entry[data-recipe-id],
+#recipeUnlockBox .recipe-entry,
+#recipeUnlockBox .recipe-entry[data-recipe-id] {
+  background: var(--white);
+  border: 2px solid var(--mystic);
+}
+#recipeBox .recipe-result svg,
+#recipeUnlockBox .recipe-result svg {
+  width: 72px;
+  height: 72px;
+}
+#recipeBox .recipe-result .sugar-badge svg,
+#recipeUnlockBox .recipe-result .sugar-badge svg {
+  width: 34px;
+  height: 34px;
+}
+#recipeBox .recipe-result,
+#recipeUnlockBox .recipe-result {
+  flex: 0 0 112px; /* widest variant: 72px glass + gap + 34px sugar badge */
+}
+#recipeBox .recipe-ingredient svg,
+#recipeUnlockBox .recipe-ingredient svg {
+  width: 52px;
+  height: 52px;
+}
+
+/* Day recap + finale header (2026-09-23, per Kayla): sparkle row over a
+   white trophy, matching Driver Decides' results popup exactly -- 20/26/20px
+   Malibu sparkles, 14px apart, then a 77px white trophy with the same
+   stars-to-trophy and trophy-to-title spacing. Applies to every day's
+   recap and the finale alike. */
+#dayRecapBox .results-sparkles {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 10px;
+}
+#dayRecapBox .sparkle-icon {
+  width: 20px;
+  height: 20px;
+  fill: var(--malibu);
+}
+#dayRecapBox .sparkle-icon--big {
+  width: 26px;
+  height: 26px;
+}
+#dayRecapBox .modal-icon,
+#dayRecapBox.finale .modal-icon {
+  margin: 26.5px auto 30.5px;
+  line-height: 0;
+}
+#dayRecapBox .modal-icon svg,
+#dayRecapBox.finale .modal-icon svg {
+  display: block;
+  margin: 0 auto;
+  width: 77px;
+  height: 77px;
+  fill: var(--white);
+}
+
+/* Finale: no gold outline ring around the card (2026-09-23, per Kayla) --
+   just the regular drop shadow. */
+#dayRecapBox.finale {
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.45);
+}
