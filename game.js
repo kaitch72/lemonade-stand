@@ -1693,6 +1693,9 @@ function populateDayRecap() {
 
     nextBtn.classList.add("hidden");
     finaleActions.classList.remove("hidden");
+
+    // Falling confetti inside the finale popup (2026-09-23).
+    startPopupConfetti(document.getElementById("dayRecapBox"));
   } else {
     document.getElementById("dayRecapTitle").textContent = "Day " + currentDay + " Complete!";
     document.getElementById("dayRecapMessage").textContent =
@@ -1709,6 +1712,8 @@ function populateDayRecap() {
     nextBtn.classList.remove("hidden");
     nextBtn.textContent = "Start Day " + nextDayDef.day;
     finaleActions.classList.add("hidden");
+
+    stopPopupConfetti(document.getElementById("dayRecapBox"));
   }
 
   updateDayRecapMoneyStats();
@@ -1960,4 +1965,46 @@ function confirmRestart() {
   // same as Driver Decides' and Coin Catch's restart. showTutorial()
   // keeps the game paused until they choose.
   showTutorial();
+}
+
+
+/* ================= POPUP CONFETTI (final popup) =================
+   Same falling confetti as Budget Builder's grand finale
+   (2026-09-23, per Kayla). Adds a .popup-confetti layer as the
+   popup box's first child and fills it with looping pieces; the
+   layer sits behind the popup's content (see style.css). Call
+   stopPopupConfetti() whenever the same box is shown for a
+   non-final result so the confetti doesn't carry over. */
+
+const POPUP_CONFETTI_COLORS = ["#FF25BA", "#FF9D25", "#ffffff", "#59D2FE", "#8BD1FF"];
+
+function startPopupConfetti(box) {
+  if (!box) {
+    return;
+  }
+  let layer = box.querySelector(":scope > .popup-confetti");
+  if (!layer) {
+    layer = document.createElement("div");
+    layer.className = "popup-confetti";
+    layer.setAttribute("aria-hidden", "true");
+    box.insertBefore(layer, box.firstChild);
+  }
+  layer.innerHTML = "";
+  for (let n = 0; n < 32; n++) {
+    const piece = document.createElement("span");
+    piece.style.left = `${Math.random() * 100}%`;
+    piece.style.background = POPUP_CONFETTI_COLORS[n % POPUP_CONFETTI_COLORS.length];
+    piece.style.animationDelay = `${(Math.random() * 4).toFixed(2)}s`;
+    piece.style.animationDuration = `${(3.2 + Math.random() * 2.6).toFixed(2)}s`;
+    piece.style.setProperty("--spin", `${Math.round(Math.random() * 720 - 360)}deg`);
+    piece.style.setProperty("--drift", `${Math.round(Math.random() * 120 - 60)}px`);
+    layer.appendChild(piece);
+  }
+}
+
+function stopPopupConfetti(box) {
+  const layer = box && box.querySelector(":scope > .popup-confetti");
+  if (layer) {
+    layer.innerHTML = "";
+  }
 }
