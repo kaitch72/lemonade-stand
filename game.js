@@ -21,7 +21,8 @@ const SUPPLIES = {
 // used in customer orders and the recipe guide.
 // ==========================================
 
-const EMPTY_CUP_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 133.91 191.09"><g><path d="M66.95,7C33.84,7,7,11.72,7,17.55c0,.09.01.19.02.28l3.87,49.69,7.89,97.72-.26.51v.01l.9,11.53h.01c0,3.75,21.25,6.8,47.45,6.8s47.46-3.05,47.46-6.8l10.07-127.97,2.48-31.5c.01-.08.02-.17.02-.25v-.02c0-5.83-26.84-10.55-59.96-10.55Z" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="14"/><g><path d="M126.913,17.553v.02c0,.08-.01.17-.02.25-.82,5.7-27.34,10.27-59.94,10.27S7.873,23.523,7.023,17.833c-.01-.09-.02-.19-.02-.28,0-5.83,26.84-10.55,59.95-10.55s59.96,4.72,59.96,10.55Z" fill="#b9dff5"/><path d="M126.893,17.823l-12.55,159.47c0,3.75-21.24,6.8-47.46,6.8s-47.45-3.05-47.45-6.8h-.01l-8.53-109.77-3.87-49.69c.85,5.69,27.36,10.26,59.93,10.26s59.12-4.57,59.94-10.27Z" fill="#cfe5f0"/><path d="M124.409,49.325l-10.07,127.97c0,3.75-21.24,6.8-47.46,6.8s-47.45-3.05-47.45-6.8h-.01l-.9-11.53.26-.52s31.808,6.871,59.18-4.599c33.98-14.239,45.85-109.671,46.45-111.321Z" fill="#0a223a" opacity=".05"/><path d="M82.819,27.714c-.36.13-.74.26-1.15.38C21.409,45.734,22.279,59.474,18.779,165.244l-7.89-97.72-3.87-49.69c.85,5.69,27.36,10.26,59.93,10.26,5.49,0,10.82-.13,15.87-.38Z" fill="#fff" opacity=".3"/></g></g></svg>';
+// Kayla's updated empty-glass art (2026-09-24, images/empty-glass.svg -- second version).
+const EMPTY_CUP_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 133.91 191.09"><g><path d="M66.95,7C33.84,7,7,11.72,7,17.55c0,.09.01.19.02.28l3.87,49.69,7.89,97.72-.26.51v.01l.9,11.53h.01c0,3.75,21.25,6.8,47.45,6.8s47.46-3.05,47.46-6.8l10.07-127.97,2.48-31.5c.01-.08.02-.17.02-.25v-.02c0-5.83-26.84-10.55-59.96-10.55Z" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="14"/><g><path d="M126.913,17.553v.02c0,.08-.01.17-.02.25-.82,5.7-27.34,10.27-59.94,10.27S7.873,23.523,7.023,17.833c-.01-.09-.02-.19-.02-.28,0-5.83,26.84-10.55,59.95-10.55s59.96,4.72,59.96,10.55Z" fill="#b9dff5"/><path d="M126.893,17.823l-12.55,159.47c0,3.75-21.24,6.8-47.46,6.8s-47.45-3.05-47.45-6.8h-.01l-8.53-109.77-3.87-49.69c.85,5.69,27.36,10.26,59.93,10.26s59.12-4.57,59.94-10.27Z" fill="#cfe5f0"/><path d="M124.409,49.325l-10.07,127.97c0,3.75-21.24,6.8-47.46,6.8s-47.45-3.05-47.45-6.8h-.01l-.9-11.53.26-.52s31.808,6.871,59.18-4.599c33.98-14.239,45.85-109.671,46.45-111.321Z" fill="#0a223a" opacity=".15"/><path d="M82.819,27.714c-.36.13-.74.26-1.15.38C21.409,45.734,22.279,59.474,18.779,165.244l-7.89-97.72-3.87-49.69c.85,5.69,27.36,10.26,59.93,10.26,5.49,0,10.82-.13,15.87-.38Z" fill="#fff" opacity=".5"/></g></g></svg>';
 
 const LEMONADE_CUP_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 184.71 220.035"><g><path d="M176.366,15.085c-.73-1.1-1.75-1.09-2.78-.99l-42.84,4.36-4.43,18.58c-15.65-1.24-31.37-1.32-47-.28-2.91-15.92-16.23-28.05-32.19-29.75l-7.34.1c-17.28,1.95-30.72,15.34-32.62,32.65l-.12,7.57.2.2c2.09,18.38,17.55,32.17,35.82,32.4l8.71,112.33.25,2.1.91,12.5c2.04,2.3,7.68,3.36,11.24,3.92,8.66,1.38,17.22,1.97,26.02,2.26h20.42c8.52-.28,16.79-.85,25.19-2.13,3.37-.51,6.5-1.19,9.64-2.36.93-.34,1.82-.94,2.4-1.79l9.7-123.35.14-1.73,2.76-35.31c.17-2.16-5.34-4.28-8.14-5.11-5.24-1.54-10.55-2.4-15.89-3.09l2.49-10.42,35.67-3.61c1.02-.11,1.95-.32,2.47-1.49,1.09-2.44.82-5.35-.68-7.56Z" fill="#fff" stroke="#fff" stroke-miterlimit="10" stroke-width="14"/><g><path d="M160.483,46.494v.02c0,.08-.01.17-.02.25-.82,5.7-27.34,10.27-59.94,10.27s-59.08-4.57-59.93-10.26c-.01-.09-.02-.19-.02-.28,0-5.83,26.84-10.55,59.95-10.55s59.96,4.72,59.96,10.55Z" fill="#b9dff5"/><path d="M160.463,46.764l-12.55,159.47c0,3.75-21.24,6.8-47.46,6.8s-47.45-3.05-47.45-6.8h-.01l-8.53-109.77-3.87-49.69c.85,5.69,27.36,10.26,59.93,10.26s59.12-4.57,59.94-10.27Z" fill="#cfe5f0"/><path d="M143.327,125.338c2.976.262,5.19,2.876,4.955,5.855l-5.599,71v.03c0,3.82-19.21,6.92-42.93,6.92s-42.93-3.1-42.93-6.92l-3.958-51.124c-.257-3.325,2.504-6.11,5.829-5.851,6.22.485,15.822.556,25.84-1.945,3.81-.94,7.68-2.26,11.44-4.07,1.54-.75,3.1-1.59,4.62-2.51.58-.36,1.15-.7,1.71-1.03,4.49-2.71,8.33-4.79,11.8-6.37,10.51-4.801,17.622-5.007,29.224-3.984Z" fill="#fff025"/><g opacity=".68"><path d="M80.425,162.199l-10.218.111c-1.508.016-2.882.87-3.565,2.215l-5.377,10.596c-.683,1.345-.561,2.958.317,4.185l5.943,8.313c.769,1.075,2.014,1.707,3.336,1.693l10.218-.111c1.508-.016,2.882-.87,3.565-2.215l5.377-10.596c.683-1.345.561-2.958-.317-4.185l-5.943-8.313c-.769-1.075-2.014-1.707-3.336-1.693Z" fill="#d7e7ff"/><g opacity=".05"><path d="M88.851,174.83c-.698.472-1.318.24-2.405.313-2.564.029-6.916.072-8.613.094-.553.007-1.07-.003-1.339.561-1.373,2.625-3.954,7.787-5.146,10.108-.162.313-.335.648-.574.862-.523.464-1.223.063-1.146-.623.036-.324.206-.663.364-.981,1.179-2.359,3.837-7.497,5.118-10.126.289-.572-.111-.996-.427-1.462-1.139-1.596-4.028-5.633-5.373-7.515-.474-.726-1.035-1.254-.54-1.904.527-.533,1.239.164,1.578.698,1.246,1.736,4.427,6.192,5.64,7.885.225.296.428.633.729.81.502.22.882.114,1.586.134,2.316-.024,7.184-.079,9.205-.098.366,0,.765.002,1.073.125.51.202.619.741.286,1.103l-.017.017Z" fill="#0a223a"/></g></g><g opacity=".68"><path d="M126.971,136.854l-10.218.111c-1.508.016-2.882.87-3.565,2.215l-5.377,10.596c-.683,1.345-.561,2.958.317,4.185l5.943,8.313c.769,1.075,2.014,1.707,3.336,1.693l10.218-.111c1.508-.016,2.882-.87,3.565-2.215l5.377-10.596c.683-1.345.561-2.958-.317-4.185l-5.943-8.313c-.769-1.075-2.014-1.707-3.336-1.693Z" fill="#d7e7ff"/><g opacity=".05"><path d="M135.397,149.485c-.698.472-1.318.24-2.405.313-2.564.029-6.916.072-8.613.094-.553.007-1.07-.003-1.339.561-1.373,2.625-3.954,7.787-5.146,10.108-.162.313-.335.648-.574.862-.523.464-1.223.063-1.146-.623.036-.324.206-.663.364-.981,1.179-2.359,3.837-7.497,5.118-10.126.289-.572-.111-.996-.427-1.462-1.139-1.596-4.028-5.633-5.373-7.515-.474-.726-1.035-1.254-.54-1.904.527-.533,1.239.164,1.578.698,1.246,1.736,4.427,6.192,5.64,7.885.225.296.428.633.729.81.502.22.882.114,1.586.134,2.316-.024,7.184-.079,9.205-.098.366,0,.765.002,1.073.125.51.202.619.741.286,1.103l-.017.017Z" fill="#0a223a"/></g></g><g opacity=".68"><path d="M103.568,173.998l-5.388,8.682c-.795,1.282-.812,2.899-.043,4.197l6.057,10.222c.769,1.298,2.195,2.06,3.701,1.978l10.203-.555c1.32-.072,2.522-.784,3.219-1.907l5.388-8.682c.795-1.282.812-2.899.043-4.197l-6.057-10.222c-.769-1.298-2.195-2.06-3.701-1.978l-10.203.555c-1.32.072-2.522.784-3.219,1.907Z" fill="#d7e7ff"/><g opacity=".05"><path d="M118.748,173.664c.024.842-.505,1.241-1.026,2.198-1.352,2.179-3.65,5.875-4.541,7.319-.291.471-.577.901-.245,1.431,1.478,2.567,4.451,7.515,5.769,9.766.177.305.367.631.419.947.111.69-.603,1.066-1.141.633-.254-.204-.449-.53-.633-.833-1.358-2.261-4.268-7.26-5.799-9.752-.327-.551-.9-.441-1.463-.424-1.958.105-6.915.377-9.224.502-.867.01-1.613.201-1.896-.566-.167-.731.803-.958,1.435-.958,2.134-.12,7.601-.413,9.68-.529.37-.031.763-.021,1.075-.181.455-.306.569-.683.964-1.267,1.222-1.967,3.788-6.105,4.856-7.821.197-.309.412-.644.681-.838.444-.322.958-.125,1.084.35l.005.023Z" fill="#0a223a"/></g></g><path d="M175.529,23.885l-36.59,3.72-2.49,10.45-3.01,12.6-1.14,4.78c-3.3.36-6.82.67-10.51.92l1.36-5.7,3.26-13.68,4.44-18.6,43.66-4.44,1.02,9.95Z" fill="#ff25ba"/><path d="M132.299,55.435l-17.55,73.61c-3.47,1.58-7.31,3.66-11.8,6.37l18.84-79.06c3.69-.25,7.21-.56,10.51-.92Z" fill="#ff8bcd"/><path d="M157.979,78.265l-10.07,127.97c0,3.75-21.24,6.8-47.46,6.8s-47.45-3.05-47.45-6.8h-.01l-.9-11.53.26-.52s31.808,6.871,59.18-4.599c33.98-14.239,45.85-109.671,46.45-111.321Z" fill="#0a223a" opacity=".05"/><g><circle cx="43.553" cy="43.329" r="34.936" fill="#ffee76" stroke="#ffed00" stroke-miterlimit="10" stroke-width="3"/><path d="M36.283,41.832H13.843c-.811,0-1.447-.686-1.403-1.497.347-6.404,2.903-12.221,6.92-16.7.54-.602,1.475-.634,2.047-.062l15.867,15.866c.883.883.258,2.393-.991,2.393Z" fill="#f4d316"/><path d="M38.987,37.676l-15.868-15.867c-.574-.574-.537-1.509.067-2.051,4.774-4.283,10.694-6.589,16.702-6.916.808-.044,1.491.595,1.491,1.404v22.438c0,1.249-1.509,1.874-2.392.991Z" fill="#f4d316"/><path d="M44.93,36.685V14.245c0-.811.686-1.447,1.497-1.403,6.404.347,12.221,2.903,16.7,6.92.602.54.634,1.475.062,2.047l-15.866,15.867c-.883.883-2.393.258-2.393-.991Z" fill="#f4d316"/><path d="M49.638,39.44l15.867-15.868c.574-.574,1.509-.537,2.051.067,4.283,4.774,6.589,10.694,6.916,16.702.044.808-.595,1.491-1.404,1.491h-22.438c-1.249,0-1.874-1.509-.991-2.392Z" fill="#f4d316"/><path d="M50.629,45.642h22.44c.811,0,1.447.686,1.403,1.497-.347,6.404-2.903,12.221-6.92,16.7-.54.602-1.475.634-2.047.062l-15.867-15.866c-.883-.883-.258-2.393.991-2.393Z" fill="#f4d316"/><path d="M46.851,49.395l15.868,15.867c.574.574.537,1.509-.067,2.051-4.774,4.283-10.694,6.589-16.702,6.916-.808.044-1.491-.595-1.491-1.404v-22.438c0-1.249,1.509-1.874,2.392-.991Z" fill="#f4d316"/><path d="M42.322,50.385v22.44c0,.811-.686,1.447-1.497,1.403-6.404-.347-12.221-2.903-16.7-6.92-.602-.54-.634-1.475-.062-2.047l15.866-15.867c.883-.883,2.393-.258,2.393.991Z" fill="#f4d316"/><path d="M37.274,47.235l-15.867,15.868c-.574.574-1.509.537-2.051-.067-4.283-4.774-6.589-10.694-6.916-16.702-.044-.808.595-1.491,1.404-1.491h22.438c1.249,0,1.874,1.509.991,2.392Z" fill="#f4d316"/></g><path d="M116.389,56.655c-.36.13-.74.26-1.15.38-60.26,17.64-59.39,31.38-62.89,137.15l-7.89-97.72-3.87-49.69c.85,5.69,27.36,10.26,59.93,10.26,5.49,0,10.82-.13,15.87-.38Z" fill="#fff" opacity=".3"/><ellipse cx="174.912" cy="18.932" rx="2.775" ry="5.009" transform="translate(-.972 14.76) rotate(-4.819)" fill="#ff8bcd"/></g></g></svg>';
 
@@ -38,7 +39,8 @@ const LEMON_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 234.245 
 
 const ICE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 198.934 153.435"><g><path d="M191.451,96.764l-8.7,30.36c-1.13,3.92-4.1,7.05-7.96,8.38l-29.87,10.25c-4.41,1.52-9.29.45-12.67-2.76l-26.63-25.28c-3.38-3.21-4.69-8.03-3.41-12.52l2.96-10.31-4.42,1.3c-2.87.85-5.9.63-8.57-.55l-5.44,27.78c-.89,4.57-4.26,8.27-8.73,9.59l-30.28,8.95c-3.92,1.15-8.16.33-11.35-2.22l-24.68-19.71c-3.64-2.91-5.36-7.6-4.47-12.17l7.06-36.04c.89-4.57,4.26-8.27,8.73-9.59l30.28-8.95c2.86-.84,5.9-.62,8.57.56l5.44-27.79c.9-4.57,4.26-8.27,8.73-9.59l30.29-8.94c3.92-1.16,8.15-.33,11.35,2.22l24.67,19.7c3.64,2.91,5.37,7.6,4.47,12.18l-3.2,16.35,5.12-1.76c4.41-1.51,9.29-.45,12.67,2.76l26.63,25.29c3.38,3.21,4.69,8.03,3.41,12.51Z" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="14"/><g><path d="M53.304,53.278l-30.286,8.946c-4.47,1.32-7.835,5.017-8.73,9.591l-7.054,36.036c-.895,4.574.827,9.267,4.47,12.175l24.677,19.704c3.192,2.549,7.428,3.378,11.346,2.221l30.286-8.946c4.47-1.32,7.835-5.017,8.73-9.591l7.054-36.036c.895-4.574-.827-9.267-4.47-12.175l-24.677-19.704c-3.192-2.549-7.428-3.378-11.346-2.221Z" fill="#b9dff5"/><g opacity=".05"><path d="M89.006,83.728c-1.677,1.993-3.716,1.824-6.887,2.959-7.6,2.247-20.502,6.046-25.529,7.542-1.639.488-3.184.892-3.508,2.796-1.87,8.961-5.189,26.487-6.777,34.391-.219,1.067-.451,2.21-.981,3.046-1.163,1.819-3.584,1.218-3.933-.887-.166-.994.053-2.146.254-3.224,1.517-8.007,5.089-25.524,6.681-34.421.378-1.944-1.169-2.869-2.502-3.986-4.732-3.785-16.725-13.352-22.31-17.813-2.021-1.759-4.135-2.854-3.21-5.205,1.117-2.03,3.822-.558,5.281.744,5.169,4.111,18.382,14.679,23.418,18.688.917.69,1.805,1.521,2.852,1.794,1.677.23,2.718-.405,4.828-.94,6.865-2.025,21.293-6.291,27.287-8.053,1.089-.309,2.276-.638,3.295-.534,1.686.171,2.466,1.681,1.78,3.037l-.037.063Z" fill="#0a223a"/></g><path d="M106.33,7.511l-30.286,8.946c-4.47,1.32-7.835,5.017-8.73,9.591l-7.054,36.036c-.895,4.574.827,9.267,4.47,12.175l24.677,19.704c3.192,2.549,7.428,3.378,11.346,2.221l30.286-8.946c4.47-1.32,7.835-5.017,8.73-9.591l7.054-36.036c.895-4.574-.827-9.267-4.47-12.175l-24.677-19.704c-3.192-2.549-7.428-3.378-11.346-2.221Z" fill="#b9dff5"/><g opacity=".05"><path d="M142.032,37.961c-1.677,1.993-3.716,1.824-6.887,2.959-7.6,2.247-20.502,6.046-25.529,7.542-1.639.488-3.184.892-3.508,2.796-1.87,8.961-5.189,26.487-6.777,34.391-.219,1.067-.451,2.21-.981,3.046-1.163,1.819-3.584,1.218-3.933-.887-.166-.994.053-2.146.254-3.224,1.517-8.007,5.089-25.524,6.681-34.421.378-1.944-1.169-2.869-2.502-3.986-4.732-3.785-16.725-13.352-22.31-17.813-2.021-1.759-4.135-2.854-3.21-5.205,1.117-2.03,3.822-.558,5.281.744,5.169,4.111,18.382,14.679,23.418,18.688.917.69,1.805,1.521,2.852,1.794,1.677.23,2.718-.405,4.828-.94,6.865-2.025,21.293-6.291,27.287-8.053,1.089-.309,2.276-.638,3.295-.534,1.686.171,2.466,1.681,1.78,3.037l-.037.063Z" fill="#0a223a"/></g><path d="M110.911,74.841l-8.7,30.357c-1.284,4.481.03,9.304,3.41,12.513l26.626,25.286c3.38,3.21,8.264,4.274,12.673,2.76l29.868-10.254c3.864-1.326,6.836-4.456,7.961-8.383l8.7-30.357c1.284-4.481-.03-9.304-3.41-12.513l-26.626-25.286c-3.38-3.21-8.264-4.274-12.673-2.76l-29.868,10.254c-3.864,1.326-6.836,4.456-7.961,8.383Z" fill="#b9dff5"/><g opacity=".05"><path d="M155.762,61.05c.782,2.484-.454,4.115-1.198,7.4-2.181,7.619-5.898,20.545-7.332,25.59-.467,1.645-.955,3.166.478,4.46,6.559,6.386,19.568,18.59,25.387,24.171.783.757,1.623,1.566,2.044,2.462.911,1.958-.895,3.678-2.859,2.843-.928-.393-1.782-1.196-2.585-1.944-5.944-5.576-18.81-17.989-25.464-24.105-1.438-1.362-3.048-.553-4.706-.027-5.733,1.963-20.241,6.951-27.002,9.271-2.569.762-4.627,1.958-6.114-.083-1.114-2.032,1.579-3.525,3.461-4.057,6.243-2.156,22.249-7.637,28.335-9.736,1.074-.404,2.252-.707,3.044-1.444,1.094-1.292,1.116-2.511,1.797-4.578,1.975-6.879,6.115-21.344,7.844-27.348.324-1.085.683-2.263,1.318-3.067,1.049-1.331,2.741-1.179,3.518.128l.034.065Z" fill="#0a223a"/></g></g></g></svg>';
 
-const SUGAR_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 208.741 163.33"><g><path d="M196.491,67.81c-3.45-8.46-10.13-16.1-19.37-18.02-5.98-1.43-12.36-1.12-18.49-1.47-14.33-.42-28.14-5.81-42.48-5.85-9.85-.22-17.56,3.96-25.72,8.17-2.56-2.61-5.93-4.97-9.87-6.78-4.17-1.91-8.39-2.92-12.21-3.08-1.98-.09-3.84.05-5.54.41l-1.61-1.68-6.81-7.14c-7.05-7.39-15.3-13.4-24.48-17.86l-13.76-6.68c-.78-.56-1.69-.83-2.64-.83-1.86,0-3.83,1.03-5.16,2.88-2,2.79-1.75,6.39.55,8.05l13.17,6.32.01.01c.03.01.11.05.23.11.2.1.5.25.89.45.69.33,1.37.68,2.05,1.05.21.11.43.22.65.34.11.06.23.12.34.18,7.52,4.14,14.36,9.37,20.35,15.58l7.15,7.42c-.24.99-.4,2.06-.46,3.19-.09,1.93.13,4.02.76,6.13-2.14.46-4.22,1.09-6.24,2.01-2.43,1.1-4.87,2.5-7.08,4.2l-.01.01c-2.69.9-4.99,1.85-6.83,2.84-.31.17-.6.33-.88.5-.19.11-.37.22-.55.34-.14.08-.27.17-.4.26-.16.11-.31.21-.45.32-.12.08-.23.17-.34.26-.17.12-.33.25-.48.39-.14.11-.27.23-.39.35-.17.16-.33.32-.48.49-.12.14-.24.28-.35.42-.11.14-.21.29-.3.43-.1.14-.18.29-.25.43-.06.11-.11.22-.15.33-.04.08-.07.16-.09.24-.01.02-.02.03-.02.05-.04.12-.08.24-.1.36-.03.11-.05.22-.06.34-.02.14-.03.29-.03.44,0,3.77.15,7.39.45,10.86.07.83.15,1.66.24,2.47,0,.05,0,.1.01.14.09.83.19,1.65.3,2.47v.04c.07.51.14,1.02.22,1.52.07.53.15,1.06.24,1.58.1.67.22,1.32.34,1.97.1.6.22,1.19.34,1.77.04.23.09.45.14.67.11.57.23,1.13.37,1.68.03.18.07.36.12.53.1.45.21.9.33,1.35.14.57.28,1.13.44,1.69.18.67.37,1.33.57,1.98.06.23.13.46.2.68.16.53.33,1.06.51,1.58.05.17.11.33.16.49.15.44.3.88.46,1.31.17.5.36,1,.55,1.49.02.06.04.11.06.15.18.49.37.97.57,1.45.16.42.33.83.51,1.23.12.28.24.56.37.84.41.95.85,1.88,1.3,2.78.17.36.35.72.54,1.07.27.53.55,1.06.84,1.58q0,.01.01.02c.34.62.69,1.24,1.05,1.84.32.56.66,1.1,1,1.64.04.07.09.14.12.2.28.44.56.87.85,1.29.52.78,1.04,1.53,1.58,2.27.77,1.04,1.56,2.06,2.37,3.04.02.01.03.03.04.05.84,1,1.69,1.97,2.57,2.91.03.02.04.04.06.06.46.49.93.97,1.4,1.44.94.94,1.92,1.85,2.91,2.72.5.44,1.01.87,1.52,1.3.51.42,1.03.83,1.55,1.24,4.82,3.76,10.16,6.84,15.92,9.3.72.31,1.45.61,2.19.9.13.05.27.11.41.16.68.26,1.37.52,2.06.77.21.08.42.15.63.22.58.2,1.16.4,1.74.59.16.05.31.1.46.15.81.26,1.63.51,2.46.75.8.23,1.6.45,2.41.67.17.05.34.09.51.13.77.2,1.54.39,2.32.57.83.19,1.67.37,2.52.55.12.03.23.05.34.07.76.15,1.52.3,2.29.44.15.03.3.05.46.08.63.11,1.27.22,1.91.32.39.06.79.12,1.2.18.69.1,1.39.2,2.1.29.45.06.9.12,1.36.17.34.04.68.08,1.03.12.4.04.8.08,1.2.12.55.06,1.1.11,1.65.15.6.06,1.2.11,1.81.14.89.08,1.79.13,2.69.17.55.04,1.1.06,1.65.08.17.01.34.02.52.02.6.03,1.2.05,1.81.06.43.01.86.02,1.29.03.81.01,1.62.02,2.44.02,47.82,0,86.59-24.97,86.59-82.61,0-2.08-1.85-4.07-5.25-5.91Z" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="14"/><g><path d="M201.742,73.717c0,57.642-38.768,82.613-86.59,82.613S28.561,133.998,28.561,73.717c0-9.499,38.768-17.2,86.59-17.2s86.59,7.701,86.59,17.2Z" fill="#e0ecea"/><path d="M55.774,139.112c-16.754-13.014-27.209-34.087-27.209-65.395,0-2.094,1.874-4.091,5.313-5.949l50.646,22.043c-51.455,4.828-45.212,30.294-28.749,49.301Z" fill="#fff" opacity=".45"/><path d="M201.737,73.717c0,57.646-38.764,82.614-86.582,82.614-15.842,0-30.689-2.453-43.466-7.921,0,0,55.451,7.505,87.634-18.101,33.111-26.344,39.286-51.996,39.286-51.996,0,0,2.657-3.154,3.129-4.596Z" fill="#001d3a" opacity=".05"/><ellipse cx="115.151" cy="73.717" rx="86.59" ry="17.2" fill="#d7dbdb"/><g><path d="M58.131,60.479c-1.09.13-2.17.3-3.25.51-1.28-2.88-1.72-5.79-1.6-8.41.06-1.13.22-2.2.46-3.19.16-.63.34-1.23.56-1.78-.22.62-.37,1.26-.43,1.91-.1.83-.08,1.69.04,2.56.4,2.77,1.89,5.68,4.22,8.4Z" fill="#d7dbdb"/><path d="M63.731,49.609c-2,2.79-5.49,3.71-7.8,2.05l-.64-.66-1.42-1.48-.13-.13-7.15-7.42c-5.99-6.21-12.83-11.44-20.35-15.58-.11-.06-.23-.12-.34-.18-.22-.12-.44-.23-.65-.34-.68-.37-1.36-.72-2.05-1.05-.39-.2-.69-.35-.89-.45-.12-.06-.2-.1-.23-.11l-.01-.01-13.17-6.32c-2.3-1.66-2.55-5.26-.55-8.05,1.33-1.85,3.3-2.88,5.16-2.88.95,0,1.86.27,2.64.83l13.76,6.68c9.18,4.46,17.43,10.47,24.48,17.86l6.81,7.14,1.61,1.68.36.38c.72.52,1.25,1.23,1.55,2.05.69,1.78.38,4.08-.99,5.99Z" fill="#e0ecea"/><path d="M68.351,40.779l-3.63,2.84-9.43,7.38-1.38,1.08-.63.5c.06-1.13.22-2.2.46-3.19l-7.15-7.42c-5.99-6.21-12.83-11.44-20.35-15.58,4.86,2.51,13.04,6.85,19.54,10.79,9.65,5.84,15.14,2.51,15.42,2.33l1.61,1.68c1.7-.36,3.56-.5,5.54-.41Z" fill="#0a223a" opacity=".05"/><path d="M93.101,53.829c-.56.29-1.13.56-1.71.83-3.51,1.55-7.15,2.75-10.91,3.52-.7.15-1.41.28-2.12.39-6.61,1.07-13.53,1.04-20.23,1.91-.17-.2-.34-.4-.5-.61-1.64-2.03-2.79-4.15-3.38-6.22-.06-.21-.11-.42-.16-.63-.03-.14-.06-.29-.09-.43-.03-.14-.06-.29-.08-.43,0-.03-.01-.05-.01-.08,0-.02-.01-.04-.01-.06-.02-.18-.04-.36-.05-.53-.01-.07-.02-.14-.02-.21-.02-.295-.028-.593-.021-.888.006-.295.026-.586.061-.872.07-.66.21-1.29.43-1.91.09-.24.18-.46.29-.69,1.36-2.98,4.35-4.92,8.22-5.73,1.7-.36,3.56-.5,5.54-.41,3.82.16,8.04,1.17,12.21,3.08,5.5,2.52,9.88,6.13,12.54,9.97Z" fill="#e0ecea"/></g><path d="M198.608,78.316c-10.116,7.268-43.65,12.603-83.451,12.603-39.403,0-72.646-5.228-83.15-12.389.709-5.578,4.246-10.184,8.716-13.604,2.206-1.701,4.645-3.109,7.074-4.208,2.381-1.079,4.859-1.769,7.395-2.235.884-.175,1.768-.311,2.663-.418,5.49-.719,11.165-.69,16.578-1.565.583-.097,1.166-.204,1.739-.321,3.08-.632,6.064-1.613,8.94-2.886.476-.223.943-.447,1.409-.68,9.688-4.752,18.22-10.397,29.628-10.145,14.343.039,28.151,5.432,42.484,5.85,6.132.35,12.506.039,18.492,1.467,9.241,1.924,15.917,9.562,19.366,18.025.35.845.661,1.691.933,2.546l.049.146c.787,2.41,1.166,5.092,1.137,7.813Z" fill="#fff3eb"/></g></g></svg>';
+// Kayla's updated sugar-bowl art (2026-09-24, images/sugar-bowl.svg).
+const SUGAR_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 208.741 163.33"><g><path d="M196.491,67.81c-3.45-8.46-10.13-16.1-19.37-18.02-5.98-1.43-12.36-1.12-18.49-1.47-14.33-.42-28.14-5.81-42.48-5.85-9.85-.22-17.56,3.96-25.72,8.17-2.56-2.61-5.93-4.97-9.87-6.78-4.17-1.91-8.39-2.92-12.21-3.08-1.98-.09-3.84.05-5.54.41l-1.61-1.68-6.81-7.14c-7.05-7.39-15.3-13.4-24.48-17.86l-13.76-6.68c-.78-.56-1.69-.83-2.64-.83-1.86,0-3.83,1.03-5.16,2.88-2,2.79-1.75,6.39.55,8.05l13.17,6.32.01.01c.03.01.11.05.23.11.2.1.5.25.89.45.69.33,1.37.68,2.05,1.05.21.11.43.22.65.34.11.06.23.12.34.18,7.52,4.14,14.36,9.37,20.35,15.58l7.15,7.42c-.24.99-.4,2.06-.46,3.19-.09,1.93.13,4.02.76,6.13-2.14.46-4.22,1.09-6.24,2.01-2.43,1.1-4.87,2.5-7.08,4.2l-.01.01c-2.69.9-4.99,1.85-6.83,2.84-.31.17-.6.33-.88.5-.19.11-.37.22-.55.34-.14.08-.27.17-.4.26-.16.11-.31.21-.45.32-.12.08-.23.17-.34.26-.17.12-.33.25-.48.39-.14.11-.27.23-.39.35-.17.16-.33.32-.48.49-.12.14-.24.28-.35.42-.11.14-.21.29-.3.43-.1.14-.18.29-.25.43-.06.11-.11.22-.15.33-.04.08-.07.16-.09.24-.01.02-.02.03-.02.05-.04.12-.08.24-.1.36-.03.11-.05.22-.06.34-.02.14-.03.29-.03.44,0,3.77.15,7.39.45,10.86.07.83.15,1.66.24,2.47,0,.05,0,.1.01.14.09.83.19,1.65.3,2.47v.04c.07.51.14,1.02.22,1.52.07.53.15,1.06.24,1.58.1.67.22,1.32.34,1.97.1.6.22,1.19.34,1.77.04.23.09.45.14.67.11.57.23,1.13.37,1.68.03.18.07.36.12.53.1.45.21.9.33,1.35.14.57.28,1.13.44,1.69.18.67.37,1.33.57,1.98.06.23.13.46.2.68.16.53.33,1.06.51,1.58.05.17.11.33.16.49.15.44.3.88.46,1.31.17.5.36,1,.55,1.49.02.06.04.11.06.15.18.49.37.97.57,1.45.16.42.33.83.51,1.23.12.28.24.56.37.84.41.95.85,1.88,1.3,2.78.17.36.35.72.54,1.07.27.53.55,1.06.84,1.58q0,.01.01.02c.34.62.69,1.24,1.05,1.84.32.56.66,1.1,1,1.64.04.07.09.14.12.2.28.44.56.87.85,1.29.52.78,1.04,1.53,1.58,2.27.77,1.04,1.56,2.06,2.37,3.04.02.01.03.03.04.05.84,1,1.69,1.97,2.57,2.91.03.02.04.04.06.06.46.49.93.97,1.4,1.44.94.94,1.92,1.85,2.91,2.72.5.44,1.01.87,1.52,1.3.51.42,1.03.83,1.55,1.24,4.82,3.76,10.16,6.84,15.92,9.3.72.31,1.45.61,2.19.9.13.05.27.11.41.16.68.26,1.37.52,2.06.77.21.08.42.15.63.22.58.2,1.16.4,1.74.59.16.05.31.1.46.15.81.26,1.63.51,2.46.75.8.23,1.6.45,2.41.67.17.05.34.09.51.13.77.2,1.54.39,2.32.57.83.19,1.67.37,2.52.55.12.03.23.05.34.07.76.15,1.52.3,2.29.44.15.03.3.05.46.08.63.11,1.27.22,1.91.32.39.06.79.12,1.2.18.69.1,1.39.2,2.1.29.45.06.9.12,1.36.17.34.04.68.08,1.03.12.4.04.8.08,1.2.12.55.06,1.1.11,1.65.15.6.06,1.2.11,1.81.14.89.08,1.79.13,2.69.17.55.04,1.1.06,1.65.08.17.01.34.02.52.02.6.03,1.2.05,1.81.06.43.01.86.02,1.29.03.81.01,1.62.02,2.44.02,47.82,0,86.59-24.97,86.59-82.61,0-2.08-1.85-4.07-5.25-5.91Z" fill="#fff" stroke="#fff" stroke-linecap="round" stroke-linejoin="round" stroke-width="14"/><g><path d="M201.742,73.717c0,57.642-38.768,82.613-86.59,82.613S28.561,133.998,28.561,73.717c0-9.499,38.768-17.2,86.59-17.2s86.59,7.701,86.59,17.2Z" fill="#ced6d4"/><path d="M55.774,139.112c-16.754-13.014-27.209-34.087-27.209-65.395,0-2.094,1.874-4.091,5.313-5.949l50.646,22.043c-51.455,4.828-45.212,30.294-28.749,49.301Z" fill="#fff" opacity=".5"/><path d="M201.737,73.717c0,57.646-38.764,82.614-86.582,82.614-15.842,0-30.689-2.453-43.466-7.921,0,0,55.451,7.505,87.634-18.101,33.111-26.344,39.286-51.996,39.286-51.996,0,0,2.657-3.154,3.129-4.596Z" fill="#0a223a" opacity=".15"/><ellipse cx="115.151" cy="73.717" rx="86.59" ry="17.2" fill="#d7dbdb"/><path d="M58.131,60.479c-1.09.13-2.17.3-3.25.51-1.28-2.88-1.72-5.79-1.6-8.41.06-1.13.22-2.2.46-3.19.16-.63.34-1.23.56-1.78-.22.62-.37,1.26-.43,1.91-.1.83-.08,1.69.04,2.56.4,2.77,1.89,5.68,4.22,8.4Z" fill="#abb2b0"/><path d="M63.731,49.609c-2,2.79-5.49,3.71-7.8,2.05l-.64-.66-1.42-1.48-.13-.13-7.15-7.42c-5.99-6.21-12.83-11.44-20.35-15.58-.11-.06-.23-.12-.34-.18-.22-.12-.44-.23-.65-.34-.68-.37-1.36-.72-2.05-1.05-.39-.2-.69-.35-.89-.45-.12-.06-.2-.1-.23-.11l-.01-.01-13.17-6.32c-2.3-1.66-2.55-5.26-.55-8.05,1.33-1.85,3.3-2.88,5.16-2.88.95,0,1.86.27,2.64.83l13.76,6.68c9.18,4.46,17.43,10.47,24.48,17.86l6.81,7.14,1.61,1.68.36.38c.72.52,1.25,1.23,1.55,2.05.69,1.78.38,4.08-.99,5.99Z" fill="#ced6d4"/><path d="M68.351,40.779l-3.63,2.84-9.43,7.38-1.38,1.08-.63.5c.06-1.13.22-2.2.46-3.19l-7.15-7.42c-5.99-6.21-12.83-11.44-20.35-15.58,4.86,2.51,13.04,6.85,19.54,10.79,9.65,5.84,15.14,2.51,15.42,2.33l1.61,1.68c1.7-.36,3.56-.5,5.54-.41Z" fill="#0a223a" opacity=".15"/><path d="M93.101,53.829c-.56.29-1.13.56-1.71.83-3.51,1.55-7.15,2.75-10.91,3.52-.7.15-1.41.28-2.12.39-6.61,1.07-13.53,1.04-20.23,1.91-.17-.2-.34-.4-.5-.61-1.64-2.03-2.79-4.15-3.38-6.22-.06-.21-.11-.42-.16-.63-.03-.14-.06-.29-.09-.43-.03-.14-.06-.29-.08-.43,0-.03-.01-.05-.01-.08,0-.02-.01-.04-.01-.06-.02-.18-.04-.36-.05-.53-.01-.07-.02-.14-.02-.21-.02-.295-.028-.593-.021-.888.006-.295.026-.586.061-.872.07-.66.21-1.29.43-1.91.09-.24.18-.46.29-.69,1.36-2.98,4.35-4.92,8.22-5.73,1.7-.36,3.56-.5,5.54-.41,3.82.16,8.04,1.17,12.21,3.08,5.5,2.52,9.88,6.13,12.54,9.97Z" fill="#ced6d4"/><path d="M198.608,78.316c-10.116,7.268-43.65,12.603-83.451,12.603-39.403,0-72.646-5.228-83.15-12.389.709-5.578,4.246-10.184,8.716-13.604,2.206-1.701,4.645-3.109,7.074-4.208,2.381-1.079,4.859-1.769,7.395-2.235.884-.175,1.768-.311,2.663-.418,5.49-.719,11.165-.69,16.578-1.565.583-.097,1.166-.204,1.739-.321,3.08-.632,6.064-1.613,8.94-2.886.476-.223.943-.447,1.409-.68,9.688-4.752,18.22-10.397,29.628-10.145,14.343.039,28.151,5.432,42.484,5.85,6.132.35,12.506.039,18.492,1.467,9.241,1.924,15.917,9.562,19.366,18.025.35.845.661,1.691.933,2.546l.049.146c.787,2.41,1.166,5.092,1.137,7.813Z" fill="#fff3eb"/></g></g></svg>';
 
 // Kayla's real Font-Awesome-style export, dropped into images/teabag.svg --
 // replaces the earlier hand-built placeholder. Split from tea-glass.svg
@@ -99,7 +101,7 @@ const CROWN_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 174.76 1
 const RECIPES = [
   {
     id: "classic",
-    name: "Classic Lemonade",
+    name: "Lemonade",   // was "Classic Lemonade" (2026-09-24, per Kayla)
     icon: LEMONADE_CUP_SVG,
     needs: { cups: 1, lemons: 1, ice: 1 },
     price: 1.00,
@@ -123,7 +125,7 @@ const RECIPES = [
   },
   {
     id: "sweetTea",
-    name: "Sweetened Tea",
+    name: "Sweetened Iced Tea",
     icon: TEA_CUP_SVG + '<span class="sugar-badge">' + SUGAR_SVG + '</span>',
     needs: { cups: 1, tea: 1, ice: 1, sugar: 1 },
     price: 2.50,
@@ -135,8 +137,10 @@ const RECIPES = [
     // per Kayla's ask; the sweetened version follows the same +$0.50
     // sugar upcharge every other sweetened recipe already uses (Classic
     // ->Sweetened Lemonade, Iced Tea->Sweetened Tea).
+    // Shown to players as "Half and Half" (2026-09-24, per Kayla -- "that's
+    // what they call it"); internal ids stay lemonTea/sweetLemonTea.
     id: "lemonTea",
-    name: "Lemon Tea",
+    name: "Half and Half",
     icon: LEMON_TEA_CUP_SVG,
     needs: { cups: 1, tea: 1, ice: 1, lemons: 1 },
     price: 2.00,
@@ -144,7 +148,7 @@ const RECIPES = [
   },
   {
     id: "sweetLemonTea",
-    name: "Sweetened Lemon Tea",
+    name: "Sweetened Half and Half",
     icon: LEMON_TEA_CUP_SVG + '<span class="sugar-badge">' + SUGAR_SVG + '</span>',
     needs: { cups: 1, tea: 1, ice: 1, lemons: 1, sugar: 1 },
     price: 2.50,
@@ -427,7 +431,7 @@ const GAME_DAYS = [
     day: 5,
     customerCount: 15,
     maxOnScreen: 3,
-    unlockMessage: "Customers are asking for Lemon Tea now! Try it with or without sugar.",
+    unlockMessage: "Customers are asking for Half and Half now! That's half lemonade, half iced tea. Try it with or without sugar.",
     newRecipeIds: ["lemonTea", "sweetLemonTea"]
   },
   {
@@ -442,6 +446,12 @@ const GAME_DAYS = [
 // ==========================================
 
 let cash = 10.00;
+// Serve money whose stars are still flying to the Checking card (see STAR
+// FLIGHT TO CHECKING) -- held back from the displayed balance until they land.
+let pendingStarCash = 0;
+// Bumped by flushServeStars() so a landing timer from before a restart
+// can't subtract from the fresh game's pending total.
+let serveStarGeneration = 0;
 let savings = 0;
 // How much the player has moved into savings during the CURRENT day-recap
 // popup (reset every time populateDayRecap() opens one) -- lets the Undo
@@ -644,10 +654,14 @@ const TUTORIAL_POINTS = [
   {
     // Moved up to 2nd (2026-09-21, per Kayla: "do the recipe book scond,
     // instead of third") -- was after "The Shop", now before it.
-    target: function () { return document.querySelector(".recipe-button"); },
+    // Book + its floating RECIPES label together (2026-09-24). This step
+    // also lets the player tap the book to open the real Recipe Guide;
+    // closing it returns here (see allowTargetTap / openRecipeGuide).
+    target: function () { return unionRect([document.querySelector(".recipe-button"), document.querySelector(".recipe-label")]); },
     side: "left",
     title: "Your Recipes",
-    text: "Here are your formulas with ingredients to make each order."
+    text: "Here are your formulas with ingredients to make each order.",
+    allowTargetTap: true
   },
   {
     // Header + card column together -- see unionRect() (2026-09-21, per
@@ -784,7 +798,27 @@ function tutorialNext() {
   showTutorialPoint(TUTORIAL_POINTS[tutorialPointStep]);
 }
 
+// The tutorial step currently on screen (for allowTargetTap below).
+let currentTutorialPoint = null;
+// True while the Recipe Guide was opened from inside the tutorial tour.
+let recipeGuideFromTutorial = false;
+
+// Steps with allowTargetTap let a tap on the highlighted target through
+// the click blocker (2026-09-24, per Kayla -- the "Your Recipes" step
+// opens the real Recipe Guide).
+document.getElementById("tutorialClickBlocker").addEventListener("click", function (e) {
+  const point = currentTutorialPoint;
+  if (!point || !point.allowTargetTap) return;
+  const target = point.target();
+  if (!target) return;
+  const r = target.getBoundingClientRect();
+  if (e.clientX >= r.left && e.clientX <= r.right && e.clientY >= r.top && e.clientY <= r.bottom) {
+    openRecipeGuide();
+  }
+});
+
 function showTutorialPoint(point) {
+  currentTutorialPoint = point;
   if (typeof point.onShow === "function") {
     point.onShow();
   }
@@ -861,6 +895,8 @@ function positionTutorialSpotlight(targetEl, card, side) {
 }
 
 function hideTutorialPoint() {
+  currentTutorialPoint = null;
+  recipeGuideFromTutorial = false;
   document.getElementById("tutorialClickBlocker").classList.add("hidden");
   document.getElementById("tutorialHighlight").classList.add("hidden");
   document.getElementById("tutorialPointCard").classList.add("hidden");
@@ -880,7 +916,7 @@ function beginTutorialLive() {
   resumeGame();
   spawnTutorialCustomer(
     "classic",
-    "This customer ordered a Classic Lemonade. Buy the supplies, build the order, then tap the customer to serve them!"
+    "This customer ordered a Lemonade. Buy the supplies, build the order, then tap the customer to serve them!"
   );
 }
 
@@ -1186,6 +1222,8 @@ function updateBuildDisplay() {
 
 const PATIENCE_MS = 15000;
 const WARNING_MS = 5000;
+// Patience timer circle turns red for the last this-many ms (2026-09-24).
+const PATIENCE_RED_MS = 3000;
 const TICK_MS = 200;
 
 function spawnLoop() {
@@ -1223,7 +1261,9 @@ function buildCustomerElement(recipe, face, id) {
   el.innerHTML =
     '<div class="order-bubble" data-recipe-id="' + recipe.id + '">' +
     '<span class="order-icon-circle">' + recipe.icon + "</span>" +
-    '<div class="patience-track"><div class="patience-fill"></div></div>' +
+    // Circular fill-up timer in the box's bottom-right corner (2026-09-24,
+    // replaces the thin red bar) -- see updatePatienceBar.
+    '<span class="patience-timer" aria-hidden="true"></span>' +
     "</div>" +
     '<div class="customer-face">' + face + "</div>";
 
@@ -1289,7 +1329,9 @@ function startCustomerTicker() {
       customer.remainingMs -= TICK_MS;
       updatePatienceBar(customer);
 
-      if (!customer.warned && customer.remainingMs <= WARNING_MS) {
+      // Mouth changes when the timer circle turns red (2026-09-24, per
+      // Kayla) -- was WARNING_MS (5s).
+      if (!customer.warned && customer.remainingMs <= PATIENCE_RED_MS) {
         customer.warned = true;
         customer.element.classList.add("impatient");
         setCharacterMouth(customer.element, "straight");
@@ -1306,13 +1348,29 @@ function startCustomerTicker() {
 // patience runs out -- empty when they arrive, full red right before they
 // give up. Replaces the old sudden red-border swap with a continuous cue.
 function updatePatienceBar(customer) {
-  const fill = customer.element.querySelector(".patience-fill");
-  if (!fill) {
+  const timer = customer.element.querySelector(".patience-timer");
+  if (!timer) {
     return;
   }
 
-  const elapsedPct = Math.max(0, Math.min(100, (1 - customer.remainingMs / PATIENCE_MS) * 100));
-  fill.style.width = elapsedPct + "%";
+  // Only customers with a real timer ever get here (noPatience ones are
+  // skipped by the ticker), so the circle stays hidden for them.
+  timer.classList.add("timed");
+
+  const elapsed = Math.max(0, Math.min(1, 1 - customer.remainingMs / PATIENCE_MS));
+  timer.style.setProperty("--pt", elapsed.toFixed(3));
+
+  // Green for the first half, orange after that, red for the last
+  // PATIENCE_RED_MS (2026-09-24, per Kayla).
+  let phase = "green";
+  if (customer.remainingMs <= PATIENCE_RED_MS) {
+    phase = "red";
+  } else if (elapsed >= 0.5) {
+    phase = "orange";
+  }
+  if (timer.dataset.phase !== phase) {
+    timer.dataset.phase = phase;
+  }
 }
 
 function positionCustomer(customer, index) {
@@ -1411,6 +1469,7 @@ function serveCustomer(id) {
   showMessage(customer.recipe.name + " served! +$" + customer.recipe.price.toFixed(2));
 
   createSparkleBurst(customer.element);
+  spawnServeStars(customer.element, customer.recipe.price);
 
   // Give the sparkle a beat to actually be seen before the customer slides out
   setTimeout(function () {
@@ -1489,8 +1548,185 @@ function createSparkleBurst(customerEl) {
 }
 
 // ==========================================
+// STAR FLIGHT TO CHECKING (2026-09-24)
+// ==========================================
+// Ported from Driver Decides (per Kayla: "keep it big and grand like it
+// is in driver decides"). On every serve a burst of rainbow stars leaves
+// the customer, arcs up to the Checking card, and the card pops + the
+// balance ticks up the moment they land. `cash` itself still updates
+// immediately (so buying/affordability logic is unchanged); only the
+// DISPLAYED number waits -- updateDisplay() shows cash - pendingStarCash.
+
+const SERVE_STAR_COUNT = 12;
+const SERVE_STAR_FLIGHT_MS = 900;
+const SERVE_STAR_STAGGER_MAX_MS = 180;
+const SERVE_STAR_ARC_LIFT_MIN = 90;
+const SERVE_STAR_ARC_LIFT_MAX = 170;
+const SERVE_STAR_SCATTER_PX = 40;
+// Stars fade/shrink over the last ~20% of the flight, so this is when
+// they visually "hit" the card.
+const SERVE_STAR_LAND_MS = Math.round(SERVE_STAR_FLIGHT_MS * 0.88);
+
+// (pendingStarCash / serveStarGeneration are declared up with `cash`.)
+
+// .game-container is a fixed 1920x1080 stage shrunk with transform:
+// scale(), so getBoundingClientRect() is in on-screen pixels while
+// left/top inside it are stage pixels -- divide by this to convert.
+function stageScaleOf(el) {
+  const rect = el.getBoundingClientRect();
+  return (el.offsetWidth && rect.width) ? rect.width / el.offsetWidth : 1;
+}
+
+function centerInLayer(el, layer) {
+  const rect = el.getBoundingClientRect();
+  const layerRect = layer.getBoundingClientRect();
+  const s = stageScaleOf(layer);
+  return {
+    x: (rect.left + rect.width / 2 - layerRect.left) / s,
+    y: (rect.top + rect.height / 2 - layerRect.top) / s
+  };
+}
+
+function starEaseInOutCubic(t) {
+  return t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+}
+
+function starLerp(a, b, t) {
+  return a + (b - a) * t;
+}
+
+// Pop on launch, settle mid-flight, shrink as it lands.
+function serveStarScaleAt(p) {
+  if (p < 0.18) {
+    return starLerp(0.4, 1.6, p / 0.18);
+  }
+  if (p < 0.55) {
+    return starLerp(1.6, 1.0, (p - 0.18) / 0.37);
+  }
+  return starLerp(1.0, 0.45, (p - 0.55) / 0.45);
+}
+
+function serveStarOpacityAt(p) {
+  if (p < 0.12) {
+    return p / 0.12;
+  }
+  if (p > 0.8) {
+    return Math.max(0, 1 - (p - 0.8) / 0.2);
+  }
+  return 1;
+}
+
+// One continuous eased progress along a quadratic bezier (driven per
+// frame, not CSS keyframes -- keyframe segments made the star appear to
+// stall and slip backward mid-flight in Driver Decides).
+function launchServeStar(layer, startX, startY, controlX, controlY, endX, endY) {
+  const star = document.createElement("span");
+  star.className = "flyStar";
+  star.innerHTML = randomStarSVG();
+  star.style.opacity = "0";
+  const spin = (Math.random() < 0.5 ? -1 : 1) * (180 + Math.random() * 360);
+  layer.appendChild(star);
+
+  const startTime = performance.now();
+
+  function step(timestamp) {
+    const raw = Math.min(1, Math.max(0, (timestamp - startTime) / SERVE_STAR_FLIGHT_MS));
+    const eased = starEaseInOutCubic(raw);
+    const rem = 1 - eased;
+    const x = rem * rem * startX + 2 * rem * eased * controlX + eased * eased * endX;
+    const y = rem * rem * startY + 2 * rem * eased * controlY + eased * eased * endY;
+
+    star.style.left = x + "px";
+    star.style.top = y + "px";
+    star.style.opacity = serveStarOpacityAt(raw).toFixed(2);
+    star.style.transform = "translate(-50%, -50%) scale(" + serveStarScaleAt(raw).toFixed(3) + ") rotate(" + (spin * eased).toFixed(1) + "deg)";
+
+    if (raw < 1) {
+      requestAnimationFrame(step);
+    } else {
+      star.remove();
+    }
+  }
+
+  requestAnimationFrame(step);
+}
+
+function pulseCheckingCard() {
+  const card = document.querySelector(".topbar .wallet-card");
+  if (!card) {
+    return;
+  }
+  card.classList.remove("cash-pulse");
+  void card.offsetWidth;
+  card.classList.add("cash-pulse");
+  setTimeout(function () {
+    card.classList.remove("cash-pulse");
+  }, 600);
+}
+
+function spawnServeStars(originEl, amount) {
+  const layer = document.getElementById("starFlightLayer");
+  const target = document.querySelector(".topbar .wallet-card");
+  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (!layer || !target || !originEl || reduce) {
+    pulseCheckingCard();
+    return;
+  }
+
+  // Hold this serve's money back from the display until the stars land.
+  pendingStarCash += amount;
+  updateDisplay();
+
+  const origin = centerInLayer(originEl, layer);
+  const destination = centerInLayer(target, layer);
+
+  for (let i = 0; i < SERVE_STAR_COUNT; i++) {
+    const startX = origin.x + (Math.random() * 2 - 1) * SERVE_STAR_SCATTER_PX;
+    const startY = origin.y + (Math.random() * 2 - 1) * SERVE_STAR_SCATTER_PX;
+    const lift = SERVE_STAR_ARC_LIFT_MIN + Math.random() * (SERVE_STAR_ARC_LIFT_MAX - SERVE_STAR_ARC_LIFT_MIN);
+    const controlX = (startX + destination.x) / 2;
+    const controlY = (startY + destination.y) / 2 - lift;
+    const delay = Math.floor(Math.random() * SERVE_STAR_STAGGER_MAX_MS);
+
+    setTimeout(function () {
+      launchServeStar(layer, startX, startY, controlX, controlY, destination.x, destination.y);
+    }, delay);
+  }
+
+  const generation = serveStarGeneration;
+  setTimeout(function () {
+    if (generation !== serveStarGeneration) {
+      return;
+    }
+    pendingStarCash = Math.max(0, pendingStarCash - amount);
+    updateDisplay();
+    pulseCheckingCard();
+  }, SERVE_STAR_LAND_MS);
+}
+
+// Restart: drop anything still in flight so the new game's balance shows
+// straight away.
+function flushServeStars() {
+  serveStarGeneration += 1;
+  pendingStarCash = 0;
+  const layer = document.getElementById("starFlightLayer");
+  if (layer) {
+    layer.innerHTML = "";
+  }
+}
+
+// ==========================================
 // RECIPE GUIDE
 // ==========================================
+
+// Recipe Guide / New Recipes titles: "Sweetened" always sits alone on the
+// first line with the drink name underneath (2026-09-24, per Kayla -- so
+// Sweetened Lemonade / Sweetened Iced Tea / Sweetened Half and Half all break
+// the same way instead of wherever the column width happens to wrap).
+function recipeTitleHTML(name) {
+  return name.replace(/^Sweetened\s+/, "Sweetened<br>");
+}
 
 // Cups and ice always lead a recipe's ingredient row (2026-09-21, per
 // Kayla: "make sure it always starts with cup then ice, then list the
@@ -1499,6 +1735,10 @@ function createSparkleBurst(customerEl) {
 // always applies in practice, but a recipe that somehow skipped one would
 // just fall through to whatever it does need.
 const INGREDIENT_LEAD_ORDER = ["cups", "ice"];
+
+// One-word ingredient labels for the Recipe Guide / New Recipes rows
+// (singular, to read as "one of each"; the shop cards use the plural).
+const INGREDIENT_SHORT_NAMES = { cups: "Cup", ice: "Ice", lemons: "Lemon", sugar: "Sugar", tea: "Tea" };
 
 function buildIngredientsHTML(recipe) {
   let html = '<div class="recipe-ingredients">';
@@ -1518,10 +1758,13 @@ function buildIngredientsHTML(recipe) {
       // count is just noise -- only show "xN" if a future recipe needs
       // more than one of something.
       const countLabel = amount > 1 ? "<em>x" + amount + "</em>" : "";
+      // Small one-word label under each icon (2026-09-24, per Kayla) so
+      // kids can match each ingredient to its shop card by name.
+      const nameLabel = '<span class="recipe-ingredient-name">' + (INGREDIENT_SHORT_NAMES[type] || type) + "</span>";
       html +=
         '<span class="recipe-ingredient">' +
         ingredientIconHTML(type) +
-        countLabel + "</span>";
+        countLabel + nameLabel + "</span>";
     }
   });
 
@@ -1545,7 +1788,7 @@ function buildRecipeListHTML(recipeList) {
     // rather than colors shifting with each list's own row position.
     html += '<div class="recipe-entry" data-recipe-id="' + recipe.id + '">';
     html += '<div class="recipe-result">' + recipe.icon + "</div>";
-    html += '<div class="recipe-info"><strong>' + recipe.name + "</strong></div>";
+    html += '<div class="recipe-info"><strong>' + recipeTitleHTML(recipe.name) + "</strong></div>";
     html += buildIngredientsHTML(recipe);
     html += "</div>";
   });
@@ -1559,12 +1802,33 @@ function populateRecipeGuide() {
 }
 
 function openRecipeGuide() {
+  // Opened from the tutorial's "Your Recipes" step: the tour already has
+  // the game paused, so just swap the spotlight for the guide (and back
+  // again in closeRecipeGuide) without touching the pause state.
+  if (currentTutorialPoint) {
+    recipeGuideFromTutorial = true;
+    document.getElementById("tutorialHighlight").classList.add("hidden");
+    document.getElementById("tutorialPointCard").classList.add("hidden");
+    document.getElementById("modalBackdrop").classList.remove("hidden");
+    document.getElementById("recipeBox").classList.remove("hidden");
+    return;
+  }
   pauseGame();
   document.getElementById("recipeBox").classList.remove("hidden");
 }
 
 function closeRecipeGuide() {
   document.getElementById("recipeBox").classList.add("hidden");
+  if (recipeGuideFromTutorial) {
+    // Back to the tutorial card right where they left it.
+    recipeGuideFromTutorial = false;
+    document.getElementById("modalBackdrop").classList.add("hidden");
+    if (currentTutorialPoint) {
+      document.getElementById("tutorialHighlight").classList.remove("hidden");
+      document.getElementById("tutorialPointCard").classList.remove("hidden");
+    }
+    return;
+  }
   resumeGame();
 }
 
@@ -1652,13 +1916,106 @@ function checkDayProgress() {
 
 const CLOSED_SIGN_DELAY_MS = 1000;
 
+// ==========================================
+// DAY / NIGHT: PROGRESSIVE DUSK (2026-09-24, per Kayla)
+// ==========================================
+// The sky darkens, the sun sinks behind the hills and the clouds thin out
+// gradually over the day, driven by how many of the day's customers are
+// resolved (served or walked off): --dusk on .game-container goes 0 -> 1,
+// and every visual is derived from it in CSS (see "PROGRESSIVE DUSK" in
+// style.css). The last customer takes it to 1 (full night) as the CLOSED
+// sign pops; the recap follows after SUNSET_MS. After the popups,
+// startSunrise() eases it quickly back to 0, then the next day opens.
+// Endless ("Keep Playing") mode stays daytime.
+const SUNSET_MS = 3700;    // CLOSED sign + last ~3s of dusk + a beat to sit, then the recap
+const SUNRISE_MS = 2400;   // sunrise, before customers start coming again
+const CLOUDS_STOP_AT = 0.45;  // past this, a cloud that drifts off doesn't come back
+const CLOUDS_FADE_AT = 0.85;  // past this, any cloud still up fades out
+let dayNightTimer = null;
+let nightForced = false;      // true from endDay() until the sunrise
+let lastDusk = -1;
+
+function setBuildHintHidden(hidden) {
+  const stage = document.querySelector(".game-container");
+  if (stage) {
+    stage.classList.toggle("hide-build-hint", hidden);
+  }
+}
+
+function currentDusk() {
+  if (nightForced) return 1;
+  if (continuousMode) return 0;
+  const dayDef = getCurrentDayDef();
+  if (!dayDef || !dayDef.customerCount) return 0;
+  return Math.min(1, customersResolvedToday / dayDef.customerCount);
+}
+
+// Called from updateDisplay() (so any resolve/reset is picked up) and
+// from setNight(). Cheap no-op if nothing changed.
+function updateSkyProgress() {
+  const stage = document.querySelector(".game-container");
+  if (!stage) return;
+  const dusk = currentDusk();
+  if (dusk === lastDusk) return;
+  lastDusk = dusk;
+  stage.style.setProperty("--dusk", dusk.toFixed(3));
+  stage.classList.toggle("dusk-late", dusk >= CLOUDS_FADE_AT);
+}
+
+// Clouds loop forever via their CSS drift animation; each time one wraps
+// back around to the left edge, keep it hidden if it's already late in
+// the day, so clouds that drift off "just won't come back".
+document.querySelectorAll(".sky-decor .cloud").forEach(function (cloud) {
+  cloud.addEventListener("animationiteration", function () {
+    if (currentDusk() >= CLOUDS_STOP_AT) {
+      cloud.classList.add("cloud-gone");
+    }
+  });
+});
+
+function setNight(isNight) {
+  const stage = document.querySelector(".game-container");
+  nightForced = isNight;
+  if (stage && !isNight) {
+    // Quick sunrise: faster easing, clouds come back.
+    stage.classList.add("sunrise");
+    document.querySelectorAll(".sky-decor .cloud").forEach(function (c) {
+      c.classList.remove("cloud-gone");
+    });
+    setTimeout(function () {
+      stage.classList.remove("sunrise");
+    }, SUNRISE_MS);
+  }
+  updateSkyProgress();
+}
+
+// Sunrise, then `then()` once it's finished (next day opens).
+function startSunrise(then) {
+  clearTimeout(dayNightTimer);
+  document.getElementById("modalBackdrop").classList.add("hidden");
+  setNight(false);
+  dayNightTimer = setTimeout(function () {
+    dayNightTimer = null;
+    setBuildHintHidden(false);
+    if (then) {
+      then();
+    }
+  }, SUNRISE_MS);
+}
+
 function endDay() {
-  pauseGame();
+  // Paused (timers/spawning stop) but no dim yet -- see comment above.
+  isPaused = true;
+  setBuildHintHidden(true);   // hint off first, then the CLOSED sign
   showClosedSign();
-  setTimeout(function () {
+  setNight(true);
+  clearTimeout(dayNightTimer);
+  dayNightTimer = setTimeout(function () {
+    dayNightTimer = null;
+    pauseGame();
     populateDayRecap();
     document.getElementById("dayRecapBox").classList.remove("hidden");
-  }, CLOSED_SIGN_DELAY_MS);
+  }, Math.max(SUNSET_MS, CLOSED_SIGN_DELAY_MS));
 }
 
 // Restarts the CSS pop-in animation even on repeat days -- toggling the
@@ -1903,8 +2260,9 @@ function startNextDay() {
   });
   buildOrder = [];
 
-  resumeGame();
   updateDisplay();
+  // Sunrise first, then the day opens (2026-09-24).
+  startSunrise(resumeGame);
 }
 
 // "Keep Playing" on the finale recap (see populateDayRecap/
@@ -1936,8 +2294,9 @@ function startContinuousPlay() {
   });
   buildOrder = [];
 
-  resumeGame();
   updateDisplay();
+  // Sunrise first, then the day opens (2026-09-24).
+  startSunrise(resumeGame);
 }
 
 // ==========================================
@@ -1945,7 +2304,10 @@ function startContinuousPlay() {
 // ==========================================
 
 function updateDisplay() {
-  document.getElementById("cash").textContent = "$" + cash.toFixed(2);
+  updateSkyProgress();
+  // Money from a serve whose stars are still flying isn't shown yet --
+  // it lands on the card with the stars (see STAR FLIGHT).
+  document.getElementById("cash").textContent = "$" + (cash - pendingStarCash).toFixed(2);
   document.getElementById("savings").textContent = "$" + savings.toFixed(2);
 
   for (const type of SUPPLY_TYPES) {
@@ -1979,6 +2341,13 @@ function closeConfirm() {
 }
 
 function confirmRestart() {
+  flushServeStars();
+  // Cancel a sunset/sunrise in progress so its timer can't pop a recap or
+  // resume play after the restart; bring the daytime sky back.
+  clearTimeout(dayNightTimer);
+  dayNightTimer = null;
+  setNight(false);
+  setBuildHintHidden(false);
   cash = 10.00;
   savings = 0;
   inventory = { cups: 0, lemons: 0, ice: 0, sugar: 0, tea: 0 };

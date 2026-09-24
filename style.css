@@ -29,6 +29,11 @@
        move to this treatment later. */
     --icon-black:   #000000;
 
+    /* Shop + stand supply card background (2026-09-24, per Kayla: "try a
+       darker color for the background of the card to make them pop").
+       One token so both card sets stay in sync. */
+    --supply-card-bg: var(--blue-bird);
+
     --font-brand: "Inter", Arial, Helvetica, sans-serif;
 
     /* Chunky display face for the "Shop"/"Supplies" section headers only
@@ -109,7 +114,11 @@ body {
   /* Kayla's sky/hills illustration (2026-09-09) -- drawn at the stage's
      exact 1920x1080, so it fills edge to edge with no cropping. The header
      and topbar cards paint over the top of it naturally. */
-  background-image: url("images/Background.svg");
+  /* Sky + hills now drawn by .sky-decor (sky color) and .hills
+     (images/hills.svg) so they can change for the day/night transition
+     (2026-09-24). Background.svg itself is left in images/ untouched. */
+  background-image: none;
+  background-color: #8fcefa;
   background-size: 100% 100%;
   background-repeat: no-repeat;
   border-radius: var(--stage-radius);
@@ -510,9 +519,11 @@ header h1 svg {
 
 .shop-item {
   position: relative;
-  /* Sky Blue instead of white (2026-09-09, per Kayla -- white was reading
-     too light/washed out for the shop cards). */
-  background: var(--sky-blue);
+  /* Darker card (2026-09-24, per Kayla feedback: the pale ingredient
+     icons -- glass cup, ice, sugar -- weren't reading on Sky Blue). Was
+     white, then Sky Blue (2026-09-09). Shared with .inv-slot via
+     --supply-card-bg. */
+  background: var(--supply-card-bg);
   /* Same white outline as the stand's .inv-slot counter cards (2026-09-09,
      per Kayla) so both sets of ingredient cards pop off the background the
      same way. */
@@ -544,8 +555,11 @@ header h1 svg {
   position: absolute;
   top: -12px;
   right: -12px;
-  background: var(--persian-blue);
-  color: var(--white);
+  /* White badge, blue text (2026-09-24, per Kayla) now that the card
+     behind it is dark Blue Bird. Border flipped to Persian Blue so the
+     white badge doesn't merge into the card's white outline. */
+  background: var(--white);
+  color: var(--persian-blue);
   font-size: 18px;
   font-weight: 800;
   border-radius: 50%;
@@ -554,7 +568,7 @@ header h1 svg {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 3px solid #ffffff;
+  border: 3px solid var(--persian-blue);
 }
 
 /* Plain black icons, no colored circle badge behind them -- matches
@@ -562,8 +576,9 @@ header h1 svg {
    and nothing else behind it. (2026-08-28; replaces the earlier pale-tint
    circular "token" badge treatment.) */
 .shop-icon {
-  width: 80px;
-  height: 80px;
+  /* Bigger (2026-09-24, per Kayla) -- was 80px box / 64px icon. */
+  width: 96px;
+  height: 96px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -572,8 +587,8 @@ header h1 svg {
 
 /* Slightly larger (2026-09-09, per Kayla). */
 .shop-icon svg {
-  width: 64px;
-  height: 64px;
+  width: 86px;
+  height: 86px;
   fill: var(--icon-black);
 }
 
@@ -591,19 +606,20 @@ header h1 svg {
 }
 
 .item-label {
-  font-size: 14px;
+  /* 14px -> 17px (2026-09-24, per Kayla) */
+  font-size: 17px;
   font-weight: 700;
-  /* Same blue as .qty-label (2026-09-09, per Kayla) for consistency. */
-  color: var(--persian-blue);
+  /* White on the darker card (2026-09-24); was Persian Blue. */
+  color: var(--white);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .qty-label {
-  font-size: 14px;
+  font-size: 17px;
   font-weight: 700;
-  color: var(--persian-blue);
+  color: var(--white);
   white-space: nowrap;
 }
 
@@ -946,8 +962,8 @@ header h1 svg {
   /* Dropped from 101px (2026-09-21) -- see .inventory-slots above for why. */
   width: 90px;
   height: 90px;
-  /* Sky Blue instead of white (2026-09-09, per Kayla -- see .shop-item). */
-  background: var(--sky-blue);
+  /* Darker card (2026-09-24) -- see .shop-item. */
+  background: var(--supply-card-bg);
   border: 3px solid var(--white);
   border-radius: 16px;
   display: flex;
@@ -973,16 +989,17 @@ header h1 svg {
    drop, same ~89% ratio, so the icon still fills the same share of the
    smaller card. */
 .inv-icon {
-  width: 58px;
-  height: 58px;
+  /* Bigger (2026-09-24, per Kayla) -- was 58px box / 41px icon. */
+  width: 74px;
+  height: 74px;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 .inv-icon svg {
-  width: 41px;
-  height: 41px;
+  width: 60px;
+  height: 60px;
   fill: var(--icon-black);
 }
 
@@ -993,8 +1010,9 @@ header h1 svg {
   position: absolute;
   bottom: -9px;
   right: -9px;
-  background: var(--persian-blue);
-  color: var(--white);
+  /* White badge, blue text (2026-09-24) -- see .price-badge. */
+  background: var(--white);
+  color: var(--persian-blue);
   font-size: 15px;
   font-weight: 800;
   border-radius: 50%;
@@ -1003,7 +1021,7 @@ header h1 svg {
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 3px solid #ffffff;
+  border: 3px solid var(--persian-blue);
 }
 
 /* CUSTOMER LANE */
@@ -2182,7 +2200,8 @@ header h1 svg {
   font-weight: 800;
   font-size: 14px;
   cursor: pointer;
-  box-shadow: 0 4px 0 var(--sky-blue);
+  /* Hawkes Blue to match the intro popup's Start button (2026-09-24, per Kayla). */
+  box-shadow: 0 4px 0 var(--hawkes-blue);
   transition: transform 0.15s ease;
 }
 
@@ -2192,7 +2211,7 @@ header h1 svg {
 
 .tutorial-next-btn:active {
   transform: translateY(2px);
-  box-shadow: 0 1px 0 var(--sky-blue);
+  box-shadow: 0 1px 0 var(--hawkes-blue);
 }
 
 .tutorial-skip {
@@ -2385,10 +2404,12 @@ header h1 {
    Measured with the real font: ink now has 17px above and 17px below in
    both boxes (was 10/24 and 11/23). Box heights unchanged. */
 .section-header {
+  /* 2026-09-24: all three headers (SHOP, SUPPLIES, RECIPES) now share
+     30px Luckiest Guy + this exact padding -- see .recipe-label. */
   padding: 15px 22px 5px;
 }
 .stand-label {
-  padding: 14px 22px 6px;
+  padding: 15px 22px 5px;
 }
 
 /* Recipe Guide / New Recipes rows: no pastel fills + bigger icons
@@ -2642,4 +2663,414 @@ header h1 {
   padding: 24px 44px 18px;
   min-width: 220px;
   border-radius: 16px;
+}
+
+
+/* ==========================================
+   STAR FLIGHT TO CHECKING (2026-09-24, per Kayla)
+   Same "big and grand" effect as Driver Decides: a burst of rainbow stars
+   leaves the served customer, arcs up to the Checking card, and the card
+   pops + the balance ticks up the instant they land. Flight path is
+   JS-driven (launchStar in game.js). The layer sits below #modalBackdrop
+   (90) so popups still dim it.
+========================================== */
+
+#starFlightLayer {
+  position: absolute;
+  inset: 0;
+  z-index: 85;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.flyStar {
+  position: absolute;
+  pointer-events: none;
+  width: 46px;
+  height: 46px;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.9)) drop-shadow(0 2px 3px rgba(10, 23, 36, 0.25));
+  will-change: top, left, transform, opacity;
+}
+
+.flyStar svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Keep 600ms in sync with the setTimeout in spawnServeStars(). */
+.topbar .stat-card.cash-pulse {
+  animation: cashCardPulse 600ms cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+@keyframes cashCardPulse {
+  0% { transform: scale(1); box-shadow: 0 2px 6px rgba(10, 23, 36, 0.06); }
+  30% { transform: scale(1.22) rotate(-3deg); box-shadow: 0 0 0 8px rgba(255, 205, 60, 0.6), 0 0 30px 10px rgba(255, 205, 60, 0.55), 0 2px 6px rgba(10, 23, 36, 0.06); }
+  55% { transform: scale(0.95) rotate(1.5deg); }
+  75% { transform: scale(1.05) rotate(0deg); box-shadow: 0 0 0 4px rgba(255, 205, 60, 0.3), 0 0 16px 4px rgba(255, 205, 60, 0.25), 0 2px 6px rgba(10, 23, 36, 0.06); }
+  100% { transform: scale(1); box-shadow: 0 2px 6px rgba(10, 23, 36, 0.06); }
+}
+
+.topbar .stat-card.cash-pulse .stat-value {
+  display: inline-block;
+  animation: cashValuePop 600ms ease-out;
+}
+
+@keyframes cashValuePop {
+  0% { transform: scale(1); color: inherit; }
+  30% { transform: scale(1.25); color: #1FB84F; }
+  100% { transform: scale(1); color: inherit; }
+}
+
+
+/* ==========================================
+   RECIPE BOOK ON THE AWNING CORNER + FLOATING "RECIPES" LABEL
+   (2026-09-24, per Kayla, third pass: "keep the book graphic on the
+   awning in the corner, but have the header sit right above the awning in
+   the sky floating").
+   Overrides the 2026-09-21 counter-corner placement above. The book sits
+   on the awning's right corner scallop (top: 3%). The label is taken out
+   of flow and floats above the awning's roofline, centered over the book.
+   The stage is a fixed 1920x1080, so .stand always renders ~760x714 and
+   px offsets here are stable.
+========================================== */
+.recipe-button {
+  /* Book nudged up 15px (2026-09-24, per Kayla) -- was top: 3%. The
+     label's offset below drops by the same 15px so it stays put. */
+  top: calc(3% - 15px);
+  /* Was -1% (hung off the awning's right edge); 3.5% keeps the whole
+     book on the awning (2026-09-24, per Kayla). */
+  right: 3.5%;
+  width: 84px;
+  aspect-ratio: 196.125 / 237.347;
+  z-index: 6;
+  filter: none;
+}
+
+.recipe-button:hover {
+  transform: translateY(-2px);
+}
+
+.recipe-button img {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 4px 6px rgba(10, 23, 36, 0.25));
+}
+
+.recipe-label {
+  position: absolute;
+  /* The book's top is ~21px below the roofline (3% of ~714px), so this
+     puts the label's bottom ~12px above the awning, in the sky. */
+  /* 30px text now (matches SHOP/SUPPLIES), so the box is ~10px taller;
+     the offset drops 5.5px so the label's CENTER stays exactly where
+     Kayla approved it (it grows evenly around that point). */
+  bottom: calc(100% + 12.5px);
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-block;
+  background: var(--white);
+  /* Same size + padding as .stand-label (2026-09-24, per Kayla: all three
+     headers consistent, text centered in the box). */
+  padding: 15px 22px 5px;
+  border-radius: 14px;
+  box-shadow: var(--card-shadow);
+  font-family: var(--font-display);
+  font-size: 30px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  line-height: 1.2;
+  color: var(--persian-blue);
+  white-space: nowrap;
+}
+
+
+/* ==========================================
+   HEADER TEXT TRUE VERTICAL CENTERING (2026-09-24, per Kayla's screenshot:
+   on her machine SHOP/SUPPLIES/RECIPES sat ~5px low -- about 23px of space
+   above the letters vs 12px below)
+   The old fix (padding 15px top / 5px bottom) compensated for Luckiest
+   Guy's built-in line spacing, but that spacing differs between font
+   builds: the Google Fonts copy her browser loads puts the letters lower
+   than the copy used for testing here. text-box trims the box to the
+   capital letters' top and the baseline, so equal padding centers the
+   letters regardless of which font file loads. All three labels are
+   all-caps, so cap-height is the right top edge. Browsers without
+   text-box support keep the older padding rules above.
+========================================== */
+@supports (text-box: trim-both cap alphabetic) {
+  .section-header,
+  .stand-label,
+  .recipe-label {
+    text-box: trim-both cap alphabetic;
+    padding-top: 17px;
+    padding-bottom: 17px;
+  }
+}
+
+
+/* ==========================================
+   5-CARD SHOP: SMALLER ICONS (2026-09-24, per Kayla: once Tea Bags unlock,
+   the five cards share the same column height, and the 86px icons pushed
+   the labels right against the card's bottom edge). Only applies while the
+   tea card is visible; the 4-card days keep the bigger 86px icons.
+========================================== */
+.shop:has(.shop-item[data-supply="tea"]:not(.hidden)) .shop-icon {
+  width: 76px;
+  height: 76px;
+  margin-bottom: 2px;
+}
+
+.shop:has(.shop-item[data-supply="tea"]:not(.hidden)) .shop-icon svg {
+  width: 66px;
+  height: 66px;
+}
+
+
+/* ==========================================
+   RECIPE GUIDE ROWS IN BLUE BIRD (2026-09-24, per Kayla: feedback that
+   the ingredient graphics were hard to read on the white rows -- the pale
+   cup/ice/sugar icons need a darker backdrop, same fix as the shop and
+   supply cards). Each row now matches those cards: --supply-card-bg with
+   a white outline and white drink names. Applies to the Recipe Guide and
+   the New Recipes Unlocked popup. Same selectors as the 2026-09-23
+   white-row rule above, so coming later, this wins.
+========================================== */
+#recipeBox .recipe-entry,
+#recipeBox .recipe-entry[data-recipe-id],
+#recipeUnlockBox .recipe-entry,
+#recipeUnlockBox .recipe-entry[data-recipe-id] {
+  background: var(--supply-card-bg);
+  border: 3px solid var(--white);
+  box-shadow: 0 5px 10px rgba(10, 23, 36, 0.12);
+}
+
+#recipeBox .recipe-info strong,
+#recipeUnlockBox .recipe-info strong {
+  color: var(--white);
+}
+
+#recipeBox .recipe-ingredient em,
+#recipeUnlockBox .recipe-ingredient em {
+  color: var(--white);
+}
+
+
+/* ==========================================
+   INGREDIENT NAME LABELS IN RECIPE ROWS (2026-09-24, per Kayla -- trial)
+   Small white one-word label under each ingredient icon. Row padding is
+   trimmed so the six-row Recipe Guide stays about the same height.
+========================================== */
+#recipeBox .recipe-ingredient,
+#recipeUnlockBox .recipe-ingredient {
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 56px;
+}
+
+#recipeBox .recipe-ingredient-name,
+#recipeUnlockBox .recipe-ingredient-name {
+  font-size: 14px;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--white);
+  white-space: nowrap;
+}
+
+#recipeBox .recipe-entry,
+#recipeBox .recipe-entry[data-recipe-id],
+#recipeUnlockBox .recipe-entry,
+#recipeUnlockBox .recipe-entry[data-recipe-id] {
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+
+
+/* ==========================================
+   DAY / NIGHT: PROGRESSIVE DUSK (2026-09-24, per Kayla -- replaces the
+   one-shot end-of-day sunset: "have the sky progressively get darker thru
+   the round, have the sun go down thru the round, and eventually clouds
+   just won't come back", with just the quick sunrise after the popups).
+   One number, --dusk (0 = morning, 1 = night), is set on .game-container
+   by updateSkyProgress() in game.js from how many of the day's customers
+   are resolved. Everything below is derived from it. --dusk is a
+   registered <number> so it can itself transition smoothly: each served/
+   missed customer eases the whole scene a step darker over 3s, and the
+   sunrise (.sunrise class) eases it back to 0 over 2.2s.
+   Layer order inside .sky-decor: sky color -> clouds -> sun -> stars ->
+   hills, so the sun sinks BEHIND the hills.
+========================================== */
+@property --dusk {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 0;
+}
+
+.game-container {
+  --dusk: 0;
+  transition: --dusk 3s ease-in-out;
+}
+
+.game-container.sunrise {
+  transition: --dusk 2.2s cubic-bezier(0.2, 0.6, 0.35, 1);
+}
+
+.sky-decor {
+  /* #8fcefa = the original Background.svg sky; #1C2B5E = night */
+  background-color: color-mix(in srgb, #1C2B5E calc(var(--dusk) * 100%), #8fcefa);
+}
+
+.sky-decor .hills {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  filter: brightness(calc(1 - 0.38 * var(--dusk))) saturate(calc(1 - 0.15 * var(--dusk)));
+}
+
+/* `translate` (not transform) so it doesn't fight the pulse-sun scale
+   animation. 560px fully hides it behind the hills. */
+.sun {
+  translate: 0 calc(var(--dusk) * 560px);
+}
+
+/* Clouds: once the day is past ~halfway, a cloud that finishes its drift
+   off the right edge gets .cloud-gone (in game.js) and doesn't come back.
+   Near the very end (.dusk-late) any cloud still up fades out. Both are
+   cleared at sunrise and the clouds fade back in. */
+.cloud {
+  transition: opacity 1.6s ease 0.4s;
+}
+
+.cloud.cloud-gone {
+  opacity: 0;
+  transition: none;
+}
+
+.game-container.dusk-late .cloud {
+  opacity: 0;
+  transition: opacity 2s ease;
+}
+
+/* A few soft stars, showing up over the last ~40% of the day. */
+.night-stars {
+  position: absolute;
+  inset: 0 0 45% 0;
+  opacity: calc((var(--dusk) - 0.6) * 2.25);
+  background-image:
+    radial-gradient(2.5px 2.5px at 120px 150px, #fff 60%, transparent 100%),
+    radial-gradient(2px 2px at 290px 250px, #fff 60%, transparent 100%),
+    radial-gradient(3px 3px at 470px 120px, #fff 60%, transparent 100%),
+    radial-gradient(2px 2px at 640px 210px, #fff 60%, transparent 100%),
+    radial-gradient(2.5px 2.5px at 800px 110px, #fff 60%, transparent 100%),
+    radial-gradient(2px 2px at 1100px 140px, #fff 60%, transparent 100%),
+    radial-gradient(3px 3px at 1230px 250px, #fff 60%, transparent 100%),
+    radial-gradient(2px 2px at 1390px 300px, #fff 60%, transparent 100%),
+    radial-gradient(2.5px 2.5px at 1480px 380px, #fff 60%, transparent 100%),
+    radial-gradient(2px 2px at 1660px 300px, #fff 60%, transparent 100%),
+    radial-gradient(3px 3px at 1820px 420px, #fff 60%, transparent 100%),
+    radial-gradient(2px 2px at 60px 330px, #fff 60%, transparent 100%),
+    radial-gradient(2.5px 2.5px at 1010px 330px, #fff 60%, transparent 100%);
+  background-repeat: no-repeat;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .game-container,
+  .game-container.sunrise {
+    transition-duration: 0.01s;
+  }
+}
+
+/* "Tap ingredients below..." hint hides the instant the day ends (before
+   the CLOSED sign pops) and fades back in once the next day's sunrise is
+   done (2026-09-24, per Kayla). Toggled by setBuildHintHidden() in
+   game.js; a class on the stage so it survives updateBuildDisplay()
+   re-rendering the placeholder. */
+.build-placeholder {
+  transition: opacity 0.4s ease;
+}
+
+.game-container.hide-build-hint .build-placeholder {
+  opacity: 0;
+  transition: none;
+}
+
+
+/* The "Tap ingredients..." hint sits on the sky, so it shifts from
+   Persian Blue to white as the sky darkens (fully white by mid-dusk) to
+   stay readable (2026-09-24). */
+.build-placeholder {
+  color: color-mix(in srgb, #ffffff clamp(0%, calc((var(--dusk) - 0.3) * 1000%), 100%), var(--persian-blue));
+}
+
+
+/* ==========================================
+   CIRCULAR PATIENCE TIMER (2026-09-24, per Kayla -- replaces the thin red
+   .patience-track bar, whose rules above are now unused). A small pie in
+   the order box's bottom-right corner, overlapping it like the shop's
+   price badges, that fills clockwise as the customer waits: green for the
+   first half, orange after that, red for the last 3s (PATIENCE_RED_MS)
+   with a gentle pulse. --pt (0-1 elapsed) and data-phase are set by
+   updatePatienceBar() in game.js every 200ms tick; --pt is a registered
+   number so the fill glides between ticks. Hidden until the first tick
+   (.timed), so Day 1 / tutorial no-timer customers never show it.
+========================================== */
+@property --pt {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+.patience-timer {
+  --pt: 0;
+  --pt-color: #2EBF5B;
+  position: absolute;
+  right: -14px;
+  bottom: -14px;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 3px solid var(--white);
+  background:
+    conic-gradient(var(--pt-color) calc(var(--pt) * 1turn), #E6ECEB 0);
+  box-shadow: 0 2px 5px rgba(10, 23, 36, 0.25);
+  opacity: 0;
+  transition: --pt 0.2s linear, opacity 0.2s ease;
+  pointer-events: none;
+}
+
+.patience-timer.timed {
+  opacity: 1;
+}
+
+.patience-timer[data-phase="orange"] {
+  --pt-color: #FF9D25;
+}
+
+.patience-timer[data-phase="red"] {
+  --pt-color: #FF2A3D;
+  animation: patience-timer-pulse 0.6s ease-in-out infinite;
+}
+
+@keyframes patience-timer-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .patience-timer[data-phase="red"] {
+    animation: none;
+  }
+}
+
+
+/* Customer order boxes: one Sky Blue background for every drink
+   (2026-09-24, per Kayla -- the per-recipe pastels are retired, matching
+   the Recipe Guide and supply cards). Outline unchanged: Hawkes Blue by
+   default, green (.ready) once the build matches. Attribute selector so
+   it outranks the old per-recipe [data-recipe-id] rules above. */
+.order-bubble,
+.order-bubble[data-recipe-id] {
+  background: var(--sky-blue);
 }

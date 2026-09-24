@@ -33,6 +33,13 @@
       <img class="cloud cloud-1" src="images/cloud1.svg" alt="">
       <img class="cloud cloud-2" src="images/cloud2.svg" alt="">
       <img class="sun" src="images/sun.svg" alt="">
+      <!-- Day/night (2026-09-24): the sky color now lives on .sky-decor
+           itself, and the hills are their own layer ABOVE the sun (split
+           out of Background.svg into images/hills.svg, same drawing minus
+           the sky rectangle) so the sun can set behind them. See
+           DAY / NIGHT TRANSITION in style.css and game.js. -->
+      <div class="night-stars"></div>
+      <img class="hills" src="images/hills.svg" alt="">
     </div>
 
     <header>
@@ -89,21 +96,14 @@
 
       <!-- SHOP -->
       <h2 class="section-header shop-header">Shop</h2>
+      <!-- Card order matches the stand's supply row (2026-09-24, per Kayla):
+           Cups, Ice, Sugar, Lemons, Tea Bags. -->
       <div class="shop">
         <div class="shop-item" data-supply="cups" onclick="buySupplies('cups')">
           <span class="price-badge" id="price-cups">$1</span>
           <div class="shop-icon"></div>
           <div class="qty-row">
             <span class="item-label">Cups</span>
-            <span class="qty-label">x10</span>
-          </div>
-        </div>
-
-        <div class="shop-item" data-supply="lemons" onclick="buySupplies('lemons')">
-          <span class="price-badge" id="price-lemons">$2</span>
-          <div class="shop-icon"></div>
-          <div class="qty-row">
-            <span class="item-label">Lemons</span>
             <span class="qty-label">x10</span>
           </div>
         </div>
@@ -122,6 +122,15 @@
           <div class="shop-icon"></div>
           <div class="qty-row">
             <span class="item-label">Sugar</span>
+            <span class="qty-label">x10</span>
+          </div>
+        </div>
+
+        <div class="shop-item" data-supply="lemons" onclick="buySupplies('lemons')">
+          <span class="price-badge" id="price-lemons">$2</span>
+          <div class="shop-icon"></div>
+          <div class="qty-row">
+            <span class="item-label">Lemons</span>
             <span class="qty-label">x10</span>
           </div>
         </div>
@@ -167,7 +176,12 @@
                and moved off the awning down onto the front of the stand
                itself, top-right corner of the counter panel -- see
                .recipe-button in style.css. -->
-          <button class="recipe-button" onclick="openRecipeGuide()" title="Recipe guide"><img src="images/book.svg" alt=""></button>
+          <!-- 2026-09-24 (per Kayla): back up on the awning's right corner,
+               now with a "Recipes" label in the same white-box style as
+               SHOP / SUPPLIES. Book + label share one button so tapping
+               either opens the guide, and the tutorial's .recipe-button
+               spotlight covers both. -->
+          <button class="recipe-button" onclick="openRecipeGuide()" title="Recipe guide"><img src="images/book.svg" alt=""><span class="recipe-label">Recipes</span></button>
 
           <!-- Undo pulled out to its own independently-positioned element
                (2026-09-09, per Kayla) -- it was sitting too close to the
@@ -223,6 +237,11 @@
     <div id="messageBox">Welcome to your lemonade stand!</div>
 
     <!-- MODAL BACKDROP: blocks interaction with the game while any popup is open -->
+    <!-- Star flight from a served customer up to the Checking card
+         (2026-09-24, per Kayla -- same effect as Driver Decides). JS-driven,
+         see STAR FLIGHT in game.js. -->
+    <div id="starFlightLayer" aria-hidden="true"></div>
+
     <div id="modalBackdrop" class="modal-backdrop hidden"></div>
 
     <!-- TUTORIAL MODAL (shown once on load) -->
