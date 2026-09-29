@@ -102,14 +102,19 @@ body {
      game used to have as a real-viewport-sized layout: it's now always
      laid out at a constant 1920x1080 internally, which its content
      already fits, then scaled down visually for smaller windows. */
-  transform:
-      scale(
-          min(
-              1,
-              calc(100vw / var(--stage-width)),
-              calc(100vh / var(--stage-height))
-          )
-      );
+  /* --stage-scale is set by fitStage() at the top of game.js
+     (2026-09-29). The old pure-CSS version, scale(min(1, calc(100vw /
+     var(--stage-width)), ...)), divides a length by a length, which
+     older Chromium (e.g. Intuiface's Web Browser asset) rejects -- it
+     dropped the whole transform there. */
+  transform: scale(var(--stage-scale, 1));
+
+  /* Makes the stage its own stacking context no matter what, so
+     .sky-decor (z-index: -1) always paints ABOVE this box's own
+     background-color instead of falling behind it. Previously only the
+     transform did this, so when Intuiface dropped the transform the
+     sky/sun/clouds/hills vanished behind a flat blue fill. */
+  isolation: isolate;
 
   /* Kayla's sky/hills illustration (2026-09-09) -- drawn at the stage's
      exact 1920x1080, so it fills edge to edge with no cropping. The header

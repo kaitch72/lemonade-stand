@@ -1,4 +1,18 @@
 // ==========================================
+// STAGE FIT (2026-09-29)
+// Scales the fixed 1920x1080 stage to fit the window, never above 100%.
+// Done in JS (via --stage-scale on .game-container's transform) because
+// the old pure-CSS min()/calc(100vw / 1920px) version isn't supported by
+// older embedded browsers such as Intuiface's Web Browser asset.
+// ==========================================
+function fitStage() {
+  const s = Math.min(1, window.innerWidth / 1920, window.innerHeight / 1080);
+  document.documentElement.style.setProperty("--stage-scale", s);
+}
+window.addEventListener("resize", fitStage);
+fitStage();
+
+// ==========================================
 // LEMONADE STAND — ROUND 1
 // ==========================================
 
