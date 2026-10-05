@@ -485,10 +485,10 @@ let teaOrdersServed = 0;
 
 let currentDay = 1;
 
-// Set once the player chooses "Keep Playing" from the final day's recap
-// (see startContinuousPlay) -- endless play on Day 6's recipes/settings,
-// no customer-count cutoff. Guards checkDayProgress/spawnLoop below, and
-// is reset back to false on a full restart (see confirmRestart).
+// Endless play past Day 6 (the old "Keep Playing" finale option). Never
+// set any more -- Kayla removed continuing after Day 6 (2026-10-05); the
+// finale only offers Play Again. Left in place (always false) so the
+// existing guards in checkDayProgress/spawnLoop stay harmless.
 let continuousMode = false;
 
 // Reset at the start of every day (see startNextDay/confirmRestart) --
@@ -1275,6 +1275,9 @@ function buildCustomerElement(recipe, face, id) {
   el.innerHTML =
     '<div class="order-bubble" data-recipe-id="' + recipe.id + '">' +
     '<span class="order-icon-circle">' + recipe.icon + "</span>" +
+    // Drink-name label under the icon (2026-10-05, per Kayla's feedback:
+    // "a little note or label on every customer order").
+    '<span class="order-label">' + recipe.name + "</span>" +
     // Circular fill-up timer in the box's bottom-right corner (2026-09-24,
     // replaces the thin red bar) -- see updatePatienceBar.
     '<span class="patience-timer" aria-hidden="true"></span>' +
@@ -1449,11 +1452,22 @@ function serveCustomer(id) {
   }
 
   if (!buildMatchesRecipe(customer.recipe)) {
-    showMessage("That's not quite what they ordered! Check the build.");
+    showPopMessage("Nope! That's not quite what they ordered. Check the build.");
+    nudgeRecipeBook();
     customer.element.classList.add("shake");
     setTimeout(function () {
       customer.element.classList.remove("shake");
     }, 300);
+    // Red outline flash on the order box for a second (2026-10-05, per
+    // Kayla's feedback -- the shake + message alone weren't obvious
+    // enough). Mirrors the green .ready outline; see .order-bubble.wrong.
+    // Restarting the timer on each wrong tap keeps repeat taps red.
+    const wrongBubble = customer.element.querySelector(".order-bubble");
+    clearTimeout(customer.wrongFlashTimeout);
+    wrongBubble.classList.add("wrong");
+    customer.wrongFlashTimeout = setTimeout(function () {
+      wrongBubble.classList.remove("wrong");
+    }, 1000);
     return;
   }
 
@@ -1731,6 +1745,112 @@ function flushServeStars() {
 }
 
 // ==========================================
+// SAVINGS CONFETTI (2026-10-05, per Kayla)
+// ==========================================
+// Each +$1/+$5/+$10 tap in the day-recap popup bursts confetti out of the
+// Savings card and pops the card + number -- ported from Budget Builder's
+// good-news "Life happens" card (burstNarrativeConfetti there): 22 pieces
+// fanning out in a ring, 1s, fade at the end. Replaced a first try that
+// flew stars from Checking to Savings ("it looks weird there"). Uses
+// Lemonade Stand's own palette (pink/orange star pair + lemon yellow,
+// Malibu, Sky, white) per the shared "each game has its own colors" rule.
+
+const SAVINGS_CONFETTI_COLORS = ["#FF25BA", "#FF9D25", "#FFF025", "#59D2FE", "#8BD1FF", "#FFFFFF"];
+const SAVINGS_CONFETTI_COUNT = 22;
+
+function pulseSavingsCard() {
+  const card = document.getElementById("dayRecapSavingsCard");
+  if (!card) {
+    return;
+  }
+  card.classList.remove("savings-pulse");
+  void card.offsetWidth;
+  card.classList.add("savings-pulse");
+  setTimeout(function () {
+    card.classList.remove("savings-pulse");
+  }, 600);
+}
+
+function burstSavingsConfetti() {
+  pulseSavingsCard();
+
+  const card = document.getElementById("dayRecapSavingsCard");
+  const reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!card || reduce) {
+    return;
+  }
+
+  let layer = card.querySelector(".savings-confetti");
+  if (!layer) {
+    layer = document.createElement("div");
+    layer.className = "savings-confetti";
+    layer.setAttribute("aria-hidden", "true");
+    card.appendChild(layer);
+  }
+  layer.innerHTML = "";
+
+  for (let i = 0; i < SAVINGS_CONFETTI_COUNT; i++) {
+    const piece = document.createElement("span");
+    const angle = (Math.PI * 2 * i) / SAVINGS_CONFETTI_COUNT + (Math.random() - 0.5) * 0.4;
+    const distance = 180 + Math.random() * 140;
+    piece.style.setProperty("--dx", (Math.cos(angle) * distance).toFixed(1) + "px");
+    piece.style.setProperty("--dy", (Math.sin(angle) * distance - 60).toFixed(1) + "px");
+    piece.style.setProperty("--rot", Math.round(Math.random() * 540 - 270) + "deg");
+    piece.style.background = SAVINGS_CONFETTI_COLORS[i % SAVINGS_CONFETTI_COLORS.length];
+    layer.appendChild(piece);
+  }
+}
+
+// ==========================================
+// RECIPE BOOK NUDGE (2026-10-05, per Kayla)
+// ==========================================
+// A quick, subtle wiggle on the Recipes book button to point players at
+// it: after a wrong serve, and whenever they've gone 5s without tapping
+// anything during live play (then again every 5s they stay idle). Any
+// tap/click/key press resets the idle clock. Never fires while paused
+// (popups, sunrise/sunset, the tutorial's popups).
+
+const RECIPE_NUDGE_IDLE_MS = 5000;
+let lastPlayerActivityAt = Date.now();
+
+function nudgeRecipeBook() {
+  const book = document.querySelector(".recipe-button");
+  if (!book) {
+    return;
+  }
+  book.classList.remove("nudge");
+  void book.offsetWidth; // restart the animation if it's mid-wiggle
+  book.classList.add("nudge");
+}
+
+function noteRecipeNudgeActivity() {
+  lastPlayerActivityAt = Date.now();
+}
+
+document.addEventListener("pointerdown", noteRecipeNudgeActivity, true);
+document.addEventListener("keydown", noteRecipeNudgeActivity, true);
+
+document.addEventListener("animationend", function (e) {
+  // The animation runs on the book <img> inside the button.
+  const button = e.target.parentElement;
+  if (e.animationName === "recipe-book-nudge" && button && button.classList.contains("recipe-button")) {
+    button.classList.remove("nudge");
+  }
+});
+
+setInterval(function () {
+  if (isPaused) {
+    // Popups/day transitions don't count as idle time.
+    lastPlayerActivityAt = Date.now();
+    return;
+  }
+  if (Date.now() - lastPlayerActivityAt >= RECIPE_NUDGE_IDLE_MS) {
+    nudgeRecipeBook();
+    lastPlayerActivityAt = Date.now();
+  }
+}, 250);
+
+// ==========================================
 // RECIPE GUIDE
 // ==========================================
 
@@ -1854,8 +1974,10 @@ function closeRecipeGuide() {
 // ==========================================
 
 function saveMoney(amount) {
+  // No bottom-strip message here any more (2026-10-05, per Kayla: that
+  // strip is only for in-round comments). Unaffordable +$ buttons are
+  // greyed out instead -- see updateDayRecapMoneyStats.
   if (cash < amount) {
-    showMessage("You don't have enough cash to save that much!");
     return;
   }
 
@@ -1864,6 +1986,8 @@ function saveMoney(amount) {
   savingsAddedThisRecap += amount;
 
   updateDisplay();
+  // Confetti burst + pop on the Savings card (2026-10-05, per Kayla).
+  burstSavingsConfetti();
   updateDayRecapMoneyStats();
 }
 
@@ -2166,10 +2290,27 @@ function countUpMoney(el, target) {
 // Keeps the recap popup's Checking/Savings numbers -- and the Undo
 // button's enabled state -- live as the player taps +$1/+$5/+$10 or Undo,
 // without needing to close and reopen the popup.
+// Soft-lock guard (2026-10-05, per Kayla): if the player moves so much
+// into savings that checking drops below this, they couldn't buy supplies
+// tomorrow, so Start Day is blocked until they Undo. Only applies when
+// THIS recap's savings caused it (savingsAddedThisRecap > 0) -- a player
+// who simply ended the day low isn't stuck behind a button they can't fix.
+const MIN_CHECKING_TO_START = 5;
+
 function updateDayRecapMoneyStats() {
   document.getElementById("dayRecapCash").textContent = "$" + cash.toFixed(2);
   document.getElementById("dayRecapSavings").textContent = "$" + savings.toFixed(2);
   document.getElementById("undoSaveBtn").disabled = savingsAddedThisRecap <= 0;
+
+  // Grey out any +$ button that's more than what's left in checking.
+  document.querySelectorAll("#dayRecapSavingsCard .save-button").forEach(function (btn) {
+    const amount = parseFloat(btn.dataset.amount);
+    btn.disabled = !(amount <= cash);
+  });
+
+  const tooLow = savingsAddedThisRecap > 0 && cash < MIN_CHECKING_TO_START;
+  document.getElementById("dayRecapNextBtn").disabled = tooLow;
+  document.getElementById("dayRecapLowCashNote").classList.toggle("hidden", !tooLow);
 }
 
 function revealNewSupplies(dayDef) {
@@ -2199,6 +2340,9 @@ function revealNewSupplies(dayDef) {
 // startContinuousPlay below), so this function isn't reached from there;
 // the fallback is kept as a safety net in case it ever is.
 function handleDayRecapAction() {
+  if (document.getElementById("dayRecapNextBtn").disabled) {
+    return;
+  }
   document.getElementById("dayRecapBox").classList.add("hidden");
 
   const nextDayDef = GAME_DAYS[currentDay];
@@ -2247,7 +2391,7 @@ function startNextDay() {
     const interestEarned = Math.round(savings * SAVINGS_INTEREST_RATE * 100) / 100;
     if (interestEarned > 0) {
       savings += interestEarned;
-      showMessage("Your savings earned $" + interestEarned.toFixed(2) + " in interest overnight!");
+      showPopMessage("Your savings earned $" + interestEarned.toFixed(2) + " in interest overnight!");
     }
   }
 
@@ -2268,40 +2412,6 @@ function startNextDay() {
   // now since a day only ends once every customer is resolved, but this
   // clears it too as a safety net rather than leaving a stale half-built
   // order sitting on top of a zeroed-out inventory).
-  SUPPLY_TYPES.forEach(function (type) {
-    inventory[type] = 0;
-    build[type] = 0;
-  });
-  buildOrder = [];
-
-  updateDisplay();
-  // Sunrise first, then the day opens (2026-09-24).
-  startSunrise(resumeGame);
-}
-
-// "Keep Playing" on the finale recap (see populateDayRecap/
-// #dayRecapFinaleActions) -- endless play on the last day's recipes and
-// settings (currentDay/getCurrentDayDef are left alone, so Day 6's def
-// keeps applying forever), no customer-count cutoff (see continuousMode
-// in checkDayProgress/spawnLoop). Otherwise mirrors startNextDay's reset
-// of the day's counters and supplies -- no carryover into endless mode
-// either. Savings stops earning interest once this starts, since
-// startNextDay (where interest is applied) is never called again --
-// flagged as an assumption for Kayla in the status doc.
-function startContinuousPlay() {
-  continuousMode = true;
-
-  document.getElementById("dayRecapBox").classList.add("hidden");
-  document.getElementById("dayRecapBox").classList.remove("finale");
-  hideClosedSign();
-
-  customersSpawnedToday = 0;
-  customersResolvedToday = 0;
-  servedToday = 0;
-  missedToday = 0;
-  earnedToday = 0;
-  spentToday = 0;
-
   SUPPLY_TYPES.forEach(function (type) {
     inventory[type] = 0;
     build[type] = 0;
@@ -2336,8 +2446,29 @@ function updateDisplay() {
 // MESSAGE STRIP
 // ==========================================
 
+let messageNopeTimeout = null;
+
 function showMessage(message) {
-  document.getElementById("messageBox").textContent = message;
+  const box = document.getElementById("messageBox");
+  box.textContent = message;
+  // Any new message ends a wrong-order "nope" pop early.
+  clearTimeout(messageNopeTimeout);
+  box.classList.remove("nope");
+}
+
+// Attention-grabbing version of showMessage: pops the strip bigger with a
+// wiggle for 1s, staying blue -- see #messageBox.nope. First added for
+// wrong orders (2026-10-05, per Kayla: "grow for a sec or pop" so it
+// reads as "nope!"), then also used for the overnight-interest message at
+// the start of each day (same day, per Kayla).
+function showPopMessage(message) {
+  const box = document.getElementById("messageBox");
+  showMessage(message);
+  void box.offsetWidth; // restart the animation on repeat wrong taps
+  box.classList.add("nope");
+  messageNopeTimeout = setTimeout(function () {
+    box.classList.remove("nope");
+  }, 1000);
 }
 
 // ==========================================

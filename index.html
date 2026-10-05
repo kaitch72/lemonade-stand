@@ -341,6 +341,10 @@
     </g>
   </g>
 </svg></div>
+      <!-- FINALE-ONLY: big yellow bobbing sparkle in place of the sparkle
+           row + trophy, same as Budget Builder's grand finale (2026-10-05,
+           per Kayla). Shown/hidden by #dayRecapBox.finale in style.css. -->
+      <div class="recap-finale-sparkle" aria-hidden="true"><svg viewBox="0 0 179.8 170" xmlns="http://www.w3.org/2000/svg"><polygon points="159.82 49.96 149.85 50 149.86 30 129.88 30 129.88 19.99 149.86 20 149.85 0 159.82 0 159.82 20 179.79 19.99 179.8 30 159.82 29.99 159.82 49.96"/><polygon points="149.83 169.96 139.86 170 139.87 150 119.89 150 119.89 139.99 139.87 140 139.86 120 149.83 120 149.82 140 169.8 139.99 169.8 150 149.83 149.99 149.83 169.96"/><path d="M64.87,149.82l-20.03-44.88L0,84.99l44.96-20.07,19.91-44.96,20.01,45.1,44.86,19.96-44.93,20-19.93,44.81ZM64.88,125.25l12.55-27.81,27.77-12.46-27.88-12.52-12.45-27.71-12.55,27.76-27.72,12.49,27.75,12.48,12.53,27.76Z"/></svg></div>
       <h2 id="dayRecapTitle">Day 1 Complete!</h2>
       <p id="dayRecapMessage">Nice work! Your cash and savings carry into tomorrow.</p>
 
@@ -392,21 +396,27 @@
         </div>
         <div class="save-row">
           <button class="undo-button" id="undoSaveBtn" onclick="undoSavings()" disabled>Undo</button>
-          <button class="save-button" onclick="saveMoney(1)">+$1</button>
-          <button class="save-button" onclick="saveMoney(5)">+$5</button>
-          <button class="save-button" onclick="saveMoney(10)">+$10</button>
+          <button class="save-button" data-amount="1" onclick="saveMoney(1)">+$1</button>
+          <button class="save-button" data-amount="5" onclick="saveMoney(5)">+$5</button>
+          <button class="save-button" data-amount="10" onclick="saveMoney(10)">+$10</button>
         </div>
       </div>
 
+      <!-- Low-checking block (2026-10-05, per Kayla): shown, and Start Day
+           disabled, when saving left less than $5 in checking -- see
+           MIN_CHECKING_TO_START in game.js. -->
+      <p class="recap-low-cash-note hidden" id="dayRecapLowCashNote" role="alert">
+        Remember to leave some money in checking so you can buy supplies tomorrow!
+      </p>
+
       <button id="dayRecapNextBtn" onclick="handleDayRecapAction()">Start Day 2</button>
 
-      <!-- FINALE-ONLY: replaces the single next-day button once the last
-           day's recap is showing -- a real choice instead of the old
-           straight-to-restart behavior (per Kayla: "instead of start
-           over... they can choose to just keep playing on"). -->
+      <!-- FINALE-ONLY: replaces the next-day button once the last day's
+           recap is showing. One Play Again button that restarts the game
+           (2026-10-05, per Kayla: no continuing after Day 6 -- the old
+           Start Over / Keep Playing pair is gone). -->
       <div class="confirm-actions recap-finale-actions hidden" id="dayRecapFinaleActions">
-        <button class="secondary-button" onclick="confirmRestart()">Start Over</button>
-        <button onclick="startContinuousPlay()">Keep Playing</button>
+        <button onclick="confirmRestart()">Play Again</button>
       </div>
     </section>
 

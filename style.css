@@ -3079,3 +3079,301 @@ header h1 {
 .order-bubble[data-recipe-id] {
   background: var(--sky-blue);
 }
+
+
+/* ==========================================
+   ORDER NAME LABEL (2026-10-05, per Kayla's feedback -- every order shows
+   the drink's name). The card stacks icon over label; the icon shrinks a
+   little to make room, and the label's max-width keeps long names
+   ("Sweetened Half and Half") wrapping to two centered lines. The label
+   sits ABOVE the icon (2026-10-05, per Kayla) so it stays well away from
+   the patience timer in the bottom-right corner.
+========================================== */
+.order-bubble {
+  flex-direction: column;
+  gap: 4px;
+  padding: 6px 0 8px;
+  box-sizing: border-box;
+}
+
+.order-bubble .order-icon-circle {
+  width: 84px;
+  height: 78px;
+  flex: none;
+}
+
+.order-bubble .order-icon-circle > svg {
+  width: 72px;
+  height: 72px;
+}
+
+.order-bubble .sugar-badge svg {
+  width: 26px;
+  height: 26px;
+}
+
+.order-label {
+  max-width: 100px;
+  font-family: var(--font-brand);
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 1.15;
+  text-align: center;
+  color: var(--persian-blue);
+  pointer-events: none;
+  order: -1;
+}
+
+
+/* ==========================================
+   WRONG-ORDER FLASH (2026-10-05, per Kayla's feedback -- wrong serves
+   weren't obvious enough). serveCustomer() adds .wrong to the order box
+   for 1s: the outline turns red, like the green .ready outline, with a
+   soft red glow, and the box shakes along with the customer's face.
+========================================== */
+.order-bubble.wrong {
+  border-color: #FF2A3D !important;
+  box-shadow: 0 0 0 4px rgba(255, 42, 61, 0.25), 0 5px 0 rgba(10, 23, 36, 0.1);
+}
+
+.customer.shake .order-bubble {
+  animation: shake 0.3s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .customer.shake .order-bubble {
+    animation: none;
+  }
+}
+
+
+/* ==========================================
+   WRONG-ORDER MESSAGE POP (2026-10-05, per Kayla's feedback). Added by
+   showNopeMessage() for 1s: the bottom message strip pops bigger and
+   wiggles, then settles back. It stays its normal blue (2026-10-05, per
+   Kayla -- keep the movement, drop the red). Keyframes keep translateX(-50%) because
+   #messageBox uses that transform to stay centered.
+========================================== */
+#messageBox.nope {
+  animation: message-nope-pop 1s ease-out;
+}
+
+@keyframes message-nope-pop {
+  0%   { transform: translateX(-50%) scale(1); }
+  15%  { transform: translateX(-50%) scale(1.35); }
+  25%  { transform: translateX(-50%) scale(1.25) rotate(-2deg); }
+  35%  { transform: translateX(-50%) scale(1.25) rotate(2deg); }
+  45%  { transform: translateX(-50%) scale(1.25) rotate(0deg); }
+  80%  { transform: translateX(-50%) scale(1.25); }
+  100% { transform: translateX(-50%) scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #messageBox.nope {
+    animation: none;
+  }
+}
+
+/* ==========================================
+   SAVINGS CONFETTI (2026-10-05, per Kayla). burstSavingsConfetti() in
+   game.js pops the recap's Savings card (600ms, in sync with
+   pulseSavingsCard) and bursts confetti out of its middle -- same burst
+   as Budget Builder's good-news "Life happens" card (.narrative-confetti
+   there). The layer is a zero-size point at the card's center; pieces fly
+   out past the card edges, so the card must not clip (no overflow).
+========================================== */
+.recap-savings-card {
+  position: relative;
+}
+
+.recap-savings-card.savings-pulse {
+  animation: savingsCardPulse 600ms cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+@keyframes savingsCardPulse {
+  0% { transform: scale(1); }
+  30% { transform: scale(1.05); box-shadow: 0 0 0 6px rgba(255, 205, 60, 0.6), 0 0 26px 8px rgba(255, 205, 60, 0.5); }
+  60% { transform: scale(0.99); }
+  100% { transform: scale(1); }
+}
+
+.recap-savings-card.savings-pulse #dayRecapSavings {
+  display: inline-block;
+  animation: cashValuePop 600ms ease-out;
+}
+
+.savings-confetti {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.savings-confetti span {
+  position: absolute;
+  width: 14px;
+  height: 20px;
+  border-radius: 4px;
+  opacity: 0;
+  box-shadow: 0 1px 2px rgba(10, 23, 36, 0.2);
+  animation: savings-confetti 1s ease-out forwards;
+}
+
+@keyframes savings-confetti {
+  0%   { opacity: 1; transform: translate(0, 0) rotate(0); }
+  80%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--dx), var(--dy)) rotate(var(--rot)); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .recap-savings-card.savings-pulse,
+  .recap-savings-card.savings-pulse #dayRecapSavings {
+    animation: none;
+  }
+
+  .savings-confetti {
+    display: none;
+  }
+}
+
+
+/* ==========================================
+   LOW-CHECKING BLOCK (2026-10-05, per Kayla -- soft-lock fix). Shown by
+   updateDayRecapMoneyStats() when saving left under $5 in checking; Start
+   Day is disabled until the player taps Undo.
+========================================== */
+#dayRecapBox .recap-low-cash-note {
+  margin: 22px auto 0;
+  max-width: 560px;
+  padding: 12px 20px;
+  border-radius: 16px;
+  background: var(--pale-yellow);
+  color: var(--persian-blue);
+  opacity: 1;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 1.35;
+  text-align: center;
+  animation: low-cash-note-in 0.35s cubic-bezier(0.3, 1.6, 0.5, 1);
+}
+
+.recap-low-cash-note.hidden {
+  display: none;
+}
+
+@keyframes low-cash-note-in {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.recap-low-cash-note:not(.hidden) + #dayRecapNextBtn {
+  margin-top: 18px;
+}
+
+#dayRecapBox #dayRecapNextBtn:disabled,
+#dayRecapBox #dayRecapNextBtn:disabled:hover {
+  background: rgba(255, 255, 255, 0.35);
+  color: rgba(25, 67, 220, 0.6);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .recap-low-cash-note {
+    animation: none;
+  }
+}
+
+
+/* +$1/+$5/+$10 greyed out when checking can't cover them (2026-10-05) --
+   replaces the old "not enough cash" message in the bottom strip. */
+#dayRecapBox .save-button:disabled,
+#dayRecapBox .save-button:disabled:hover {
+  background: var(--mystic);
+  color: rgba(10, 23, 36, 0.35);
+  box-shadow: none;
+  cursor: not-allowed;
+  transform: none;
+}
+
+
+/* ==========================================
+   RECIPE BOOK NUDGE (2026-10-05, per Kayla: "nothing too dramatic, just
+   subtle"). nudgeRecipeBook() in game.js adds .nudge after a wrong serve
+   or 5s of no taps: a small hop with a little side-to-side tilt, ~0.7s,
+   on the book image only.
+========================================== */
+/* Only the book image moves; the "Recipes" header label stays put
+   (2026-10-05, per Kayla). The image is lifted above the label so if the
+   hop ever overlaps it, the book passes over the header, not under. */
+.recipe-button img {
+  position: relative;
+  z-index: 1;
+}
+
+.recipe-button.nudge img {
+  transform-origin: 50% 100%;
+  animation: recipe-book-nudge 0.7s ease-in-out;
+}
+
+@keyframes recipe-book-nudge {
+  0%   { transform: translateY(0) rotate(0); }
+  20%  { transform: translateY(-8px) rotate(-6deg); }
+  40%  { transform: translateY(-8px) rotate(5deg); }
+  60%  { transform: translateY(-3px) rotate(-3deg); }
+  80%  { transform: translateY(0) rotate(1deg); }
+  100% { transform: translateY(0) rotate(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .recipe-button.nudge img {
+    animation: none;
+  }
+}
+
+
+/* ==========================================
+   FINALE SPARKLE (2026-10-05, per Kayla: use Budget Builder's grand-
+   finale yellow bobbing star instead of the trophy). Finale only -- the
+   regular day recaps keep the sparkle row + white trophy. Same size,
+   color (#FFF025), glow and 1.8s scale/tilt loop as Budget Builder's
+   .end-card.is-finale .celebration-sparkle.
+========================================== */
+#dayRecapBox .recap-finale-sparkle {
+  display: none;
+}
+
+#dayRecapBox.finale .results-sparkles,
+#dayRecapBox.finale .modal-icon {
+  display: none;
+}
+
+#dayRecapBox.finale .recap-finale-sparkle {
+  display: flex;
+  justify-content: center;
+  margin: 4px auto 18px;
+  line-height: 0;
+}
+
+#dayRecapBox.finale .recap-finale-sparkle svg {
+  width: 92px;
+  height: 87px;
+  fill: #FFF025;
+  filter: drop-shadow(0 0 18px rgba(255, 240, 37, 0.55));
+  animation: finale-sparkle-bob 1.8s ease-in-out infinite;
+}
+
+@keyframes finale-sparkle-bob {
+  0%, 100% { transform: scale(1) rotate(0); }
+  50%      { transform: scale(1.14) rotate(10deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #dayRecapBox.finale .recap-finale-sparkle svg {
+    animation: none;
+  }
+}
